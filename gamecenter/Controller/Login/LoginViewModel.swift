@@ -8,6 +8,6 @@
 
 import Foundation
 
-final class LoginViewModel: BaseViewModel {
+final class SplashViewModel: BaseViewModel {
     
 }
