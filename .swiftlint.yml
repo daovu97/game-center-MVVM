@@ -1,0 +1,7 @@
+disabled_rules:
+- trailing_whitespace
+excluded:
+- Pods
+identifier_name:
+ allowed_symbols: "_"
+ min_length: 1
