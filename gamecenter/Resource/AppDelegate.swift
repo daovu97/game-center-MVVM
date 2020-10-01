@@ -8,8 +8,6 @@
 
 import UIKit
 
-let callBackUrl = "com.daovu.gamecenter:/oauth2Callback"
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -34,16 +32,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when a new scene session is being created.
         // Use this method to select a configuration to create the new scene with.
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
-    }
-    
-    func application(_ app: UIApplication, open url: URL,
-                     options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        if #available(iOS 13.0, *) {
-            // do something
-        } else {
-            // handle callback uri
-        }
-        
-        return true
     }
 }
