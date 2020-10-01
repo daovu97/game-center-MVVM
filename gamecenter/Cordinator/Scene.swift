@@ -23,12 +23,14 @@ extension Scene: TargetScene {
         case .top:
             let topVc = UITabBarController()
             
-            let top = TopViewController()
-            top.initViewModel(viewModel: TopViewModel())
-            top.tabBarItem = UITabBarItem(title: "Top", image: UIImage(named: "ic_messenger"), tag: 0)
-            topVc.addChild(top)
+//            let top = TopViewController()
+//            top.initViewModel(viewModel: TopViewModel())
+//            top.tabBarItem = UITabBarItem(title: "Top", image: UIImage(named: "ic_messenger"), tag: 0)
+//            topVc.addChild(top)
             
-            return .root(topVc)
+            let vc = SelectPlatformViewController()
+            vc.initViewModel(viewModel: SelectPlatformViewModel())
+            return .root(UINavigationController(rootViewController: vc))
         case .splash:
             let splash = SplashViewController()
             return .root(splash)
