@@ -75,6 +75,11 @@ class SelectPlatformViewController: BaseViewController<SelectPlatformViewModel> 
                 }
             }
         }.disposed(by: disposeBag)
+        
+        viewModel.rightBarButtonText.bind {[weak self] (title) in
+            self?.rightButton.title = title
+            self?.rightButton.tintColor = title == "Skip" ? UIColor.lightGray : UIColor.blue
+        }.disposed(by: disposeBag)
     }
     
     @objc private func didRightBarTap() {
@@ -131,7 +136,8 @@ extension SelectPlatformViewController: UICollectionViewDataSource {
         cell.layer.shadowRadius = 2.0
         cell.layer.shadowOpacity = 1.0
         cell.layer.masksToBounds = false
-        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.layer.cornerRadius).cgPath
+        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds,
+                                             cornerRadius: cell.contentView.layer.cornerRadius).cgPath
         cell.layer.backgroundColor = UIColor.clear.cgColor
         
         return cell
@@ -149,13 +155,8 @@ extension SelectPlatformViewController: UICollectionViewDataSource {
 
 extension SelectPlatformViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        if viewModel.selectedIndexPath.contains(indexPath) {
-            viewModel.selectedIndexPath.remove(indexPath)
-        } else {
-            viewModel.selectedIndexPath.insert(indexPath)
-        }
-        self.collectionView.reloadData()
+        collectionView.deselectItem(at: indexPath, animated: false)
+        viewModel.setSelectedIndexPath(indexPath: indexPath)
     }
 }
 

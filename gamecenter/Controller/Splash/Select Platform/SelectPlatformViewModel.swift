@@ -13,6 +13,7 @@ final class SelectPlatformViewModel: BaseViewModel {
     
     var platforms = [ParentPlatformModel]()
     var collectionViewAupdate = PublishSubject<ScrollViewUpdate<ParentPlatformModel>>()
+    var rightBarButtonText = BehaviorSubject<String>(value: "Skip")
     
     var selectedIndexPath = Set<IndexPath>()
     
@@ -33,6 +34,21 @@ final class SelectPlatformViewModel: BaseViewModel {
             ParentPlatformModel(id: 14, name: "", slug: "", platforms: nil)
         ])
         collectionViewAupdate.onNext(.reload)
+    }
+    
+    func setSelectedIndexPath(indexPath: IndexPath) {
+        if selectedIndexPath.contains(indexPath) {
+            selectedIndexPath.remove(indexPath)
+        } else {
+            selectedIndexPath.insert(indexPath)
+        }
+        collectionViewAupdate.onNext(.reload)
+        
+        if selectedIndexPath.isEmpty {
+            rightBarButtonText.onNext("Skip")
+        } else {
+            rightBarButtonText.onNext("Next")
+        }
     }
     
 }
