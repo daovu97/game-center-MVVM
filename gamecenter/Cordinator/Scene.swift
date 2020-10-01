@@ -13,8 +13,8 @@ protocol TargetScene {
 }
 
 enum Scene {
+    case splash
     case top
-    case login(LoginViewModel)
 }
 
 extension Scene: TargetScene {
@@ -26,15 +26,12 @@ extension Scene: TargetScene {
             let top = TopViewController()
             top.initViewModel(viewModel: TopViewModel())
             top.tabBarItem = UITabBarItem(title: "Top", image: UIImage(named: "ic_messenger"), tag: 0)
-            
             topVc.addChild(top)
             
             return .root(topVc)
-        case .login(let viewModel):
-            let login = LoginViewController()
-            login.initViewModel(viewModel: viewModel)
-            return .root(login)
+        case .splash:
+            let splash = SplashViewController()
+            return .root(splash)
         }
     }
-
 }

@@ -11,11 +11,12 @@
 		F02F35E425241FE600876428 /* Observable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02F35E325241FE600876428 /* Observable+Extension.swift */; };
 		F02F35E92524203B00876428 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02F35E82524203B00876428 /* BaseViewController.swift */; };
 		F02F35EB2524205F00876428 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02F35EA2524205F00876428 /* BaseViewModel.swift */; };
-		F02F35ED2524219100876428 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02F35EC2524219100876428 /* LoginViewController.swift */; };
+		F02F35ED2524219100876428 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02F35EC2524219100876428 /* SplashViewController.swift */; };
 		F02F35EF252421A900876428 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02F35EE252421A900876428 /* LoginViewModel.swift */; };
 		F02F35F12524240500876428 /* TopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02F35F02524240500876428 /* TopViewController.swift */; };
 		F02F35F32524241400876428 /* TopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02F35F22524241400876428 /* TopViewModel.swift */; };
 		F02F35F62524253200876428 /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02F35F52524253200876428 /* LoadingButton.swift */; };
+		F02F3600252462CA00876428 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02F35FF252462CA00876428 /* UserDefault.swift */; };
 		F03BF51C2523310F006018BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03BF51B2523310F006018BC /* AppDelegate.swift */; };
 		F03BF51E2523310F006018BC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03BF51D2523310F006018BC /* SceneDelegate.swift */; };
 		F03BF5202523310F006018BC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03BF51F2523310F006018BC /* ViewController.swift */; };
@@ -33,11 +34,12 @@
 		F02F35E325241FE600876428 /* Observable+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observable+Extension.swift"; sourceTree = "<group>"; };
 		F02F35E82524203B00876428 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		F02F35EA2524205F00876428 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
-		F02F35EC2524219100876428 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		F02F35EC2524219100876428 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		F02F35EE252421A900876428 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		F02F35F02524240500876428 /* TopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopViewController.swift; sourceTree = "<group>"; };
 		F02F35F22524241400876428 /* TopViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopViewModel.swift; sourceTree = "<group>"; };
 		F02F35F52524253200876428 /* LoadingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingButton.swift; sourceTree = "<group>"; };
+		F02F35FF252462CA00876428 /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
 		F03BF5182523310F006018BC /* gamecenter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gamecenter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F03BF51B2523310F006018BC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F03BF51D2523310F006018BC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,7 +95,7 @@
 		F02F35E62524202000876428 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				F02F35EC2524219100876428 /* LoginViewController.swift */,
+				F02F35EC2524219100876428 /* SplashViewController.swift */,
 				F02F35EE252421A900876428 /* LoginViewModel.swift */,
 			);
 			path = Login;
@@ -114,6 +116,14 @@
 				F02F35F52524253200876428 /* LoadingButton.swift */,
 			);
 			path = Widget;
+			sourceTree = "<group>";
+		};
+		F02F35FE252462BA00876428 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F02F35FF252462CA00876428 /* UserDefault.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		F03BF50F2523310F006018BC = {
@@ -137,6 +147,7 @@
 		F03BF51A2523310F006018BC /* gamecenter */ = {
 			isa = PBXGroup;
 			children = (
+				F02F35FE252462BA00876428 /* Services */,
 				F03BF53125241F3D006018BC /* Common */,
 				F03BF53325241F53006018BC /* Cordinator */,
 				F03BF53225241F45006018BC /* Controller */,
@@ -323,6 +334,7 @@
 			files = (
 				F02F35F12524240500876428 /* TopViewController.swift in Sources */,
 				F03BF53725241F7E006018BC /* SceneCoodinator.swift in Sources */,
+				F02F3600252462CA00876428 /* UserDefault.swift in Sources */,
 				F03BF5202523310F006018BC /* ViewController.swift in Sources */,
 				F02F35EF252421A900876428 /* LoginViewModel.swift in Sources */,
 				F03BF53825241F7E006018BC /* Scene.swift in Sources */,
@@ -333,7 +345,7 @@
 				F02F35E92524203B00876428 /* BaseViewController.swift in Sources */,
 				F02F35E425241FE600876428 /* Observable+Extension.swift in Sources */,
 				F02F35F32524241400876428 /* TopViewModel.swift in Sources */,
-				F02F35ED2524219100876428 /* LoginViewController.swift in Sources */,
+				F02F35ED2524219100876428 /* SplashViewController.swift in Sources */,
 				F03BF53925241F7E006018BC /* SceneTransitionType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

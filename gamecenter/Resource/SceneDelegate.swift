@@ -22,12 +22,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let sceneCoordinator = SceneCoordinator(window: window!)
         SceneCoordinator.shared = sceneCoordinator
-        sceneCoordinator.transition(to: Scene.login(LoginViewModel()))
+        LocalDB.shared = LocalDB()
+        
+        if LocalDB.shared.isFirstLaunch() {
+            sceneCoordinator.transition(to: Scene.splash)
+            LocalDB.shared.setFirstLaunch(isFirstLaunch: true)
+        } else {
+            sceneCoordinator.transition(to: Scene.top)
+        }
     }
-    
-    @available(iOS 13.0, *)
-    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-       //handle callback uri
-    }
-
 }
