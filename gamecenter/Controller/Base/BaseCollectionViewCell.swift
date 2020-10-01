@@ -19,5 +19,5 @@ class BaseCollectionViewCell: UICollectionViewCell {
         setupView()
     }
     
-    open func setupView(){}
+    open func setupView() {}
 }

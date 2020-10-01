@@ -90,10 +90,11 @@ extension SelectPlatformViewController: UICollectionViewDelegateFlowLayout {
         if let size = viewModel.platforms[indexPath.row].getIcon()?.size {
             let ratio = size.width / size.height
             let width = ratio < 1 ? itemHeight : itemHeight * ratio
+            
             return .init(width: width, height: itemHeight)
+        } else {
+            return .init(width: itemHeight, height: itemHeight)
         }
-        
-        return .init(width: itemHeight, height: itemHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -123,6 +124,16 @@ extension SelectPlatformViewController: UICollectionViewDataSource {
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(SellectPlatformCell.self, for: indexPath)
         cell.setupData(platform: viewModel.platforms[indexPath.row])
+        cell.isSelect = viewModel.selectedIndexPath.contains(indexPath)
+        
+        cell.layer.shadowColor = UIColor.lightGray.cgColor
+        cell.layer.shadowOffset = CGSize(width: 0, height: 2.0)
+        cell.layer.shadowRadius = 2.0
+        cell.layer.shadowOpacity = 1.0
+        cell.layer.masksToBounds = false
+        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.layer.cornerRadius).cgPath
+        cell.layer.backgroundColor = UIColor.clear.cgColor
+        
         return cell
     }
     
@@ -133,6 +144,18 @@ extension SelectPlatformViewController: UICollectionViewDataSource {
                                                         ofKind: UICollectionView.elementKindSectionHeader,
                                                         for: indexPath)
         return header
+    }
+}
+
+extension SelectPlatformViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if viewModel.selectedIndexPath.contains(indexPath) {
+            viewModel.selectedIndexPath.remove(indexPath)
+        } else {
+            viewModel.selectedIndexPath.insert(indexPath)
+        }
+        self.collectionView.reloadData()
     }
 }
 

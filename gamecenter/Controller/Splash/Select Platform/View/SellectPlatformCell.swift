@@ -11,7 +11,7 @@ import UIKit
 class SellectPlatformCell: BaseCollectionViewCell {
     
     private var iconWidthAnchor: NSLayoutConstraint!
-    private lazy var iconHeight = contentView.frame.height * 7 / 10
+    private lazy var iconHeight = contentView.frame.height * 6 / 10
     
     private lazy var iconImage: UIImageView = {
         let image = UIImageView()
@@ -20,40 +20,32 @@ class SellectPlatformCell: BaseCollectionViewCell {
         return image
     }()
     
-    private lazy var background: UIView = {
-        let view = UIView()
-        view.layer.masksToBounds = false
-        view.layer.cornerRadius = 12
-        view.layer.shadowColor = UIColor.gray.cgColor
-        view.layer.shadowOpacity = 0.7
-        view.layer.shadowOffset = .zero
-        view.layer.shadowRadius = 6
-        view.backgroundColor = .white
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     private func setupIconImage() {
         contentView.addSubview(iconImage)
         iconImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         iconImage.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         iconImage.heightAnchor.constraint(equalToConstant: iconHeight).isActive = true
-        iconWidthAnchor = iconImage.widthAnchor.constraint(equalToConstant: 40)
+        iconWidthAnchor = iconImage.widthAnchor.constraint(equalToConstant: iconHeight)
         iconWidthAnchor.isActive = true
         iconImage.clipsToBounds = true
     }
     
     override func setupView() {
-        contentView.addSubview(background)
-        background.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        background.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        background.widthAnchor.constraint(equalToConstant: contentView.frame.width - 8).isActive = true
-        background.heightAnchor.constraint(equalToConstant: contentView.frame.height - 8).isActive = true
+        contentView.layer.cornerRadius = 12.0
+        contentView.layer.borderWidth = 1.0
+        contentView.layer.borderColor = UIColor.clear.cgColor
+        contentView.layer.masksToBounds = true
         setupIconImage()
     }
     
     func setupData(platform: ParentPlatformModel) {
         setUpIconImage(image: platform.getIcon())
+    }
+    
+    var isSelect: Bool = false {
+        didSet {
+            contentView.backgroundColor = isSelect ? UIColor.red : UIColor.white
+        }
     }
     
     private func setUpIconImage(image: UIImage?) {

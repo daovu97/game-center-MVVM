@@ -14,6 +14,8 @@ final class SelectPlatformViewModel: BaseViewModel {
     var platforms = [ParentPlatformModel]()
     var collectionViewAupdate = PublishSubject<ScrollViewUpdate<ParentPlatformModel>>()
     
+    var selectedIndexPath = Set<IndexPath>()
+    
     func getPlatforms() {
         platforms.append(contentsOf: [
             ParentPlatformModel(id: 1, name: "", slug: "", platforms: nil),
@@ -28,7 +30,7 @@ final class SelectPlatformViewModel: BaseViewModel {
             ParentPlatformModel(id: 11, name: "", slug: "", platforms: nil),
             ParentPlatformModel(id: 12, name: "", slug: "", platforms: nil),
             ParentPlatformModel(id: 13, name: "", slug: "", platforms: nil),
-            ParentPlatformModel(id: 14, name: "", slug: "", platforms: nil),
+            ParentPlatformModel(id: 14, name: "", slug: "", platforms: nil)
         ])
         collectionViewAupdate.onNext(.reload)
     }

@@ -12,7 +12,7 @@
 		F02F35E92524203B00876428 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02F35E82524203B00876428 /* BaseViewController.swift */; };
 		F02F35EB2524205F00876428 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02F35EA2524205F00876428 /* BaseViewModel.swift */; };
 		F02F35ED2524219100876428 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02F35EC2524219100876428 /* SplashViewController.swift */; };
-		F02F35EF252421A900876428 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02F35EE252421A900876428 /* LoginViewModel.swift */; };
+		F02F35EF252421A900876428 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02F35EE252421A900876428 /* SplashViewModel.swift */; };
 		F02F35F12524240500876428 /* TopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02F35F02524240500876428 /* TopViewController.swift */; };
 		F02F35F32524241400876428 /* TopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02F35F22524241400876428 /* TopViewModel.swift */; };
 		F02F35F62524253200876428 /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02F35F52524253200876428 /* LoadingButton.swift */; };
@@ -49,7 +49,7 @@
 		F02F35E82524203B00876428 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		F02F35EA2524205F00876428 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		F02F35EC2524219100876428 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
-		F02F35EE252421A900876428 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		F02F35EE252421A900876428 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
 		F02F35F02524240500876428 /* TopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopViewController.swift; sourceTree = "<group>"; };
 		F02F35F22524241400876428 /* TopViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopViewModel.swift; sourceTree = "<group>"; };
 		F02F35F52524253200876428 /* LoadingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingButton.swift; sourceTree = "<group>"; };
@@ -125,7 +125,7 @@
 			children = (
 				F07C1C692525791400DB9AE1 /* Select Platform */,
 				F02F35EC2524219100876428 /* SplashViewController.swift */,
-				F02F35EE252421A900876428 /* LoginViewModel.swift */,
+				F02F35EE252421A900876428 /* SplashViewModel.swift */,
 			);
 			path = Splash;
 			sourceTree = "<group>";
@@ -403,7 +403,7 @@
 				F02F3600252462CA00876428 /* UserDefault.swift in Sources */,
 				F07C1C852525B25400DB9AE1 /* UIColor+Extension.swift in Sources */,
 				F03BF5202523310F006018BC /* ViewController.swift in Sources */,
-				F02F35EF252421A900876428 /* LoginViewModel.swift in Sources */,
+				F02F35EF252421A900876428 /* SplashViewModel.swift in Sources */,
 				F07C1C832525937A00DB9AE1 /* ParentPlatfomModel.swift in Sources */,
 				F07C1C6C2525793A00DB9AE1 /* SelectPlatformViewController.swift in Sources */,
 				F03BF53825241F7E006018BC /* Scene.swift in Sources */,
