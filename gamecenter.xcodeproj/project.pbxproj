@@ -30,6 +30,7 @@
 		F066AE9525270B1F00800ABB /* GenreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066AE9425270B1F00800ABB /* GenreModel.swift */; };
 		F066AE9725270B5F00800ABB /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066AE9625270B5F00800ABB /* Genre.swift */; };
 		F066AE9925270D4E00800ABB /* BaseSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066AE9825270D4E00800ABB /* BaseSelectViewModel.swift */; };
+		F066AE9B25271C7100800ABB /* SelectedGenreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066AE9A25271C7100800ABB /* SelectedGenreCell.swift */; };
 		F07C1C6C2525793A00DB9AE1 /* SelectPlatformViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07C1C6B2525793A00DB9AE1 /* SelectPlatformViewController.swift */; };
 		F07C1C6E2525794B00DB9AE1 /* SelectPlatformViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07C1C6D2525794B00DB9AE1 /* SelectPlatformViewModel.swift */; };
 		F07C1C7025257A6200DB9AE1 /* UIView+Constrain+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07C1C6F25257A6200DB9AE1 /* UIView+Constrain+Extension.swift */; };
@@ -76,6 +77,7 @@
 		F066AE9425270B1F00800ABB /* GenreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreModel.swift; sourceTree = "<group>"; };
 		F066AE9625270B5F00800ABB /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
 		F066AE9825270D4E00800ABB /* BaseSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSelectViewModel.swift; sourceTree = "<group>"; };
+		F066AE9A25271C7100800ABB /* SelectedGenreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedGenreCell.swift; sourceTree = "<group>"; };
 		F07C1C6B2525793A00DB9AE1 /* SelectPlatformViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlatformViewController.swift; sourceTree = "<group>"; };
 		F07C1C6D2525794B00DB9AE1 /* SelectPlatformViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlatformViewModel.swift; sourceTree = "<group>"; };
 		F07C1C6F25257A6200DB9AE1 /* UIView+Constrain+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Constrain+Extension.swift"; sourceTree = "<group>"; };
@@ -314,6 +316,7 @@
 				F0AE44152526D9AE001D218F /* SelectGenreViewController.swift */,
 				F0AE44172526D9D4001D218F /* SelectGenreViewModel.swift */,
 				F066AE8F252708E800800ABB /* SelectGenre.json */,
+				F066AE9A25271C7100800ABB /* SelectedGenreCell.swift */,
 			);
 			path = "Select Genre";
 			sourceTree = "<group>";
@@ -461,6 +464,7 @@
 				F03BF5202523310F006018BC /* ViewController.swift in Sources */,
 				F02F35EF252421A900876428 /* SplashViewModel.swift in Sources */,
 				F07C1C832525937A00DB9AE1 /* ParentPlatfomModel.swift in Sources */,
+				F066AE9B25271C7100800ABB /* SelectedGenreCell.swift in Sources */,
 				F07C1C6C2525793A00DB9AE1 /* SelectPlatformViewController.swift in Sources */,
 				F03BF53825241F7E006018BC /* Scene.swift in Sources */,
 				F07C1C872525B2FB00DB9AE1 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,

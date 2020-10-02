@@ -10,12 +10,12 @@ import Foundation
 import RxSwift
 
 final class SelectGenreViewModel: BaseSelectViewModel {
-    var platforms = [GenreModel]()
+    var genres = [GenreModel]()
     var collectionViewAupdate = PublishSubject<ScrollViewUpdate<ParentPlatformModel>>()
     
     func getGenre() {
         let value: BaseResponse<Genre>? = extractJson(from: "SelectGenre")
-        platforms = (value?.results ?? .init()).map { $0.mapToGenreModel()}
+        genres = (value?.results ?? .init()).map { $0.mapToGenreModel()}
         collectionViewAupdate.onNext(.reload)
     }
     

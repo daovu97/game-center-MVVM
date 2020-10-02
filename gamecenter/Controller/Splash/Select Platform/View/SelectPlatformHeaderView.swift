@@ -9,6 +9,8 @@
 import UIKit
 
 let selectPlatformHeaderTitle = "Choose your favorite Platforms"
+let selectGenreHeaderTitle = "and Genres"
+
 let primaryFontName = "Helvetica Neue"
 
 class SelectPlatformHeaderView: UICollectionReusableView {
@@ -39,5 +41,9 @@ class SelectPlatformHeaderView: UICollectionReusableView {
                          leading: leadingAnchor, bottom: nil,
                          trailing: trailingAnchor,
                          padding: .init(top: 12, left: 12, bottom: 0, right: 12))
+    }
+    
+    func setTitle(title: String = selectPlatformHeaderTitle) {
+        titleName.text = title
     }
 }

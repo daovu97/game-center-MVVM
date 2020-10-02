@@ -108,6 +108,7 @@ extension SelectPlatformViewController: UICollectionViewDataSource {
         let header = collectionView.dequeueReusableCell(SelectPlatformHeaderView.self,
                                                         ofKind: UICollectionView.elementKindSectionHeader,
                                                         for: indexPath)
+        header.setTitle()
         return header
     }
 }

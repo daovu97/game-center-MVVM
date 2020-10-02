@@ -9,18 +9,19 @@
 import UIKit
 
 class SelectGenreViewController: BaseSelectViewController<SelectGenreViewModel> {
-  
+    
     override func setupView() {
         super.setupView()
         setupCollectionView()
+        viewModel.getGenre()
     }
     
     private func setupCollectionView() {
-//        collectionView.dataSource = self
-//        collectionView.delegate = self
-//        collectionView.registerCell(SellectPlatformCell.self)
-//        collectionView.registerCell(SelectPlatformHeaderView.self,
-//                                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.registerCell(SelectedGenreCell.self)
+        collectionView.registerCell(SelectPlatformHeaderView.self,
+                                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader)
     }
     
     override func bindViewModel() {
@@ -34,7 +35,7 @@ class SelectGenreViewController: BaseSelectViewController<SelectGenreViewModel> 
                 }
             }
         }.disposed(by: disposeBag)
-
+        
         viewModel.didSelectedItem.bind {[weak self] (selected) in
             self?.showFloatingButton(shouldShow: selected)
         }.disposed(by: disposeBag)
@@ -42,19 +43,18 @@ class SelectGenreViewController: BaseSelectViewController<SelectGenreViewModel> 
 }
 
 extension SelectGenreViewController: UICollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: UICollectionView,
-//                        layout collectionViewLayout: UICollectionViewLayout,
-//                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        if let size = viewModel.platforms[indexPath.row].getIcon()?.size {
-//            let ratio = size.width / size.height
-//            let width = ratio < 1 ? itemHeight : itemHeight * ratio
-//
-//            return .init(width: width, height: itemHeight)
-//        } else {
-//            return .init(width: itemHeight, height: itemHeight)
-//        }
-//    }
-//
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let currentItem = viewModel.genres[indexPath.row]
+        if let name = currentItem.name {
+            let labelWidth = calculateFrameInText(message: name, textSize: 20, maxWidth: 200).width + 16 * 2
+            return .init(width: labelWidth, height: itemHeight)
+        } else {
+            return .init(width: itemHeight, height: itemHeight)
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -64,7 +64,7 @@ extension SelectGenreViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForHeaderInSection section: Int) -> CGSize {
-        let textHeaderSize = calculateFrameInText(message: selectPlatformHeaderTitle,
+        let textHeaderSize = calculateFrameInText(message: selectGenreHeaderTitle,
                                                   textSize: 40,
                                                   withFont: "Helvetica Neue",
                                                   maxWidth: view.frame.width - 24)
@@ -75,25 +75,25 @@ extension SelectGenreViewController: UICollectionViewDelegateFlowLayout {
 
 extension SelectGenreViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 12
+        return viewModel.genres.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(SellectPlatformCell.self, for: indexPath)
-//        cell.setupData(platform: viewModel.platforms[indexPath.row])
-//        cell.isSelect = viewModel.selectedIndexPath.contains(indexPath)
-//
-//        cell.layer.shadowColor = UIColor.lightGray.cgColor
-//        cell.layer.shadowOffset = CGSize(width: 0, height: 2.0)
-//        cell.layer.shadowRadius = 2.0
-//        cell.layer.shadowOpacity = 1.0
-//        cell.layer.masksToBounds = false
-//        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds,
-//                                             cornerRadius: cell.contentView.layer.cornerRadius).cgPath
-//        cell.layer.backgroundColor = UIColor.clear.cgColor
+        let cell = collectionView.dequeueReusableCell(SelectedGenreCell.self, for: indexPath)
+        cell.setupData(genre: viewModel.genres[indexPath.row])
+        cell.isSelect = viewModel.selectedIndexPath.contains(indexPath)
+
+        cell.layer.shadowColor = UIColor.lightGray.cgColor
+        cell.layer.shadowOffset = CGSize(width: 0, height: 2.0)
+        cell.layer.shadowRadius = 2.0
+        cell.layer.shadowOpacity = 1.0
+        cell.layer.masksToBounds = false
+        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds,
+                                             cornerRadius: cell.contentView.layer.cornerRadius).cgPath
+        cell.layer.backgroundColor = UIColor.clear.cgColor
         
-        return UICollectionViewCell()
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -102,6 +102,7 @@ extension SelectGenreViewController: UICollectionViewDataSource {
         let header = collectionView.dequeueReusableCell(SelectPlatformHeaderView.self,
                                                         ofKind: UICollectionView.elementKindSectionHeader,
                                                         for: indexPath)
+        header.setTitle(title: selectGenreHeaderTitle)
         return header
     }
 }
@@ -109,6 +110,6 @@ extension SelectGenreViewController: UICollectionViewDataSource {
 extension SelectGenreViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: false)
-//        viewModel.setSelectedIndexPath(indexPath: indexPath)
+        viewModel.setSelectedIndexPath(indexPath: indexPath)
     }
 }
