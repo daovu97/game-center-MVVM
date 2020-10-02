@@ -8,19 +8,33 @@
 
 import UIKit
 
-let selectPlatformHeaderTitle = "Choose your favorite Platforms"
-let selectGenreHeaderTitle = "and Genres"
-
-let primaryFontName = "Helvetica Neue"
+let primaryFontName_light = "HelveticaNeue"
+let primaryFontName_bold = "AvenirNextCondensed-Bold"
 
 class SelectPlatformHeaderView: UICollectionReusableView {
     
+    static let titleSize = CGFloat(34)
+    static let subTitleSize = CGFloat(12)
+    
+    static let selectPlatformHeaderTitle = "Choose your favorite Platforms"
+    static let selectGenreHeaderTitle = "and Genres"
+    static let subSelectHeaderTitle = "Get personalized game recommendations"
+    
     private lazy var titleName: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: primaryFontName, size: 40)
-        label.text = selectPlatformHeaderTitle
+        label.font = UIFont(name: primaryFontName_bold, size: SelectPlatformHeaderView.titleSize)
+        label.text = SelectPlatformHeaderView.selectPlatformHeaderTitle
         label.numberOfLines = 0
         label.textColor = .red
+        return label
+    }()
+    
+    private lazy var subTitleName: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: primaryFontName_light, size: SelectPlatformHeaderView.subTitleSize)
+        label.text = SelectPlatformHeaderView.subSelectHeaderTitle
+        label.numberOfLines = 1
+        label.textColor = .orange
         return label
     }()
     
@@ -37,10 +51,17 @@ class SelectPlatformHeaderView: UICollectionReusableView {
     private func setupView() {
         backgroundColor = .white
         addSubview(titleName)
+        addSubview(subTitleName)
         titleName.anchor(top: topAnchor,
                          leading: leadingAnchor, bottom: nil,
                          trailing: trailingAnchor,
-                         padding: .init(top: 12, left: 12, bottom: 0, right: 12))
+                         padding: .init(top: 16, left: 16, bottom: 0, right: 16))
+        
+        subTitleName.anchor(top: titleName.bottomAnchor,
+                            leading: titleName.leadingAnchor,
+                            bottom: nil,
+                            trailing: titleName.trailingAnchor,
+                            padding: .init(top: 8, left: 0, bottom: 0, right: 0))
     }
     
     func setTitle(title: String = selectPlatformHeaderTitle) {

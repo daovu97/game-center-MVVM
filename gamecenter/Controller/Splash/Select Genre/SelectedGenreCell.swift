@@ -13,7 +13,7 @@ class SelectedGenreCell: BaseCollectionViewCell {
     private lazy var labelName: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: primaryFontName, size: 20)
+        label.font = UIFont(name: primaryFontName_light, size: 20)
         label.numberOfLines = 1
         label.sizeToFit()
         return label

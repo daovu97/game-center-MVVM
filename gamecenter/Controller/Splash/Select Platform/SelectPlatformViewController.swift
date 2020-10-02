@@ -65,17 +65,23 @@ extension SelectPlatformViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 12
+        return 16
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForHeaderInSection section: Int) -> CGSize {
-        let textHeaderSize = calculateFrameInText(message: selectPlatformHeaderTitle,
-                                                  textSize: 40,
+        let textHeaderSize = calculateFrameInText(message: SelectPlatformHeaderView.selectPlatformHeaderTitle,
+                                                  textSize: SelectPlatformHeaderView.titleSize,
+                                                  withFont: primaryFontName_bold,
                                                   maxWidth: view.frame.width - 24)
         
-        return .init(width: view.frame.width, height: textHeaderSize.height + 24)
+        let subTextSize = calculateFrameInText(message: SelectPlatformHeaderView.subSelectHeaderTitle,
+                                               textSize: SelectPlatformHeaderView.subTitleSize,
+                                               withFont: primaryFontName_light,
+                                               maxWidth: view.frame.width - 24)
+        
+        return .init(width: view.frame.width, height: textHeaderSize.height + 8 + subTextSize.height + 24)
     }
 }
 
@@ -121,7 +127,7 @@ extension SelectPlatformViewController: UICollectionViewDelegate {
 }
 
 func calculateFrameInText(message: String, textSize: CGFloat,
-                          withFont font: String = primaryFontName,
+                          withFont font: String = primaryFontName_light,
                           maxWidth: CGFloat) -> CGRect {
     return NSString(string: message)
         .boundingRect(with: CGSize(width: maxWidth, height: 9999999),

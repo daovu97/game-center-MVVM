@@ -58,18 +58,23 @@ extension SelectGenreViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 12
+        return 16
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForHeaderInSection section: Int) -> CGSize {
-        let textHeaderSize = calculateFrameInText(message: selectGenreHeaderTitle,
-                                                  textSize: 40,
-                                                  withFont: "Helvetica Neue",
+        let textHeaderSize = calculateFrameInText(message: SelectPlatformHeaderView.selectGenreHeaderTitle,
+                                                  textSize: SelectPlatformHeaderView.titleSize,
+                                                  withFont: primaryFontName_bold,
                                                   maxWidth: view.frame.width - 24)
         
-        return .init(width: view.frame.width, height: textHeaderSize.height + 24)
+        let subTextSize = calculateFrameInText(message: SelectPlatformHeaderView.subSelectHeaderTitle,
+                                                     textSize: SelectPlatformHeaderView.subTitleSize,
+                                                     withFont: primaryFontName_light,
+                                                     maxWidth: view.frame.width - 24)
+        
+        return .init(width: view.frame.width, height: textHeaderSize.height + 8 + subTextSize.height + 24)
     }
 }
 
@@ -83,7 +88,7 @@ extension SelectGenreViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(SelectedGenreCell.self, for: indexPath)
         cell.setupData(genre: viewModel.genres[indexPath.row])
         cell.isSelect = viewModel.selectedIndexPath.contains(indexPath)
-
+        
         cell.layer.shadowColor = UIColor.lightGray.cgColor
         cell.layer.shadowOffset = CGSize(width: 0, height: 2.0)
         cell.layer.shadowRadius = 2.0
@@ -102,7 +107,7 @@ extension SelectGenreViewController: UICollectionViewDataSource {
         let header = collectionView.dequeueReusableCell(SelectPlatformHeaderView.self,
                                                         ofKind: UICollectionView.elementKindSectionHeader,
                                                         for: indexPath)
-        header.setTitle(title: selectGenreHeaderTitle)
+        header.setTitle(title: SelectPlatformHeaderView.selectGenreHeaderTitle)
         return header
     }
 }

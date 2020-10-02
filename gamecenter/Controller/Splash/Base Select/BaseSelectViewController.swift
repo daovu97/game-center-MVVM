@@ -21,7 +21,7 @@ class BaseSelectViewController<T: BaseSelectViewModel>: BaseViewController<T> {
         collectionView.showsVerticalScrollIndicator = false
         
         if let layout = collectionView.collectionViewLayout as? LeftAlignedCollectionViewFlowLayout {
-            layout.sectionInset = .init(top: 8, left: 8, bottom: 16, right: 8)
+            layout.sectionInset = .init(top: 16, left: 16, bottom: 16, right: 16)
             layout.scrollDirection = .vertical
         }
         
@@ -87,7 +87,6 @@ class BaseSelectViewController<T: BaseSelectViewModel>: BaseViewController<T> {
                         self.floatingButton.transform = transform
                         self.collectionView.contentInset = .init(top: 0, left: 0, bottom: bottomInset, right: 0)
         })
-        collectionView.scrollToLast()
     }
     
     override func viewDidAppear(_ animated: Bool) {
