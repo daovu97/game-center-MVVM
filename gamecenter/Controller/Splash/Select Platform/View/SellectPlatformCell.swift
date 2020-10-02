@@ -11,7 +11,7 @@ import UIKit
 class SellectPlatformCell: BaseCollectionViewCell {
     
     private var iconWidthAnchor: NSLayoutConstraint!
-    private lazy var iconHeight = contentView.frame.height * 6 / 10
+    private lazy var iconHeight = CGFloat(20)
     
     private lazy var iconImage: UIImageView = {
         let image = UIImageView()
@@ -20,31 +20,61 @@ class SellectPlatformCell: BaseCollectionViewCell {
         return image
     }()
     
-    private func setupIconImage() {
-        contentView.addSubview(iconImage)
-        iconImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        iconImage.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        iconImage.heightAnchor.constraint(equalToConstant: iconHeight).isActive = true
-        iconWidthAnchor = iconImage.widthAnchor.constraint(equalToConstant: iconHeight)
-        iconWidthAnchor.isActive = true
-        iconImage.clipsToBounds = true
-    }
+    private lazy var labelName: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: primaryFontName, size: 20)
+        label.numberOfLines = 1
+        label.sizeToFit()
+        return label
+    }()
     
     override func setupView() {
-        contentView.layer.cornerRadius = 12.0
-        contentView.layer.borderWidth = 1.0
+        contentView.layer.cornerRadius = 16
+        contentView.layer.borderWidth = 0
         contentView.layer.borderColor = UIColor.clear.cgColor
         contentView.layer.masksToBounds = true
         setupIconImage()
+        setUpLabelName()
+    }
+    
+    private func setupIconImage() {
+        contentView.addSubview(iconImage)
+        iconWidthAnchor = iconImage.widthAnchor.constraint(equalToConstant: iconHeight)
+        let constrain = [
+            iconWidthAnchor!,
+            iconImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            iconImage.heightAnchor.constraint(equalToConstant: iconHeight),
+            iconImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16)
+        ]
+        
+        NSLayoutConstraint.activate(constrain)
+        
+        iconImage.clipsToBounds = true
+    }
+    
+    private func setUpLabelName() {
+        contentView.addSubview(labelName)
+        let constrain = [
+            iconWidthAnchor!,
+            labelName.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            labelName.leadingAnchor.constraint(equalTo: iconImage.trailingAnchor, constant: 8)
+        ]
+        
+        NSLayoutConstraint.activate(constrain)
+        
     }
     
     func setupData(platform: ParentPlatformModel) {
-        setUpIconImage(image: platform.getIcon())
+        setUpIconImage(image: platform.type?.icon)
+        labelName.text = platform.name ?? ""
     }
     
     var isSelect: Bool = false {
         didSet {
             contentView.backgroundColor = isSelect ? UIColor.red : UIColor.white
+            labelName.textColor = isSelect ? UIColor.white : UIColor.black
+            iconImage.tintColor = isSelect ? UIColor.white : UIColor.red
         }
     }
     

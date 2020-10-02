@@ -9,9 +9,9 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
+    
     var window: UIWindow?
-
+    
     @available(iOS 13.0, *)
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions) {
@@ -25,8 +25,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         LocalDB.shared = LocalDB()
         
         if LocalDB.shared.isFirstLaunch() {
-            sceneCoordinator.transition(to: Scene.splash)
-            LocalDB.shared.setFirstLaunch(isFirstLaunch: true)
+            sceneCoordinator.transition(to: Scene.splash(SplashViewModel()))
+            //  LocalDB.shared.setFirstLaunch(isFirstLaunch: true)
         } else {
             sceneCoordinator.transition(to: Scene.top)
         }

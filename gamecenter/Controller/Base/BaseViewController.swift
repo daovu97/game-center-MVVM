@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import RxSwift
 
 class BaseViewController<T: BaseViewModel>: UIViewController {
-    
+    internal let disposeBag = DisposeBag()
     var viewModel: T!
     
     override func viewDidLoad() {
@@ -28,7 +29,7 @@ class BaseViewController<T: BaseViewModel>: UIViewController {
         if viewModel is T {
             self.viewModel = viewModel as? T
         } 
-
+        
     }
     
     open func setupView() {

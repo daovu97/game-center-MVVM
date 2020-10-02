@@ -10,45 +10,12 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class SelectPlatformViewController: BaseViewController<SelectPlatformViewModel> {
-    
-    private let disposeBag = DisposeBag()
-    private let itemHeight = CGFloat(70)
-    private let rightButton = UIBarButtonItem(title: "skip", style: .plain,
-                                              target: self, action: #selector(didRightBarTap))
-    
-    private lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: LeftAlignedCollectionViewFlowLayout())
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .white
-        collectionView.alwaysBounceVertical = true
-        collectionView.insetsLayoutMarginsFromSafeArea = true
-        collectionView.showsVerticalScrollIndicator = false
-        
-        if let layout = collectionView.collectionViewLayout as? LeftAlignedCollectionViewFlowLayout {
-            layout.sectionInset = .init(top: 8, left: 8, bottom: 8, right: 8)
-            layout.scrollDirection = .vertical
-        }
-        
-        return collectionView
-    }()
+class SelectPlatformViewController: BaseSelectViewController<SelectPlatformViewModel> {
     
     override func setupView() {
         super.setupView()
         setupCollectionView()
-        
-        DispatchQueue.main.async {
-            self.viewModel.getPlatforms()
-        }
-    }
-    
-    override func setupNaviBar() {
-        navigationController?.navigationBar.barTintColor = .white
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = true
-        
-        navigationItem.title = ""
-        navigationItem.rightBarButtonItem = rightButton
+        self.viewModel.getPlatforms()
     }
     
     private func setupCollectionView() {
@@ -59,15 +26,10 @@ class SelectPlatformViewController: BaseViewController<SelectPlatformViewModel> 
                                     forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader)
     }
     
-    override func setupConstrain() {
-        view.addSubview(collectionView)
-        collectionView.fillSuperview()
-    }
-    
     override func bindViewModel() {
         viewModel.collectionViewAupdate.bind {[weak self] (update) in
             switch update {
-            case .add((let value, let position)):
+            case .add:
                 break
             case .reload:
                 DispatchQueue.main.async {
@@ -76,14 +38,9 @@ class SelectPlatformViewController: BaseViewController<SelectPlatformViewModel> 
             }
         }.disposed(by: disposeBag)
         
-        viewModel.rightBarButtonText.bind {[weak self] (title) in
-            self?.rightButton.title = title
-            self?.rightButton.tintColor = title == "Skip" ? UIColor.lightGray : UIColor.blue
+        viewModel.didSelectedItem.bind {[weak self] (selected) in
+            self?.showFloatingButton(shouldShow: selected)
         }.disposed(by: disposeBag)
-    }
-    
-    @objc private func didRightBarTap() {
-        
     }
     
 }
@@ -92,11 +49,14 @@ extension SelectPlatformViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if let size = viewModel.platforms[indexPath.row].getIcon()?.size {
+        let currentPlatform = viewModel.platforms[indexPath.row]
+        if let size = currentPlatform.type?.icon?.size, let name = currentPlatform.name {
             let ratio = size.width / size.height
             let width = ratio < 1 ? itemHeight : itemHeight * ratio
             
-            return .init(width: width, height: itemHeight)
+            let labelWidth = calculateFrameInText(message: name, textSize: 20, maxWidth: 200).width + 16 + 8
+            
+            return .init(width: width + labelWidth, height: itemHeight)
         } else {
             return .init(width: itemHeight, height: itemHeight)
         }
@@ -113,7 +73,6 @@ extension SelectPlatformViewController: UICollectionViewDelegateFlowLayout {
                         referenceSizeForHeaderInSection section: Int) -> CGSize {
         let textHeaderSize = calculateFrameInText(message: selectPlatformHeaderTitle,
                                                   textSize: 40,
-                                                  withFont: "Helvetica Neue",
                                                   maxWidth: view.frame.width - 24)
         
         return .init(width: view.frame.width, height: textHeaderSize.height + 24)
@@ -161,7 +120,7 @@ extension SelectPlatformViewController: UICollectionViewDelegate {
 }
 
 func calculateFrameInText(message: String, textSize: CGFloat,
-                          withFont font: String = "Helvetica Neue",
+                          withFont font: String = primaryFontName,
                           maxWidth: CGFloat) -> CGRect {
     return NSString(string: message)
         .boundingRect(with: CGSize(width: maxWidth, height: 9999999),

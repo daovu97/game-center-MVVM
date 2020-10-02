@@ -13,8 +13,10 @@ protocol TargetScene {
 }
 
 enum Scene {
-    case splash
+    case splash(SplashViewModel)
     case top
+    case selectPlatform(SelectPlatformViewModel)
+    case selectGenre(SelectGenreViewModel)
 }
 
 extension Scene: TargetScene {
@@ -22,18 +24,24 @@ extension Scene: TargetScene {
         switch self {
         case .top:
             let topVc = UITabBarController()
-            
-//            let top = TopViewController()
-//            top.initViewModel(viewModel: TopViewModel())
-//            top.tabBarItem = UITabBarItem(title: "Top", image: UIImage(named: "ic_messenger"), tag: 0)
-//            topVc.addChild(top)
-            
-            let vc = SelectPlatformViewController()
-            vc.initViewModel(viewModel: SelectPlatformViewModel())
-            return .root(UINavigationController(rootViewController: vc))
-        case .splash:
+            let top = TopViewController()
+            top.initViewModel(viewModel: TopViewModel())
+            top.tabBarItem = UITabBarItem(title: "Top", image: UIImage(named: "ic_messenger"), tag: 0)
+            topVc.addChild(top)
+            return .root(UINavigationController(rootViewController: topVc))
+        case .splash(let viewModel):
             let splash = SplashViewController()
-            return .root(splash)
+            splash.initViewModel(viewModel: viewModel)
+            return .root(UINavigationController(rootViewController: splash))
+        case .selectPlatform(let viewModel):
+            let vc = SelectPlatformViewController()
+            vc.initViewModel(viewModel: viewModel)
+            return .push(vc, withAnim: true)
+        case .selectGenre(let viewModel):
+            let vc = SelectGenreViewController()
+            vc.initViewModel(viewModel: viewModel)
+            return .push(vc, withAnim: true)
         }
     }
+    
 }

@@ -9,51 +9,43 @@
 import Foundation
 import RxSwift
 
-final class SelectPlatformViewModel: BaseViewModel {
+final class SelectPlatformViewModel: BaseSelectViewModel {
     
     var platforms = [ParentPlatformModel]()
     var collectionViewAupdate = PublishSubject<ScrollViewUpdate<ParentPlatformModel>>()
-    var rightBarButtonText = BehaviorSubject<String>(value: "Skip")
-    
-    var selectedIndexPath = Set<IndexPath>()
     
     func getPlatforms() {
-        platforms.append(contentsOf: [
-            ParentPlatformModel(id: 1, name: "", slug: "", platforms: nil),
-            ParentPlatformModel(id: 2, name: "", slug: "", platforms: nil),
-            ParentPlatformModel(id: 3, name: "", slug: "", platforms: nil),
-            ParentPlatformModel(id: 4, name: "", slug: "", platforms: nil),
-            ParentPlatformModel(id: 5, name: "", slug: "", platforms: nil),
-            ParentPlatformModel(id: 6, name: "", slug: "", platforms: nil),
-            ParentPlatformModel(id: 7, name: "", slug: "", platforms: nil),
-            ParentPlatformModel(id: 8, name: "", slug: "", platforms: nil),
-            ParentPlatformModel(id: 9, name: "", slug: "", platforms: nil),
-            ParentPlatformModel(id: 11, name: "", slug: "", platforms: nil),
-            ParentPlatformModel(id: 12, name: "", slug: "", platforms: nil),
-            ParentPlatformModel(id: 13, name: "", slug: "", platforms: nil),
-            ParentPlatformModel(id: 14, name: "", slug: "", platforms: nil)
-        ])
+        let value: BaseResponse<ParentPlatform>? = extractJson(from: "PlatformsData")
+        platforms = (value?.results ?? .init()).map { $0.mapToParentPlatformModel()}
         collectionViewAupdate.onNext(.reload)
     }
     
-    func setSelectedIndexPath(indexPath: IndexPath) {
-        if selectedIndexPath.contains(indexPath) {
-            selectedIndexPath.remove(indexPath)
-        } else {
-            selectedIndexPath.insert(indexPath)
-        }
+    override func setSelectedIndexPath(indexPath: IndexPath) {
+        super.setSelectedIndexPath(indexPath: indexPath)
         collectionViewAupdate.onNext(.reload)
-        
-        if selectedIndexPath.isEmpty {
-            rightBarButtonText.onNext("Skip")
-        } else {
-            rightBarButtonText.onNext("Next")
-        }
+    }
+    
+    func gotoSelectGenre() {
+        SceneCoordinator.shared.transition(to: Scene.selectGenre(SelectGenreViewModel()))
     }
     
 }
 
 enum ScrollViewUpdate<T> {
-    case add((value: [T], position: [Int]))
+    case add(value: [T], position: [Int])
     case reload
+}
+
+func extractJson<T: Decodable>(from resource: String) -> T? {
+    if let path = Bundle.main.url(forResource: resource, withExtension: "json") {
+        do {
+            let data = try Data(contentsOf: path)
+            let decoder = JSONDecoder()
+            let jsonData = try decoder.decode(T.self, from: data)
+            return jsonData
+        } catch {
+            return nil
+        }
+    }
+    return nil
 }

@@ -9,14 +9,16 @@
 import UIKit
 
 let selectPlatformHeaderTitle = "Choose your favorite Platforms"
+let primaryFontName = "Helvetica Neue"
 
 class SelectPlatformHeaderView: UICollectionReusableView {
     
     private lazy var titleName: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Helvetica Neue", size: 40)
+        label.font = UIFont(name: primaryFontName, size: 40)
         label.text = selectPlatformHeaderTitle
         label.numberOfLines = 0
+        label.textColor = .red
         return label
     }()
     

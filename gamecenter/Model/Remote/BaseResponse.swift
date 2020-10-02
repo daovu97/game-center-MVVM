@@ -8,18 +8,17 @@
 
 import Foundation
 
-struct BaseResponse<T: Codable> : Codable {
-    let count : Int?
-    let next : String?
-    let previous : String?
-    let results : [T]?
+struct BaseResponse<T: Codable>: Codable {
+    let count: Int?
+    let next: String?
+    let previous: String?
+    let results: [T]?
 
     enum CodingKeys: String, CodingKey {
-
-        case count = "count"
-        case next = "next"
-        case previous = "previous"
-        case results = "results"
+        case count
+        case next
+        case previous
+        case results
     }
 
     init(from decoder: Decoder) throws {
@@ -31,4 +30,3 @@ struct BaseResponse<T: Codable> : Codable {
     }
 
 }
-
