@@ -7,16 +7,18 @@
 //
 
 import UIKit
+import RxSwift
 
 class BaseViewController<T: BaseViewModel>: UIViewController {
-    
-    var viewModel: BaseViewModel!
+    internal let disposeBag = DisposeBag()
+    var viewModel: T!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstrain()
         setupView()
         bindViewModel()
+        setupNaviBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -24,15 +26,22 @@ class BaseViewController<T: BaseViewModel>: UIViewController {
     }
     
     func initViewModel(viewModel: BaseViewModel) {
-        self.viewModel = viewModel
+        if viewModel is T {
+            self.viewModel = viewModel as? T
+        } 
+        
     }
     
-    open func setupView() {}
+    open func setupView() {
+        view.backgroundColor = .white
+    }
     
     open func setupConstrain() {}
     
     open func bindViewModel() {}
     
     open func refreshView() {}
+    
+    open func setupNaviBar() {}
     
 }

@@ -12,7 +12,6 @@ class TopViewController: BaseViewController<TopViewModel> {
     
     override func setupView() {
         super.setupView()
-        view.backgroundColor = .red
     }
     
     override func setupConstrain() {

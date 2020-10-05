@@ -10,4 +10,7 @@ import Foundation
 
 final class SplashViewModel: BaseViewModel {
     
+    func gotoSelectPlatform() {
+        SceneCoordinator.shared.transition(to: Scene.selectPlatform(SelectPlatformViewModel()))
+    }
 }

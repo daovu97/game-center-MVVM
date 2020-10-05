@@ -1,0 +1,85 @@
+{
+    "count": 14,
+    "next": null,
+    "previous": null,
+    "results": [
+    {
+        "id": 1,
+        "name": "PC",
+        "slug": "pc",
+        "platforms": null
+    },
+    {
+        "id": 2,
+        "name": "PlayStation",
+        "slug": "playstation",
+        "platforms": null
+    },
+    {
+        "id": 3,
+        "name": "Xbox",
+        "slug": "xbox",
+        "platforms": null
+    },
+    {
+        "id": 4,
+        "name": "iOS",
+        "slug": "ios",
+        "platforms": null
+    },
+    {
+        "id": 8,
+        "name": "Android",
+        "slug": "android",
+        "platforms": null
+    },
+    {
+        "id": 5,
+        "name": "Apple Macintosh",
+        "slug": "mac",
+        "platforms": null
+    },
+    {
+        "id": 6,
+        "name": "Linux",
+        "slug": "linux",
+        "platforms": null
+    },
+    {
+        "id": 7,
+        "name": "Nintendo",
+        "slug": "nintendo",
+        "platforms": null
+    },
+    {
+        "id": 9,
+        "name": "Atari",
+        "slug": "atari",
+        "platforms": null
+    },
+    {
+        "id": 11,
+        "name": "SEGA",
+        "slug": "sega",
+        "platforms": null
+    },
+    {
+        "id": 12,
+        "name": "3DO",
+        "slug": "3do",
+        "platforms": null
+    },
+    {
+        "id": 13,
+        "name": "Neo Geo",
+        "slug": "neo-geo",
+        "platforms": null
+    },
+    {
+        "id": 14,
+        "name": "Web",
+        "slug": "web",
+        "platforms": null
+    }
+    ]
+}
