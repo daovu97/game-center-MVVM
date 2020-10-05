@@ -94,6 +94,11 @@ class BaseSelectViewController<T: BaseSelectViewModel>: BaseViewController<T> {
     }
     
     @objc private func didDoneTap() {
+        didDoneTaped()
         viewModel.gotoNext()
+    }
+    
+    open func didDoneTaped() {
+        // do magic to save data here
     }
 }
