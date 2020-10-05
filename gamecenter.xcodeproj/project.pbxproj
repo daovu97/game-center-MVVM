@@ -26,6 +26,7 @@
 		F03BF53725241F7E006018BC /* SceneCoodinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03BF53425241F7D006018BC /* SceneCoodinator.swift */; };
 		F03BF53825241F7E006018BC /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03BF53525241F7E006018BC /* Scene.swift */; };
 		F03BF53925241F7E006018BC /* SceneTransitionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03BF53625241F7E006018BC /* SceneTransitionType.swift */; };
+		F05D2535252ABAC500E019DB /* BaseSelectedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05D2534252ABAC500E019DB /* BaseSelectedCell.swift */; };
 		F066AE90252708E800800ABB /* SelectGenre.json in Resources */ = {isa = PBXBuildFile; fileRef = F066AE8F252708E800800ABB /* SelectGenre.json */; };
 		F066AE9525270B1F00800ABB /* GenreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066AE9425270B1F00800ABB /* GenreModel.swift */; };
 		F066AE9725270B5F00800ABB /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066AE9625270B5F00800ABB /* Genre.swift */; };
@@ -73,6 +74,7 @@
 		F03BF53425241F7D006018BC /* SceneCoodinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneCoodinator.swift; sourceTree = "<group>"; };
 		F03BF53525241F7E006018BC /* Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		F03BF53625241F7E006018BC /* SceneTransitionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneTransitionType.swift; sourceTree = "<group>"; };
+		F05D2534252ABAC500E019DB /* BaseSelectedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSelectedCell.swift; sourceTree = "<group>"; };
 		F066AE8F252708E800800ABB /* SelectGenre.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SelectGenre.json; sourceTree = "<group>"; };
 		F066AE9425270B1F00800ABB /* GenreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreModel.swift; sourceTree = "<group>"; };
 		F066AE9625270B5F00800ABB /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
@@ -251,6 +253,14 @@
 			path = Cordinator;
 			sourceTree = "<group>";
 		};
+		F05D2533252ABA9E00E019DB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F066AE9A25271C7100800ABB /* SelectedGenreCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		F066AE9125270A9B00800ABB /* Remote */ = {
 			isa = PBXGroup;
 			children = (
@@ -277,7 +287,6 @@
 			children = (
 				F07C1C7625257ACF00DB9AE1 /* SellectPlatformCell.swift */,
 				F07C1C862525B2FB00DB9AE1 /* LeftAlignedCollectionViewFlowLayout.swift */,
-				F07C1C8A2525C6FF00DB9AE1 /* SelectPlatformHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -297,6 +306,8 @@
 			children = (
 				F0AE44112526D6DB001D218F /* BaseSelectViewController.swift */,
 				F066AE9825270D4E00800ABB /* BaseSelectViewModel.swift */,
+				F05D2534252ABAC500E019DB /* BaseSelectedCell.swift */,
+				F07C1C8A2525C6FF00DB9AE1 /* SelectPlatformHeaderView.swift */,
 			);
 			path = "Base Select";
 			sourceTree = "<group>";
@@ -313,10 +324,10 @@
 		F0AE44142526D992001D218F /* Select Genre */ = {
 			isa = PBXGroup;
 			children = (
+				F05D2533252ABA9E00E019DB /* View */,
 				F0AE44152526D9AE001D218F /* SelectGenreViewController.swift */,
 				F0AE44172526D9D4001D218F /* SelectGenreViewModel.swift */,
 				F066AE8F252708E800800ABB /* SelectGenre.json */,
-				F066AE9A25271C7100800ABB /* SelectedGenreCell.swift */,
 			);
 			path = "Select Genre";
 			sourceTree = "<group>";
@@ -473,6 +484,7 @@
 				F02F35EB2524205F00876428 /* BaseViewModel.swift in Sources */,
 				F066AE9525270B1F00800ABB /* GenreModel.swift in Sources */,
 				F07C1C80252592A500DB9AE1 /* BaseResponse.swift in Sources */,
+				F05D2535252ABAC500E019DB /* BaseSelectedCell.swift in Sources */,
 				F07C1C7025257A6200DB9AE1 /* UIView+Constrain+Extension.swift in Sources */,
 				F07C1C7225257A8000DB9AE1 /* UITableview+Extension.swift in Sources */,
 				F07C1C8B2525C6FF00DB9AE1 /* SelectPlatformHeaderView.swift in Sources */,

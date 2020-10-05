@@ -94,7 +94,7 @@ extension SelectPlatformViewController: UICollectionViewDataSource {
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(SellectPlatformCell.self, for: indexPath)
         cell.setupData(platform: viewModel.platforms[indexPath.row])
-        cell.isSelect = viewModel.selectedIndexPath.contains(indexPath)
+        cell.setSelected(isSelect: viewModel.selectedIndexPath.contains(indexPath))
         
         cell.layer.shadowColor = UIColor.lightGray.cgColor
         cell.layer.shadowOffset = CGSize(width: 0, height: 2.0)

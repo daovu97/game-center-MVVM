@@ -9,7 +9,8 @@
 import UIKit
 
 let primaryFontName_light = "HelveticaNeue"
-let primaryFontName_bold = "AvenirNextCondensed-Bold"
+let primaryFontName_medium = "HelveticaNeue-Medium"
+let primaryFontName_bold = "HelveticaNeue-Bold"
 
 class SelectPlatformHeaderView: UICollectionReusableView {
     
@@ -25,7 +26,7 @@ class SelectPlatformHeaderView: UICollectionReusableView {
         label.font = UIFont(name: primaryFontName_bold, size: SelectPlatformHeaderView.titleSize)
         label.text = SelectPlatformHeaderView.selectPlatformHeaderTitle
         label.numberOfLines = 0
-        label.textColor = .red
+        label.textColor = .systemPink
         return label
     }()
     
@@ -34,7 +35,7 @@ class SelectPlatformHeaderView: UICollectionReusableView {
         label.font = UIFont(name: primaryFontName_light, size: SelectPlatformHeaderView.subTitleSize)
         label.text = SelectPlatformHeaderView.subSelectHeaderTitle
         label.numberOfLines = 1
-        label.textColor = .orange
+        label.textColor = .lightGray
         return label
     }()
     

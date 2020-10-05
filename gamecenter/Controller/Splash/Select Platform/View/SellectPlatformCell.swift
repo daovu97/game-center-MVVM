@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SellectPlatformCell: BaseCollectionViewCell {
+class SellectPlatformCell: BaseSelectedCell {
     
     private var iconWidthAnchor: NSLayoutConstraint!
     private lazy var iconHeight = CGFloat(20)
@@ -20,20 +20,8 @@ class SellectPlatformCell: BaseCollectionViewCell {
         return image
     }()
     
-    private lazy var labelName: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: primaryFontName_light, size: 20)
-        label.numberOfLines = 1
-        label.sizeToFit()
-        return label
-    }()
     
-    override func setupView() {
-        contentView.layer.cornerRadius = 16
-        contentView.layer.borderWidth = 0
-        contentView.layer.borderColor = UIColor.clear.cgColor
-        contentView.layer.masksToBounds = true
+    override func setupConstrain() {
         setupIconImage()
         setUpLabelName()
     }
@@ -70,12 +58,10 @@ class SellectPlatformCell: BaseCollectionViewCell {
         labelName.text = platform.name ?? ""
     }
     
-    var isSelect: Bool = false {
-        didSet {
-            contentView.backgroundColor = isSelect ? UIColor.red : UIColor.white
-            labelName.textColor = isSelect ? UIColor.white : UIColor.black
-            iconImage.tintColor = isSelect ? UIColor.white : UIColor.red
-        }
+    override func setSelected(isSelect: Bool = false) {
+        super.setSelected(isSelect: isSelect)
+        labelName.textColor = isSelect ? UIColor.white : UIColor.black
+        iconImage.tintColor = isSelect ? UIColor.white : UIColor.systemPink
     }
     
     private func setUpIconImage(image: UIImage?) {

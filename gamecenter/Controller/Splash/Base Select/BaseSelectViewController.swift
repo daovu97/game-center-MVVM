@@ -33,10 +33,10 @@ class BaseSelectViewController<T: BaseSelectViewModel>: BaseViewController<T> {
         button.clipsToBounds = true
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 12
-        button.backgroundColor = .red
+        button.backgroundColor = .systemPink
         button.setTitle("Next", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .boldSystemFont(ofSize: 24)
+        button.titleLabel?.font = UIFont(name: primaryFontName_medium, size: 24)
         button.addTarget(self, action: #selector(didDoneTap), for: .touchUpInside)
         return button
     }()

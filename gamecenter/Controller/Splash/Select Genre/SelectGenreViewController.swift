@@ -87,7 +87,7 @@ extension SelectGenreViewController: UICollectionViewDataSource {
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(SelectedGenreCell.self, for: indexPath)
         cell.setupData(genre: viewModel.genres[indexPath.row])
-        cell.isSelect = viewModel.selectedIndexPath.contains(indexPath)
+        cell.setSelected(isSelect: viewModel.selectedIndexPath.contains(indexPath))
         
         cell.layer.shadowColor = UIColor.lightGray.cgColor
         cell.layer.shadowOffset = CGSize(width: 0, height: 2.0)
