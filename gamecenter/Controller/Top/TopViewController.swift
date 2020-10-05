@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class TopViewController: BaseViewController<TopViewModel> {
     
@@ -29,7 +30,7 @@ class TopViewController: BaseViewController<TopViewModel> {
         return collectionView
     }()
     
-    let videos: [String] = ["https://media.rawg.io/media/stories/e3c/e3c7fed123159b9bcfffad0454a0f87f.mp4",
+    let videos: [String] = [
                             "https://media.rawg.io/media/stories/92d/92d070309b4ad98aa48ec6f15eb44259.mp4",
                             "https://media.rawg.io/media/stories/777/77738935b59ea443752c783743fb8175.mp4",
                             "https://media.rawg.io/media/stories/c33/c3340048fb5377bb6858bca7a42d2705.mp4"]

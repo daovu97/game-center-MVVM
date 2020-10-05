@@ -60,6 +60,52 @@ class VideoCacheManager: NSObject {
         }
     }
     
+    // MARK: - Read Data
+    /**
+     * Query Video Data:
+     *  1. Check if file with the key exists in memory cache, if yes, return data
+     *  2. Check if file with the key exists in disk cache, if yes, return data and store data to memory cache
+     *  3. Download data from Firebase(In PostsRequest)
+     */
+    func queryDataFromCache(key: String, fileExtension: String?, completion: @escaping (_ data: Any?) -> Void) {
+        if let data = dataFromMemoryCache(key: key) {
+            completion(data)
+        } else if let data = dataFromDiskCache(key: key, fileExtension: fileExtension) {
+            storeDataToMemoryCache(data: data, key: key)
+            completion(data)
+        } else {
+            completion(nil)
+        }
+    }
+    
+    /// - Parameter Key: URL  Absolute String
+    func queryURLFromCache(key: String, fileExtension: String?, completion: @escaping (_ data: Any?) -> Void) {
+        dispatchQueue?.sync {
+            let path = diskCachePathForKey(key: key, fileExtension: fileExtension) ?? ""
+            if diskCache.fileExists(atPath: path) {
+                completion(path)
+            } else {
+                completion(nil)
+            }
+        }
+    }
+    
+    private func dataFromMemoryCache(key: String) -> Data? {
+        return memoryCache?.object(forKey: key as NSString) as? Data
+    }
+    
+    private func dataFromDiskCache(key: String, fileExtension: String?) -> Data? {
+        if let path = diskCachePathForKey(key: key, fileExtension: fileExtension) {
+            do {
+                let data = try Data(contentsOf: URL(fileURLWithPath: path))
+                return data
+            } catch let error {
+                print("Query Data From Disk Cache Error: " + error.localizedDescription)
+            }
+        }
+        return nil
+    }
+    
     // MARK: - Secure Hashing
     /// Get Disk Cache Path: encrypting the key with SHA-2 in pathName
     private func diskCachePathForKey(key: String, fileExtension: String?) -> String? {
@@ -79,7 +125,7 @@ class VideoCacheManager: NSObject {
     
     // MARK: - Delete Data
     /// Clear All Data in cache
-    func clearCache(completion: @escaping (_ size: String) -> Void){
+    func clearCache(completion: @escaping (_ size: String) -> Void) {
         dispatchQueue?.async {
             self.clearMemoryCache()
             let size = self.clearDiskCache()
@@ -90,19 +136,21 @@ class VideoCacheManager: NSObject {
     }
     
     /// Clear All Data in Memory Cache
-    private func clearMemoryCache(){
+    private func clearMemoryCache() {
         memoryCache?.removeAllObjects()
     }
     
     /// Clear All Data in Disk Cache
-    private func clearDiskCache() -> String{
+    private func clearDiskCache() -> String {
         do {
             let contents = try diskCache.contentsOfDirectory(atPath: diskDirectoryURL!.path)
-            var folderSize:Float = 0
+            var folderSize: Float = 0
             for name in contents {
                 let path = (diskDirectoryURL?.path)! + "/" + name
                 let fileDict = try diskCache.attributesOfItem(atPath: path)
-                folderSize += fileDict[FileAttributeKey.size] as! Float
+                if let size = fileDict[FileAttributeKey.size] as? Float {
+                     folderSize += size
+                }
                 try diskCache.removeItem(atPath: path)
             }
             // Unit: MB
@@ -129,8 +177,8 @@ func sha256(_ str: String) -> String? {
     return rc
 }
 
-extension String{
-    static func format(decimal:Float, _ maximumDigits:Int = 1, _ minimumDigits:Int = 1) ->String? {
+extension String {
+    static func format(decimal: Float, _ maximumDigits: Int = 1, _ minimumDigits:Int = 1) -> String? {
         let number = NSNumber(value: decimal)
         let numberFormatter = NumberFormatter()
         numberFormatter.maximumFractionDigits = maximumDigits
@@ -139,4 +187,3 @@ extension String{
     }
     
 }
-
