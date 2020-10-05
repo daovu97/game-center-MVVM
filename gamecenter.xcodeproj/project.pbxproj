@@ -27,6 +27,10 @@
 		F03BF53825241F7E006018BC /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03BF53525241F7E006018BC /* Scene.swift */; };
 		F03BF53925241F7E006018BC /* SceneTransitionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03BF53625241F7E006018BC /* SceneTransitionType.swift */; };
 		F05D2535252ABAC500E019DB /* BaseSelectedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05D2534252ABAC500E019DB /* BaseSelectedCell.swift */; };
+		F05D2537252ACADF00E019DB /* TopTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05D2536252ACADF00E019DB /* TopTabBarViewController.swift */; };
+		F05D253A252AD83E00E019DB /* TopViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05D2539252AD83E00E019DB /* TopViewCell.swift */; };
+		F05D253C252AF58800E019DB /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05D253B252AF58800E019DB /* VideoView.swift */; };
+		F05D253F252B0B4200E019DB /* VideoCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05D253E252B0B4200E019DB /* VideoCacheManager.swift */; };
 		F066AE90252708E800800ABB /* SelectGenre.json in Resources */ = {isa = PBXBuildFile; fileRef = F066AE8F252708E800800ABB /* SelectGenre.json */; };
 		F066AE9525270B1F00800ABB /* GenreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066AE9425270B1F00800ABB /* GenreModel.swift */; };
 		F066AE9725270B5F00800ABB /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = F066AE9625270B5F00800ABB /* Genre.swift */; };
@@ -75,6 +79,10 @@
 		F03BF53525241F7E006018BC /* Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		F03BF53625241F7E006018BC /* SceneTransitionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneTransitionType.swift; sourceTree = "<group>"; };
 		F05D2534252ABAC500E019DB /* BaseSelectedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSelectedCell.swift; sourceTree = "<group>"; };
+		F05D2536252ACADF00E019DB /* TopTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabBarViewController.swift; sourceTree = "<group>"; };
+		F05D2539252AD83E00E019DB /* TopViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopViewCell.swift; sourceTree = "<group>"; };
+		F05D253B252AF58800E019DB /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
+		F05D253E252B0B4200E019DB /* VideoCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCacheManager.swift; sourceTree = "<group>"; };
 		F066AE8F252708E800800ABB /* SelectGenre.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SelectGenre.json; sourceTree = "<group>"; };
 		F066AE9425270B1F00800ABB /* GenreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreModel.swift; sourceTree = "<group>"; };
 		F066AE9625270B5F00800ABB /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
@@ -132,6 +140,7 @@
 		F02F35E52524201800876428 /* Top */ = {
 			isa = PBXGroup;
 			children = (
+				F05D2538252AD82800E019DB /* View */,
 				F02F35F02524240500876428 /* TopViewController.swift */,
 				F02F35F22524241400876428 /* TopViewModel.swift */,
 			);
@@ -196,6 +205,7 @@
 		F03BF51A2523310F006018BC /* gamecenter */ = {
 			isa = PBXGroup;
 			children = (
+				F05D253D252B0B2500E019DB /* Utils */,
 				F07C1C7A252591FC00DB9AE1 /* Model */,
 				F02F35FE252462BA00876428 /* Services */,
 				F03BF53125241F3D006018BC /* Common */,
@@ -249,6 +259,7 @@
 				F03BF53525241F7E006018BC /* Scene.swift */,
 				F03BF53425241F7D006018BC /* SceneCoodinator.swift */,
 				F03BF53625241F7E006018BC /* SceneTransitionType.swift */,
+				F05D2536252ACADF00E019DB /* TopTabBarViewController.swift */,
 			);
 			path = Cordinator;
 			sourceTree = "<group>";
@@ -259,6 +270,23 @@
 				F066AE9A25271C7100800ABB /* SelectedGenreCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		F05D2538252AD82800E019DB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F05D2539252AD83E00E019DB /* TopViewCell.swift */,
+				F05D253B252AF58800E019DB /* VideoView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F05D253D252B0B2500E019DB /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				F05D253E252B0B4200E019DB /* VideoCacheManager.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		F066AE9125270A9B00800ABB /* Remote */ = {
@@ -467,6 +495,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F05D253F252B0B4200E019DB /* VideoCacheManager.swift in Sources */,
 				F02F35F12524240500876428 /* TopViewController.swift in Sources */,
 				F03BF53725241F7E006018BC /* SceneCoodinator.swift in Sources */,
 				F02F3600252462CA00876428 /* UserDefault.swift in Sources */,
@@ -477,13 +506,16 @@
 				F07C1C832525937A00DB9AE1 /* ParentPlatfomModel.swift in Sources */,
 				F066AE9B25271C7100800ABB /* SelectedGenreCell.swift in Sources */,
 				F07C1C6C2525793A00DB9AE1 /* SelectPlatformViewController.swift in Sources */,
+				F05D253A252AD83E00E019DB /* TopViewCell.swift in Sources */,
 				F03BF53825241F7E006018BC /* Scene.swift in Sources */,
+				F05D253C252AF58800E019DB /* VideoView.swift in Sources */,
 				F07C1C872525B2FB00DB9AE1 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				F03BF51C2523310F006018BC /* AppDelegate.swift in Sources */,
 				F03BF51E2523310F006018BC /* SceneDelegate.swift in Sources */,
 				F02F35EB2524205F00876428 /* BaseViewModel.swift in Sources */,
 				F066AE9525270B1F00800ABB /* GenreModel.swift in Sources */,
 				F07C1C80252592A500DB9AE1 /* BaseResponse.swift in Sources */,
+				F05D2537252ACADF00E019DB /* TopTabBarViewController.swift in Sources */,
 				F05D2535252ABAC500E019DB /* BaseSelectedCell.swift in Sources */,
 				F07C1C7025257A6200DB9AE1 /* UIView+Constrain+Extension.swift in Sources */,
 				F07C1C7225257A8000DB9AE1 /* UITableview+Extension.swift in Sources */,

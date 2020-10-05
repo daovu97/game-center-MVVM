@@ -22,6 +22,7 @@ class BaseViewController<T: BaseViewModel>: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         refreshView()
     }
     
@@ -33,7 +34,7 @@ class BaseViewController<T: BaseViewModel>: UIViewController {
     }
     
     open func setupView() {
-        view.backgroundColor = .white
+        view.backgroundColor = .black
     }
     
     open func setupConstrain() {}
