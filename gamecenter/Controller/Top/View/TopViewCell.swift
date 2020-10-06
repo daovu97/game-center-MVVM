@@ -12,24 +12,29 @@ import AVFoundation
 class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
     var videoURL: String? {
         didSet {
-            videoLayer.isHidden = videoURL == nil
+            videoLayer?.isHidden = videoURL == nil
         }
     }
     
-    var videoLayer: AVPlayerLayer = AVPlayerLayer()
+    var videoLayer: AVPlayerLayer?
     
     override func setupView() {
-        videoLayer.backgroundColor = UIColor.clear.cgColor
-        videoLayer.videoGravity = .resizeAspect
-        layer.addSublayer(videoLayer)
-        videoLayer.frame = self.contentView.bounds
+        
+        
     }
     
     func configure(url: String) {
         self.videoURL = url
+        videoLayer = AVPlayerLayer()
+        videoLayer!.backgroundColor = UIColor.clear.cgColor
+        videoLayer!.videoGravity = .resizeAspect
+        layer.addSublayer(videoLayer!)
+        videoLayer!.frame = self.contentView.bounds
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        videoLayer?.removeFromSuperlayer()
+        videoLayer = nil
     }
 }

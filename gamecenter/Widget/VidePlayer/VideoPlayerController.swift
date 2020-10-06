@@ -11,7 +11,7 @@ import AVFoundation
 
 protocol AutoPlayVideoLayerContainer {
     var videoURL: String? { get set }
-    var videoLayer: AVPlayerLayer { get set }
+    var videoLayer: AVPlayerLayer? { get set }
 }
 
 class VideoPlayerController: NSObject, NSCacheDelegate {
@@ -22,11 +22,6 @@ class VideoPlayerController: NSObject, NSCacheDelegate {
     
     private var videoURL: String?
     
-    /**
-     Stores video url as key and true as value when player item associated to the url
-     is being observed for its status change.
-     Helps in removing observers for player items that are not being played.
-     */
     private var observingURLs = [String: Bool]()
     // Cache of player and player item
     private var videoCache = NSCache<NSString, VideoPlayerContainer>()
@@ -58,11 +53,6 @@ class VideoPlayerController: NSObject, NSCacheDelegate {
             guard let strongSelf = self else {
                 return
             }
-            /**
-             Need to check whether asset loaded successfully, if not successful then don't create
-             AVPlayer and AVPlayerItem and return without caching the videocontainer,
-             so that, the assets can be tried to be downloaded again when need be.
-             */
             var error: NSError?
             let status = asset.statusOfValue(forKey: "playable", error: &error)
             switch status {
@@ -81,10 +71,7 @@ class VideoPlayerController: NSObject, NSCacheDelegate {
                 let videoContainer = VideoPlayerContainer(player: player, item: item, url: url)
                 strongSelf.videoCache.setObject(videoContainer, forKey: url as NSString)
                 videoContainer.player.replaceCurrentItem(with: videoContainer.playerItem)
-                /**
-                 Try to play video again in case when playvideo method was called and
-                 asset was not obtained, so, earlier video must have not run
-                 */
+
                 if strongSelf.videoURL == url, let layer = strongSelf.currentLayer {
                     strongSelf.playVideo(withLayer: layer, url: url)
                 }
@@ -108,30 +95,7 @@ class VideoPlayerController: NSObject, NSCacheDelegate {
         if let videoContainer = self.videoCache.object(forKey: url as NSString) {
             videoContainer.playOn = false
             layer.player?.seek(to: .zero)
-            removeObserverFor(url: url)
-        } else {
-            layer.isHidden = true
         }
-    }
-    
-    func removeLayerFor(cell: AutoPlayVideoLayerContainer) {
-        if let url = cell.videoURL {
-            removeFromSuperLayer(layer: cell.videoLayer, url: url)
-        }
-    }
-    
-    private func removeFromSuperLayer(layer: AVPlayerLayer, url: String) {
-        videoURL = nil
-        currentLayer = nil
-        if let videoContainer = self.videoCache.object(forKey: url as NSString) {
-            videoContainer.playOn = false
-            removeObserverFor(url: url)
-        }
-        layer.player = nil
-    }
-    
-    private func pauseRemoveLayer(layer: AVPlayerLayer, url: String) {
-        pauseVideo(forLayer: layer, url: url)
     }
     
     //Loop Play video again in case the current player has finished playing
@@ -155,6 +119,73 @@ class VideoPlayerController: NSObject, NSCacheDelegate {
         return nil
     }
     
+    /**
+     Play UICollectionViewCell's when the scroll stops.
+     */
+    func playVideosFor(collectionView: UICollectionView,
+                       currentVisibleIndexPath: IndexPath? = nil,
+                       appEnteredFromBackground: Bool = false) {
+        
+        if appEnteredFromBackground {
+            collectionView.visibleCells.forEach { (cell) in
+                if let cell = cell as? AutoPlayVideoLayerContainer,
+                    let videoCellURL = cell.videoURL, let videoLayer = cell.videoLayer {
+                    self.playVideo(withLayer: videoLayer, url: videoCellURL)
+                }
+            }
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                if let containerCell = collectionView.cellForItem(at: currentVisibleIndexPath ??
+                    IndexPath(row: 0, section: 0)) as? AutoPlayVideoLayerContainer,
+                    let videoCellURL = containerCell.videoURL, let videoLayer = containerCell.videoLayer {
+                    self.playVideo(withLayer: videoLayer, url: videoCellURL)
+                }
+            }
+        }
+    }
+    
+    func pauseVideosFor(cell: UICollectionViewCell) {
+        if let cell = cell as? AutoPlayVideoLayerContainer,
+            let videoCellURL = cell.videoURL, let videoLayer = cell.videoLayer {
+            self.pauseVideo(forLayer: videoLayer, url: videoCellURL)
+        }
+    }
+    
+    func playVideosFor(cell: UICollectionViewCell) {
+        if let cell = cell as? AutoPlayVideoLayerContainer,
+            let videoCellURL = cell.videoURL, let videoLayer = cell.videoLayer {
+             self.playVideo(withLayer: videoLayer, url: videoCellURL)
+        }
+    }
+    
+    // Set observing urls false when objects are removed from cache
+    func cache(_ cache: NSCache<AnyObject, AnyObject>, willEvictObject obj: Any) {
+        if let videoObject = obj as? VideoPlayerContainer {
+            observingURLs[videoObject.url] = false
+        }
+    }
+    
+    deinit {
+        
+    }
+}
+
+// MARK: - KVO
+extension VideoPlayerController {
+    private func removeObserverFor(url: String) {
+        if let videoContainer = self.videoCache.object(forKey: url as NSString) {
+            if let currentItem = videoContainer.player.currentItem, observingURLs[url] == true {
+                currentItem.removeObserver(self,
+                                           forKeyPath: "status",
+                                           context: &VideoPlayerController.playerViewControllerKVOContext)
+                NotificationCenter.default.removeObserver(self,
+                                                          name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
+                                                          object: currentItem)
+                observingURLs[url] = false
+            }
+        }
+    }
+    
     private func addObservers(url: String, videoContainer: VideoPlayerContainer) {
         if self.observingURLs[url] == false || self.observingURLs[url] == nil {
             videoContainer.player
@@ -171,59 +202,6 @@ class VideoPlayerController: NSObject, NSCacheDelegate {
         }
     }
     
-    private func removeObserverFor(url: String) {
-        if let videoContainer = self.videoCache.object(forKey: url as NSString) {
-            if let currentItem = videoContainer.player.currentItem, observingURLs[url] == true {
-                currentItem.removeObserver(self,
-                                           forKeyPath: "status",
-                                           context: &VideoPlayerController.playerViewControllerKVOContext)
-                NotificationCenter.default.removeObserver(self,
-                                                          name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
-                                                          object: currentItem)
-                observingURLs[url] = false
-            }
-        }
-    }
-    
-    /**
-     Play UICollectionViewCell's when the scroll stops.
-     */
-    func playVideosFor(collectionView: UICollectionView,
-                        currentVisibleIndexPath: IndexPath? = nil,
-                        appEnteredFromBackground: Bool = false) {
-        
-        if appEnteredFromBackground {
-            collectionView.visibleCells.forEach { (cell) in
-                if let cell = cell as? AutoPlayVideoLayerContainer,
-                    let videoCellURL = cell.videoURL {
-                    self.playVideo(withLayer: cell.videoLayer, url: videoCellURL)
-                }
-            }
-        } else {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                if let containerCell = collectionView.cellForItem(at: currentVisibleIndexPath ??
-                    IndexPath(row: 0, section: 0)) as? AutoPlayVideoLayerContainer,
-                    let videoCellURL = containerCell.videoURL {
-                    self.playVideo(withLayer: containerCell.videoLayer, url: videoCellURL)
-                }
-            }
-        }
-    }
-    
-    func pauseVideosFor(cell: UICollectionViewCell) {
-        if let cell = cell as? AutoPlayVideoLayerContainer,
-            let videoCellURL = cell.videoURL {
-            self.pauseVideo(forLayer: cell.videoLayer, url: videoCellURL)
-        }
-    }
-    
-    // Set observing urls false when objects are removed from cache
-    func cache(_ cache: NSCache<AnyObject, AnyObject>, willEvictObject obj: Any) {
-        if let videoObject = obj as? VideoPlayerContainer {
-            observingURLs[videoObject.url] = false
-        }
-    }
-    
     override func observeValue(forKeyPath keyPath: String?,
                                of object: Any?, change: [NSKeyValueChangeKey: Any]?,
                                context: UnsafeMutableRawPointer?) {
@@ -232,10 +210,6 @@ class VideoPlayerController: NSObject, NSCacheDelegate {
             return
         }
         if keyPath == "status" {
-            /**
-             Handle `NSNull` value for `NSKeyValueChangeNewKey`, i.e. when
-             `player.currentItem` is nil.
-             */
             let newStatus: AVPlayerItem.Status
             if let newStatusAsNumber = change?[NSKeyValueChangeKey.newKey] as? NSNumber {
                 newStatus = AVPlayerItem.Status(rawValue: newStatusAsNumber.intValue)!
@@ -255,9 +229,5 @@ class VideoPlayerController: NSObject, NSCacheDelegate {
                 
             }
         }
-    }
-    
-    deinit {
-        
     }
 }

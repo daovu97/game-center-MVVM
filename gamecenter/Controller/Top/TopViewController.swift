@@ -42,7 +42,7 @@ class TopViewController: BaseViewController<TopViewModel> {
     
     @objc func appEnteredFromBackground() {
         viewModel.setUpVideoData()
-        pausePlayeVideos(currentVisibleIndexPath: IndexPath(item: self.currentItem, section: 0), fromBG: true)
+        pausePlayeVideos(currentVisibleIndexPath: currentItem, fromBG: true)
     }
     
     override func refreshView() {
@@ -87,7 +87,7 @@ class TopViewController: BaseViewController<TopViewModel> {
         pausePlayeVideos()
     }
     
-    private(set) var currentItem = -1
+    private(set) var currentItem = IndexPath(row: 0, section: 0)
 }
 
 extension TopViewController: UICollectionViewDataSource {
@@ -125,11 +125,15 @@ extension TopViewController: UICollectionViewDelegateFlowLayout {
 
 extension TopViewController: UICollectionViewDelegate {
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if self.currentItem != Int(scrollView.contentOffset.y / self.collectionView.frame.height) {
-            currentItem = Int(scrollView.contentOffset.y / self.collectionView.frame.height)
-            pausePlayeVideos(currentVisibleIndexPath: IndexPath(item: self.currentItem, section: 0))
+     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if let cell = self.collectionView.cellForItem(at: currentItem) {
+            VideoPlayerController.shared.playVideosFor(cell: cell)
         }
+        
+     }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        currentItem = indexPath
     }
     
     func collectionView(_ collectionView: UICollectionView,
