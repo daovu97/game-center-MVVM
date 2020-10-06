@@ -9,24 +9,27 @@
 import UIKit
 import AVFoundation
 
-class TopViewCell: BaseCollectionViewCell {
+class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
+    var videoURL: String? {
+        didSet {
+            videoLayer.isHidden = videoURL == nil
+        }
+    }
     
-    private lazy var videoView: VideoView = {
-        let videoView = VideoView()
-        return videoView
-    }()
+    var videoLayer: AVPlayerLayer = AVPlayerLayer()
     
     override func setupView() {
-        contentView.addSubview(videoView)
-        videoView.fillSuperview()
+        videoLayer.backgroundColor = UIColor.clear.cgColor
+        videoLayer.videoGravity = .resizeAspect
+        layer.addSublayer(videoLayer)
+        videoLayer.frame = self.contentView.bounds
     }
     
     func configure(url: String) {
-        videoView.configure(url: URL(string: url))
-        videoView.play()
+        self.videoURL = url
     }
     
     override func prepareForReuse() {
-        videoView.cancelAllLoadingRequest()
+        super.prepareForReuse()
     }
 }

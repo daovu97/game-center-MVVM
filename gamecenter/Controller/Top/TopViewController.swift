@@ -7,7 +7,8 @@
 //
 
 import UIKit
-import AVFoundation
+import RxCocoa
+import RxSwift
 
 class TopViewController: BaseViewController<TopViewModel> {
     
@@ -30,14 +31,18 @@ class TopViewController: BaseViewController<TopViewModel> {
         return collectionView
     }()
     
-    let videos: [String] = [
-                            "https://media.rawg.io/media/stories/92d/92d070309b4ad98aa48ec6f15eb44259.mp4",
-                            "https://media.rawg.io/media/stories/777/77738935b59ea443752c783743fb8175.mp4",
-                            "https://media.rawg.io/media/stories/c33/c3340048fb5377bb6858bca7a42d2705.mp4"]
-    
     override func setupView() {
         view.backgroundColor = .black
         setUpCollectionView()
+        viewModel.getVideo()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.appEnteredFromBackground),
+                                               name: UIApplication.willEnterForegroundNotification, object: nil)
+    }
+    
+    @objc func appEnteredFromBackground() {
+        viewModel.setUpVideoData()
+        pausePlayeVideos(currentVisibleIndexPath: IndexPath(item: self.currentItem, section: 0), fromBG: true)
     }
     
     override func refreshView() {
@@ -59,7 +64,15 @@ class TopViewController: BaseViewController<TopViewModel> {
     }
     
     override func bindViewModel() {
-        
+        viewModel.collectionViewUpdate.bind { (update) in
+            switch update {
+            case .add: break
+            case .reload:
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+            }
+        }.disposed(by: disposeBag)
     }
     
     override func setupNaviBar() {
@@ -68,17 +81,24 @@ class TopViewController: BaseViewController<TopViewModel> {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        pausePlayeVideos()
+    }
+    
+    private(set) var currentItem = -1
 }
 
 extension TopViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return videos.count
+        return viewModel.videos.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell =  collectionView.dequeueReusableCell(TopViewCell.self, for: indexPath)
-        cell.configure(url: videos[indexPath.row])
+        cell.configure(url: viewModel.videos[indexPath.row])
         return cell
     }
 }
@@ -100,5 +120,27 @@ extension TopViewController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+}
+
+extension TopViewController: UICollectionViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if self.currentItem != Int(scrollView.contentOffset.y / self.collectionView.frame.height) {
+            currentItem = Int(scrollView.contentOffset.y / self.collectionView.frame.height)
+            pausePlayeVideos(currentVisibleIndexPath: IndexPath(item: self.currentItem, section: 0))
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        VideoPlayerController.shared.pauseVideosFor(cell: cell)
+    }
+    
+    func pausePlayeVideos(lastVisible: IndexPath? = nil,
+                          currentVisibleIndexPath: IndexPath? = nil, fromBG: Bool = false) {
+        VideoPlayerController.shared.playVideosFor(collectionView: collectionView,
+                                                   currentVisibleIndexPath: currentVisibleIndexPath,
+                                                   appEnteredFromBackground: fromBG)
     }
 }
