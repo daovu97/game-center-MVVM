@@ -42,7 +42,7 @@ class TopViewController: BaseViewController<TopViewModel> {
     
     @objc func appEnteredFromBackground() {
         viewModel.setUpVideoData()
-        pausePlayeVideos(currentVisibleIndexPath: currentItem, fromBG: true)
+        playVideo(at: currentItem)
     }
     
     override func refreshView() {
@@ -84,7 +84,7 @@ class TopViewController: BaseViewController<TopViewModel> {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        pausePlayeVideos()
+        playVideo(at: currentItem)
     }
     
     private(set) var currentItem = IndexPath(row: 0, section: 0)
@@ -125,12 +125,9 @@ extension TopViewController: UICollectionViewDelegateFlowLayout {
 
 extension TopViewController: UICollectionViewDelegate {
     
-     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if let cell = self.collectionView.cellForItem(at: currentItem) {
-            VideoPlayerController.shared.playVideosFor(cell: cell)
-        }
-        
-     }
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        playVideo(at: currentItem)
+    }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         currentItem = indexPath
@@ -141,10 +138,9 @@ extension TopViewController: UICollectionViewDelegate {
         VideoPlayerController.shared.pauseVideosFor(cell: cell)
     }
     
-    func pausePlayeVideos(lastVisible: IndexPath? = nil,
-                          currentVisibleIndexPath: IndexPath? = nil, fromBG: Bool = false) {
-        VideoPlayerController.shared.playVideosFor(collectionView: collectionView,
-                                                   currentVisibleIndexPath: currentVisibleIndexPath,
-                                                   appEnteredFromBackground: fromBG)
+    func playVideo(at item: IndexPath) {
+        if let cell = self.collectionView.cellForItem(at: item) {
+            VideoPlayerController.shared.playVideosFor(cell: cell)
+        }
     }
 }

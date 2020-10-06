@@ -20,7 +20,6 @@ class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
     
     override func setupView() {
         
-        
     }
     
     func configure(url: String) {

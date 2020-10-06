@@ -119,31 +119,6 @@ class VideoPlayerController: NSObject, NSCacheDelegate {
         return nil
     }
     
-    /**
-     Play UICollectionViewCell's when the scroll stops.
-     */
-    func playVideosFor(collectionView: UICollectionView,
-                       currentVisibleIndexPath: IndexPath? = nil,
-                       appEnteredFromBackground: Bool = false) {
-        
-        if appEnteredFromBackground {
-            collectionView.visibleCells.forEach { (cell) in
-                if let cell = cell as? AutoPlayVideoLayerContainer,
-                    let videoCellURL = cell.videoURL, let videoLayer = cell.videoLayer {
-                    self.playVideo(withLayer: videoLayer, url: videoCellURL)
-                }
-            }
-        } else {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                if let containerCell = collectionView.cellForItem(at: currentVisibleIndexPath ??
-                    IndexPath(row: 0, section: 0)) as? AutoPlayVideoLayerContainer,
-                    let videoCellURL = containerCell.videoURL, let videoLayer = containerCell.videoLayer {
-                    self.playVideo(withLayer: videoLayer, url: videoCellURL)
-                }
-            }
-        }
-    }
-    
     func pauseVideosFor(cell: UICollectionViewCell) {
         if let cell = cell as? AutoPlayVideoLayerContainer,
             let videoCellURL = cell.videoURL, let videoLayer = cell.videoLayer {
