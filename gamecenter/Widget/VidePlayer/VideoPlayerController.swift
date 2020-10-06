@@ -90,11 +90,12 @@ class VideoPlayerController: NSObject, NSCacheDelegate {
     }
     
     private func pauseVideo(forLayer layer: AVPlayerLayer, url: String) {
-        videoURL = nil
-        currentLayer = nil
+//        videoURL = nil
+//        currentLayer = nil
         if let videoContainer = self.videoCache.object(forKey: url as NSString) {
             videoContainer.playOn = false
             layer.player?.seek(to: .zero)
+            removeObserverFor(url: url)
         }
     }
     

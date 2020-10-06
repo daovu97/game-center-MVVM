@@ -33,7 +33,7 @@ class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        videoLayer?.removeFromSuperlayer()
+//        videoLayer?.removeFromSuperlayer()
         videoLayer = nil
     }
 }
