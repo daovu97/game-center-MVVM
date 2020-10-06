@@ -130,13 +130,11 @@ extension TopViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-          print("willDisplay")
         currentItem = indexPath
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        print("didEndDisplaying")
         VideoPlayerController.shared.pauseVideosFor(cell: cell)
     }
     

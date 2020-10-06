@@ -9,7 +9,23 @@
 import UIKit
 import AVFoundation
 
-class VideoPlayerContainer {
+class VideoPlayerContainer: NSDiscardableContent {
+    func beginContentAccess() -> Bool {
+        return true
+    }
+    
+    func endContentAccess() {
+        
+    }
+    
+    func discardContentIfPossible() {
+        
+    }
+    
+    func isContentDiscarded() -> Bool {
+        return false
+    }
+    
     var url: String
     var appEnteredFromBackground: Bool = false
     var playOn: Bool {
