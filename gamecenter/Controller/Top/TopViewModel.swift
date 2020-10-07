@@ -10,28 +10,77 @@ import Foundation
 import RxSwift
 
 final class TopViewModel: BaseViewModel {
-    var videoTemp = [
-        "https://media.rawg.io/media/stories/92d/92d070309b4ad98aa48ec6f15eb44259.mp4",
-        "https://media.rawg.io/media/stories/777/77738935b59ea443752c783743fb8175.mp4",
-        "https://media.rawg.io/media/stories/c33/c3340048fb5377bb6858bca7a42d2705.mp4",
-        "https://media.rawg.io/media/stories-640/87d/87d4e1f282c61630795c5436515a073a.mp4",
-        "https://media.rawg.io/media/stories-640/7d9/7d9f5184eef081acbbe06b91b7237d01.mp4",
-        "https://media.rawg.io/media/stories-640/285/285fbb732e5b7905369bfee93859e881.mp4",
-        "https://media.rawg.io/media/stories-640/769/7697a34ae4d841ea14a84cbde41bfad6.mp4"]
+    var datas = [TopVideoGameModel]()
+    private var isLoading: Bool = false
+    let dataTemp = [
+        TopVideoGameModel(id: 1, name: "Fall Guys: Ultimate Knockout", star: 4.4,
+                          detail: "Action, Casual",
+                          videoUrl: "https://media.rawg.io/media/stories/92d/92d070309b4ad98aa48ec6f15eb44259.mp4",
+                          platform: [ParentPlatformModel(id: 1, name: "PC"),
+                                     ParentPlatformModel(id: 2, name: "PlayStation")]),
+        TopVideoGameModel(id: 1, name: "Animal Crossing: New Horizons", star: 4.6,
+                          detail: "Action, Casual, Sports",
+                          videoUrl: "https://media.rawg.io/media/stories/777/77738935b59ea443752c783743fb8175.mp4",
+                          platform: [ParentPlatformModel(id: 1, name: "PC"),
+                                     ParentPlatformModel(id: 2, name: "PlayStation")]),
+        TopVideoGameModel(id: 1, name: "Mafia III: Definitive Edition", star: 4.6,
+                          detail: "Action, Casual, Sports",
+                          videoUrl: "https://media.rawg.io/media/stories/c33/c3340048fb5377bb6858bca7a42d2705.mp4",
+                          platform: [ParentPlatformModel(id: 1, name: "PC"),
+                                     ParentPlatformModel(id: 2, name: "PlayStation")]),
+        TopVideoGameModel(id: 1, name: "DOOM Eternal", star: 4.2,
+                          detail: "Action, Casual, Sports, Arcade",
+                          videoUrl: "https://media.rawg.io/media/stories-640/87d/87d4e1f282c61630795c5436515a073a.mp4",
+                          platform: [ParentPlatformModel(id: 1, name: "PC"),
+                                     ParentPlatformModel(id: 2, name: "PlayStation"),
+                                     ParentPlatformModel(id: 3, name: "Xbox"),
+                                     ParentPlatformModel(id: 7, name: "Nintendo"),
+                                     ParentPlatformModel(id: 8, name: "")]),
+        TopVideoGameModel(id: 1, name: "Fall Guys: Ultimate Knockout", star: 3.9,
+                          detail: "Action, Casual, Sports",
+                          videoUrl: "https://media.rawg.io/media/stories-640/7d9/7d9f5184eef081acbbe06b91b7237d01.mp4",
+                          platform: [ParentPlatformModel(id: 1, name: "PC"),
+                                     ParentPlatformModel(id: 2, name: "PlayStation")]),
+        TopVideoGameModel(id: 1, name: "Mafia II: Definitive Edition", star: 4.0,
+                          detail: "Action, Casual, Adventure",
+                          videoUrl: "https://media.rawg.io/media/stories-640/285/285fbb732e5b7905369bfee93859e881.mp4",
+                          platform: [ParentPlatformModel(id: 1, name: "PC"),
+                                     ParentPlatformModel(id: 2, name: "PlayStation"),
+                                     ParentPlatformModel(id: 2, name: "PlayStation")]),
+        TopVideoGameModel(id: 1, name: "Ori and the Will of the Wisps", star: 4.6,
+                          detail: "Action, Sports, Shooter",
+                          videoUrl: "https://media.rawg.io/media/stories-640/769/7697a34ae4d841ea14a84cbde41bfad6.mp4",
+                          platform: [ParentPlatformModel(id: 1, name: "PC"),
+                                     ParentPlatformModel(id: 2, name: "PlayStation")])
+    ]
     
-    var videos = [String]()
-    var collectionViewUpdate = PublishSubject<ScrollViewUpdate<String>>()
+    var collectionViewUpdate = PublishSubject<ScrollViewUpdate<TopVideoGameModel>>()
     
-    func getVideo() {
-        let lastCount = videos.count
-        videos.append(contentsOf: videoTemp)
-        for index in lastCount...videos.count - 1 {
-            VideoPlayerController.shared.setupVideoFor(url: videos[index])
+    func getVideo(isLoadmore: Bool = false) {
+        if isLoading {
+            return
         }
-        collectionViewUpdate.onNext(.reload)
-    }
-    
-    func setUpVideoData() {
-        videos.forEach { VideoPlayerController.shared.setupVideoFor(url: $0) }
+        isLoading = true
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {[weak self] in
+            let lastCount = self?.datas.count ?? 0
+            self?.datas.append(contentsOf: self?.dataTemp ?? [TopVideoGameModel]())
+            var addIndexPath = [IndexPath]()
+            for index in lastCount...(self?.datas.count ?? 1) - 1 {
+                addIndexPath.append(IndexPath(row: index, section: 0))
+                if let url = self?.datas[index].videoUrl {
+                    VideoPlayerController.shared.setupVideoFor(url: url)
+                } else {
+                    continue
+                }
+            }
+            if isLoadmore {
+                self?.collectionViewUpdate.onNext(.add(value: .init(), position: addIndexPath))
+            } else {
+                self?.collectionViewUpdate.onNext(.reload)
+            }
+            
+            self?.isLoading = false
+        }
     }
 }

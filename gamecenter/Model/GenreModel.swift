@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct GenreModel: Codable {
+struct GenreModel {
     let id: Int?
     let name: String?
     let slug: String?

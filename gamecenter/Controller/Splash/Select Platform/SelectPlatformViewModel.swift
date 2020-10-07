@@ -32,7 +32,7 @@ final class SelectPlatformViewModel: BaseSelectViewModel {
 }
 
 enum ScrollViewUpdate<T> {
-    case add(value: [T], position: [Int])
+    case add(value: [T], position: [IndexPath])
     case reload
 }
 
