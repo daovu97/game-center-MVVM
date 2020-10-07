@@ -7,4 +7,18 @@
 //
 
 import Foundation
-open class BaseViewModel {}
+import RxSwift
+
+open class BaseViewModel {
+    
+    var showProgressStatus = PublishSubject<Bool>()
+    
+    func showProgress() {
+        showProgressStatus.onNext(true)
+    }
+    
+    func hideProgress() {
+        showProgressStatus.onNext(false)
+    }
+    
+}

@@ -15,4 +15,7 @@ pod 'RxCocoa', '~> 5'
 
 pod 'Alamofire', '~> 5.2'
 
+#lottie
+pod 'lottie-ios'
+
 end

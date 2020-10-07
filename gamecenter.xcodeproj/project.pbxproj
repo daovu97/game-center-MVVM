@@ -22,6 +22,7 @@
 		F03A31B8252D710B00BE562F /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03A31B7252D710B00BE562F /* StarView.swift */; };
 		F03A31BA252D7DCC00BE562F /* ImageSubLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03A31B9252D7DCC00BE562F /* ImageSubLabelView.swift */; };
 		F03A31BC252D9B0000BE562F /* LikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03A31BB252D9B0000BE562F /* LikeButton.swift */; };
+		F03A31BF252DA91300BE562F /* LoadingAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = F03A31BE252DA91300BE562F /* LoadingAnimation.json */; };
 		F03BF51C2523310F006018BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03BF51B2523310F006018BC /* AppDelegate.swift */; };
 		F03BF51E2523310F006018BC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03BF51D2523310F006018BC /* SceneDelegate.swift */; };
 		F03BF5202523310F006018BC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03BF51F2523310F006018BC /* ViewController.swift */; };
@@ -77,6 +78,7 @@
 		F03A31B7252D710B00BE562F /* StarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
 		F03A31B9252D7DCC00BE562F /* ImageSubLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSubLabelView.swift; sourceTree = "<group>"; };
 		F03A31BB252D9B0000BE562F /* LikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton.swift; sourceTree = "<group>"; };
+		F03A31BE252DA91300BE562F /* LoadingAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LoadingAnimation.json; sourceTree = "<group>"; };
 		F03BF5182523310F006018BC /* gamecenter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gamecenter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F03BF51B2523310F006018BC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F03BF51D2523310F006018BC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -195,6 +197,14 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		F03A31BD252DA90500BE562F /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				F03A31BE252DA91300BE562F /* LoadingAnimation.json */,
+			);
+			path = Lottie;
+			sourceTree = "<group>";
+		};
 		F03BF50F2523310F006018BC = {
 			isa = PBXGroup;
 			children = (
@@ -232,6 +242,7 @@
 		F03BF53025241ED8006018BC /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				F03A31BD252DA90500BE562F /* Lottie */,
 				F03BF52625233113006018BC /* LaunchScreen.storyboard */,
 				F03BF52425233113006018BC /* Assets.xcassets */,
 				F03BF51B2523310F006018BC /* AppDelegate.swift */,
@@ -445,6 +456,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F03BF52825233113006018BC /* LaunchScreen.storyboard in Resources */,
+				F03A31BF252DA91300BE562F /* LoadingAnimation.json in Resources */,
 				F03BF52525233113006018BC /* Assets.xcassets in Resources */,
 				F03BF5232523310F006018BC /* Main.storyboard in Resources */,
 				F066AE90252708E800800ABB /* SelectGenre.json in Resources */,

@@ -87,8 +87,26 @@ class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
         return view
     }()
     
+    private lazy var pauseImageView: UIImageView = {
+        let image = UIImageView(image: UIImage(named: "ic_play"))
+        self.contentView.addSubview(image)
+        image.alpha = 0
+        image.tintColor = .white
+        image.centerInSuperview(size: .init(width: 150, height: 150))
+        return image
+    }()
+    
     override func setupView() {
         setupConstrain()
+        self.contentView.isUserInteractionEnabled = true
+        let pauseGesture = UITapGestureRecognizer(target: self, action: #selector(handlePause))
+        self.contentView.addGestureRecognizer(pauseGesture)
+        
+        let likeDoubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleLikeGesture(sender:)))
+        likeDoubleTapGesture.numberOfTapsRequired = 2
+        self.contentView.addGestureRecognizer(likeDoubleTapGesture)
+        
+        pauseGesture.require(toFail: likeDoubleTapGesture)
     }
     
     private func setupConstrain() {
@@ -115,7 +133,7 @@ class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
     }
     
     private func setupActionButton() {
-        let width = contentView.frame.width * 0.12
+        let width = contentView.frame.width * 0.11
         let buttonHeight = width + likeButton.textLabel.frame.height + 8
         likeButton.widthAnchor.constraint(equalToConstant: width).isActive = true
         likeButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
@@ -179,6 +197,10 @@ class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
         
     }
     
+    func hidePause() {
+        pauseImageView.alpha = 0
+    }
+    
     var delegate: TopViewCellAction?
     
     private func addPlatformIcon(platforms: [ParentPlatformModel]) {
@@ -201,10 +223,66 @@ class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        pauseImageView.alpha = 0
         data = nil
         videoLayer?.removeFromSuperlayer()
         platformContainer.removeAllArrangedSubviews()
         videoLayer = nil
+    }
+}
+
+extension TopViewCell {
+    
+    @objc func handlePause() {
+        if videoLayer?.player?.isPlaying == true {
+            // Pause video and show pause sign
+            videoLayer?.player?.pause()
+            UIView.animate(withDuration: 0.075, delay: 0, options: .curveEaseIn, animations: { [weak self] in
+                guard let self = self else { return }
+                self.pauseImageView.alpha = 0.35
+                self.pauseImageView.transform = CGAffineTransform.init(scaleX: 0.45, y: 0.45)
+            })
+        } else {
+            // Start video and remove pause sign
+            videoLayer?.player?.play()
+            UIView.animate(withDuration: 0.075, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
+                guard let self = self else { return }
+                self.pauseImageView.alpha = 0
+                }, completion: { [weak self] _ in
+                    self?.pauseImageView.transform = .identity
+            })
+        }
+    }
+    
+    // Heart Animation with random angle
+    @objc func handleLikeGesture(sender: UITapGestureRecognizer) {
+        let location = sender.location(in: self)
+        let heartView = UIImageView(image: UIImage(named: "ic_heart"))
+        heartView.tintColor = .systemPink
+        let width: CGFloat = 110
+        heartView.contentMode = .scaleAspectFit
+        heartView.frame = CGRect(x: location.x - width / 2, y: location.y - width / 2, width: width, height: width)
+        heartView.transform = CGAffineTransform(rotationAngle: CGFloat.random(in: -CGFloat.pi * 0.2...CGFloat.pi * 0.2))
+        
+        self.contentView.addSubview(heartView)
+        UIView.animate(withDuration: 0.3, delay: 0,
+                       usingSpringWithDamping: 0.8,
+                       initialSpringVelocity: 3, options: [.curveEaseInOut], animations: {
+                        heartView.transform = heartView.transform.scaledBy(x: 0.85, y: 0.85)
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.4, delay: 0.1,
+                           usingSpringWithDamping: 0.8,
+                           initialSpringVelocity: 3, options: [.curveEaseInOut], animations: {
+                            heartView.transform = heartView.transform.scaledBy(x: 2.3, y: 2.3)
+                            heartView.alpha = 0
+            }, completion: { _ in
+                heartView.removeFromSuperview()
+            })
+        })
+        likeButton.isLike = true
+        if let data = data {
+            delegate?.like(model: data)
+        }
     }
 }
 
@@ -229,4 +307,10 @@ protocol TopViewCellAction {
     func like(model: TopVideoGameModel)
     func share(model: TopVideoGameModel)
     func save(model: TopVideoGameModel)
+}
+
+extension AVPlayer {
+    var isPlaying: Bool {
+        return rate != 0 && error == nil
+    }
 }

@@ -42,6 +42,7 @@ class TopViewController: BaseViewController<TopViewModel> {
     
     override func refreshView() {
         super.refreshView()
+        self.playVideo(at: self.currentItem)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -64,6 +65,7 @@ class TopViewController: BaseViewController<TopViewModel> {
     }
     
     override func bindViewModel() {
+        super.bindViewModel()
         viewModel.collectionViewUpdate.bind { (update) in
             switch update {
             case .add(_, let position):
@@ -91,7 +93,7 @@ class TopViewController: BaseViewController<TopViewModel> {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewDidAppear(animated)
     }
 }
 
@@ -155,6 +157,9 @@ extension TopViewController: UICollectionViewDelegate {
     
     func playVideo(at item: IndexPath) {
         if let cell = self.collectionView.cellForItem(at: item) {
+            if let cell = cell as? TopViewCell {
+                cell.hidePause()
+            }
             VideoPlayerController.shared.playVideosFor(cell: cell)
         }
     }

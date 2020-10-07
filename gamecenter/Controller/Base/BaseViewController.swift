@@ -8,14 +8,38 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
+import Lottie
 
 class BaseViewController<T: BaseViewModel>: UIViewController {
     internal let disposeBag = DisposeBag()
     var viewModel: T!
     
+    private lazy var loadingAnimation: AnimationView = {
+        let animationView = AnimationView(name: "LoadingAnimation")
+        animationView.translatesAutoresizingMaskIntoConstraints = false
+        animationView.contentMode = .scaleAspectFill
+        animationView.animationSpeed = 0.8
+        animationView.loopMode = .loop
+        self.view.addSubview(animationView)
+        self.view.bringSubviewToFront(animationView)
+        animationView.isHidden = true
+        animationView.centerInSuperview(size: .init(width: 100, height: 100))
+        return animationView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstrain()
+        viewModel.showProgressStatus.bind {[weak self] (isShow) in
+            if isShow {
+                self?.loadingAnimation.isHidden = false
+                self?.loadingAnimation.play()
+            } else {
+                self?.loadingAnimation.isHidden = true
+                self?.loadingAnimation.stop()
+            }
+        }.disposed(by: disposeBag)
         setupView()
         bindViewModel()
         setupNaviBar()

@@ -61,8 +61,10 @@ final class TopViewModel: BaseViewModel {
             return
         }
         isLoading = true
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {[weak self] in
+        if !isLoadmore {
+            showProgress()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {[weak self] in
             let lastCount = self?.datas.count ?? 0
             self?.datas.append(contentsOf: self?.dataTemp ?? [TopVideoGameModel]())
             var addIndexPath = [IndexPath]()
@@ -79,7 +81,7 @@ final class TopViewModel: BaseViewModel {
             } else {
                 self?.collectionViewUpdate.onNext(.reload)
             }
-            
+             self?.hideProgress()
             self?.isLoading = false
         }
     }
