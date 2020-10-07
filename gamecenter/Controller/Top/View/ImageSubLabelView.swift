@@ -53,6 +53,12 @@ class ImageSubLabelView: UIView {
                          trailing: trailingAnchor,
                          padding: .init(top: 2, left: 0, bottom: 0, right: 0))
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTap)))
+        
+        imageView.layer.shadowColor = UIColor.gray.cgColor
+        imageView.layer.shadowOffset = .init(width: 0, height: 1)
+        imageView.layer.shadowOpacity = 0.6
+        imageView.layer.shadowRadius = 1.0
+        imageView.clipsToBounds = false
     }
     
     @objc private func didTap() {

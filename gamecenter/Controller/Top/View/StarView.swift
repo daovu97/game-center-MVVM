@@ -36,5 +36,10 @@ class StarView: UIView {
     
     override func layoutSubviews() {
         layer.cornerRadius = frame.height / 2
+        layer.shadowColor = UIColor.gray.cgColor
+        layer.shadowOffset = .init(width: 0, height: 1)
+        layer.shadowOpacity = 0.6
+        layer.shadowRadius = frame.height / 2
+        clipsToBounds = false
     }
 }
