@@ -39,14 +39,18 @@ class VideoPlayerController: NSObject, NSCacheDelegate {
      is not present.
      Uses the asset to create new playeritem.
      */
-    func setupVideoFor(url: String) {
+    func setupVideoFor(url: String?, loaded: (() -> Void)? = nil) {
+        guard let url = url else {
+            loaded?()
+            return
+        }
         if self.videoCache.object(forKey: url as NSString) != nil {
             return
         }
         guard let URL = URL(string: url) else {
             return
         }
-        print(url)
+
         let asset = AVURLAsset(url: URL)
         let requestedKeys = ["playable"]
         asset.loadValuesAsynchronously(forKeys: requestedKeys) { [weak self] in
@@ -57,7 +61,7 @@ class VideoPlayerController: NSObject, NSCacheDelegate {
             let status = asset.statusOfValue(forKey: "playable", error: &error)
             switch status {
             case .loaded:
-                break
+                loaded?()
             case .failed, .cancelled:
                 print("Failed to load asset successfully")
                 return

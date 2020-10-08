@@ -56,6 +56,22 @@ final class TopViewModel: BaseViewModel {
     
     var collectionViewUpdate = PublishSubject<ScrollViewUpdate<TopVideoGameModel>>()
     
+    private var callBackWhenLoaded:(() -> Void)?
+    
+    private func doLoadVideoWork(data: [TopVideoGameModel]) {
+        var dataTemp = data
+        callBackWhenLoaded = { [weak self] in
+            dataTemp.remove(at: 0)
+            if dataTemp.isEmpty {
+                return
+            } else {
+                VideoPlayerController.shared.setupVideoFor(url: dataTemp[0].videoUrl, loaded: self?.callBackWhenLoaded)
+            }
+            
+        }
+        VideoPlayerController.shared.setupVideoFor(url: dataTemp[0].videoUrl, loaded: self.callBackWhenLoaded)
+    }
+    
     func getVideo(isLoadmore: Bool = false) {
         if isLoading {
             return
@@ -68,20 +84,19 @@ final class TopViewModel: BaseViewModel {
             let lastCount = self?.datas.count ?? 0
             self?.datas.append(contentsOf: self?.dataTemp ?? [TopVideoGameModel]())
             var addIndexPath = [IndexPath]()
+            
             for index in lastCount...(self?.datas.count ?? 1) - 1 {
                 addIndexPath.append(IndexPath(row: index, section: 0))
-                if let url = self?.datas[index].videoUrl {
-                    VideoPlayerController.shared.setupVideoFor(url: url)
-                } else {
-                    continue
-                }
             }
+            
+            self?.doLoadVideoWork(data: self?.dataTemp ?? [TopVideoGameModel]())
+            
             if isLoadmore {
                 self?.collectionViewUpdate.onNext(.add(value: .init(), position: addIndexPath))
             } else {
                 self?.collectionViewUpdate.onNext(.reload)
             }
-             self?.hideProgress()
+            self?.hideProgress()
             self?.isLoading = false
         }
     }
