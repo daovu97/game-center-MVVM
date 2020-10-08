@@ -31,10 +31,10 @@ class LikeButton: ImageSubLabelView {
         UIView.animate(withDuration: 0.18, delay: 0.0, options: .curveEaseIn, animations: {// HERE
             self.imageView.transform = CGAffineTransform.identity.scaledBy(x: 1.6, y: 1.6) // Scale your imag
             self.imageView.tintColor = isLike ? UIColor.systemPink : UIColor.white
-        }) { _ in
+        }, completion: { _ in
             UIView.animate(withDuration: 0.15, animations: {
                 self.imageView.transform = CGAffineTransform.identity // undo in 1 seconds
             })
-        }
+        })
     }
 }

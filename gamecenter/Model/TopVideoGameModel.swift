@@ -11,8 +11,10 @@ import Foundation
 struct TopVideoGameModel {
     let id: Int?
     let name: String?
-    let star: Float
+    let star: Double?
     let detail: String?
     let videoUrl: String?
     let platform: [ParentPlatformModel]?
+    let suggestionCount: Int?
+    let store: [Stores]?
 }

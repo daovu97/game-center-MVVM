@@ -66,7 +66,7 @@ class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
     }()
     
     private lazy var shareButton: ImageSubLabelView = {
-        let view = ImageSubLabelView(frame: .zero, image: UIImage(named: "ic_share"))
+        let view = ImageSubLabelView(frame: .zero, image: UIImage(named: "ic_share"), showText: false)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.didTapped = { [weak self] in
             if let data = self?.data {
@@ -193,6 +193,18 @@ class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
             addPlatformIcon(platforms: platforms)
         } else {
             platformContainer.isHidden = true
+        }
+        
+        if let rating = data.star {
+            starView.scoreLabel.text = "\(rating.rounded(toPlaces: 1))"
+        } else {
+            starView.scoreLabel.text = "0.0"
+        }
+        
+        if let suggest = data.suggestionCount {
+             likeButton.textLabel.text = "\(suggest)"
+        } else {
+             likeButton.textLabel.text = ""
         }
         
     }
@@ -335,4 +347,22 @@ class GradianView: UIView {
         gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
         layer.insertSublayer(gradientLayer, at: 0)
     }
+}
+
+extension AutoPlayVideoLayerContainer where Self: UICollectionViewCell {
+    func playVideosFor() {
+        VideoPlayerController.shared.playVideosFor(cell: self)
+    }
+    
+    func pauseVideoFor() {
+        VideoPlayerController.shared.pauseVideosFor(cell: self)
+    }
+}
+
+extension Double {
+    /// Rounds the double to decimal places value
+     func rounded(toPlaces places:Int) -> Double {
+           let divisor = pow(10.0, Double(places))
+           return (self * divisor).rounded() / divisor
+       }
 }

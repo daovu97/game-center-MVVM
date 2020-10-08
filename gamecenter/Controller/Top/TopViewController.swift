@@ -31,6 +31,8 @@ class TopViewController: BaseViewController<TopViewModel> {
         return collectionView
     }()
     
+    private lazy var popupView: StoresPopUpView = StoresPopUpView()
+    
     private var currentItem = IndexPath(row: 0, section: 0)
     
     override func setupView() {
@@ -71,7 +73,7 @@ class TopViewController: BaseViewController<TopViewModel> {
             case .add(_, let position):
                 DispatchQueue.main.async {
                     self.collectionView.performBatchUpdates({
-                          self.collectionView.insertItems(at: position)
+                        self.collectionView.insertItems(at: position)
                     }, completion: nil)
                 }
             case .reload:
@@ -80,7 +82,7 @@ class TopViewController: BaseViewController<TopViewModel> {
                 }
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                     self.playVideo(at: self.currentItem)
+                    self.playVideo(at: self.currentItem)
                 }
             }
         }.disposed(by: disposeBag)
@@ -147,7 +149,8 @@ extension TopViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView,
-                        didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+                        didEndDisplaying cell: UICollectionViewCell,
+                        forItemAt indexPath: IndexPath) {
         VideoPlayerController.shared.pauseVideosFor(cell: cell)
     }
     
@@ -156,22 +159,16 @@ extension TopViewController: UICollectionViewDelegate {
     }
     
     func playVideo(at item: IndexPath) {
-        if let cell = self.collectionView.cellForItem(at: item) {
-            if let cell = cell as? TopViewCell {
-                cell.hidePause()
-            }
-            VideoPlayerController.shared.playVideosFor(cell: cell)
+        if let cell = self.collectionView.cellForItem(at: item) as? TopViewCell {
+            cell.hidePause()
+            cell.playVideosFor()
         }
     }
     
     func pauseVideo(at item: IndexPath) {
-        if let cell = self.collectionView.cellForItem(at: item) {
-            pauseVideo(at: cell)
+        if let cell = self.collectionView.cellForItem(at: item) as? TopViewCell {
+            cell.pauseVideoFor()
         }
-    }
-    
-    func pauseVideo(at cell: UICollectionViewCell) {
-        VideoPlayerController.shared.pauseVideosFor(cell: cell)
     }
 }
 
@@ -207,6 +204,14 @@ extension TopViewController: TopViewCellAction {
     }
     
     func save(model: TopVideoGameModel) {
-        print("save + \(model)")
+        showPopup(with: model.store)
+    }
+}
+
+// MARK: - Popup view
+extension TopViewController {
+    func showPopup(with value: [Stores]?) {
+        popupView.show()
+        popupView.setupData(data: value)
     }
 }

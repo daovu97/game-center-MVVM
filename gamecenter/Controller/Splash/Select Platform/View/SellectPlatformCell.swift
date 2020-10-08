@@ -20,7 +20,6 @@ class SellectPlatformCell: BaseSelectedCell {
         return image
     }()
     
-    
     override func setupConstrain() {
         setupIconImage()
         setUpLabelName()
@@ -53,15 +52,13 @@ class SellectPlatformCell: BaseSelectedCell {
         
     }
     
-    func setupData(platform: ParentPlatformModel) {
-        setUpIconImage(image: platform.type?.icon)
-        labelName.text = platform.name ?? ""
-    }
-    
-    override func setSelected(isSelect: Bool = false) {
+    func setupData(platform: ParentPlatformModel, isSelect: Bool = false) {
         super.setSelected(isSelect: isSelect)
         labelName.textColor = isSelect ? UIColor.white : UIColor.black
         iconImage.tintColor = isSelect ? UIColor.white : UIColor.systemPink
+        setUpIconImage(image: platform.type?.icon)
+        labelName.text = platform.name ?? ""
+        rounedWithShadown()
     }
     
     private func setUpIconImage(image: UIImage?) {

@@ -71,12 +71,12 @@ extension SelectPlatformViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForHeaderInSection section: Int) -> CGSize {
-        let textHeaderSize = calculateFrameInText(message: SelectPlatformHeaderView.selectPlatformHeaderTitle,
+        let textHeaderSize = calculateFrameInText(message: selectPlatformHeaderTitle,
                                                   textSize: SelectPlatformHeaderView.titleSize,
                                                   withFont: primaryFontName_bold,
                                                   maxWidth: view.frame.width - 24)
         
-        let subTextSize = calculateFrameInText(message: SelectPlatformHeaderView.subSelectHeaderTitle,
+        let subTextSize = calculateFrameInText(message: subSelectHeaderTitle,
                                                textSize: SelectPlatformHeaderView.subTitleSize,
                                                withFont: primaryFontName_light,
                                                maxWidth: view.frame.width - 24)
@@ -93,18 +93,8 @@ extension SelectPlatformViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(SellectPlatformCell.self, for: indexPath)
-        cell.setupData(platform: viewModel.platforms[indexPath.row])
-        cell.setSelected(isSelect: viewModel.selectedIndexPath.contains(indexPath))
-        
-        cell.layer.shadowColor = UIColor.lightGray.cgColor
-        cell.layer.shadowOffset = CGSize(width: 0, height: 2.0)
-        cell.layer.shadowRadius = 2.0
-        cell.layer.shadowOpacity = 1.0
-        cell.layer.masksToBounds = false
-        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds,
-                                             cornerRadius: cell.contentView.layer.cornerRadius).cgPath
-        cell.layer.backgroundColor = UIColor.clear.cgColor
-        
+        cell.setupData(platform: viewModel.platforms[indexPath.row],
+                       isSelect: viewModel.selectedIndexPath.contains(indexPath))
         return cell
     }
     

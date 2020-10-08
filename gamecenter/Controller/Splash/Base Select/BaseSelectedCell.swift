@@ -9,7 +9,7 @@
 import UIKit
 
 class BaseSelectedCell: BaseCollectionViewCell {
-    internal lazy var labelName: UILabel = {
+    lazy var labelName: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: primaryFontName_light, size: 20)

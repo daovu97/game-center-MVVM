@@ -10,9 +10,9 @@ import UIKit
 
 class BaseSelectViewController<T: BaseSelectViewModel>: BaseViewController<T> {
     
-    internal let itemHeight = CGFloat(40)
+    let itemHeight = CGFloat(40)
     
-    internal lazy var collectionView: UICollectionView = {
+    lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: LeftAlignedCollectionViewFlowLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .white
@@ -28,7 +28,7 @@ class BaseSelectViewController<T: BaseSelectViewModel>: BaseViewController<T> {
         return collectionView
     }()
     
-    internal lazy var floatingButton: UIButton = {
+    lazy var floatingButton: UIButton = {
         let button = UIButton(type: .system)
         button.clipsToBounds = true
         button.layer.masksToBounds = true

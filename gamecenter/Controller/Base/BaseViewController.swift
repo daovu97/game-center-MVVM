@@ -12,7 +12,7 @@ import RxCocoa
 import Lottie
 
 class BaseViewController<T: BaseViewModel>: UIViewController {
-    internal let disposeBag = DisposeBag()
+    let disposeBag = DisposeBag()
     var viewModel: T!
     
     private lazy var loadingAnimation: AnimationView = {
