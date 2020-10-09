@@ -292,12 +292,12 @@
 		F03BF53125241F3D006018BC /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				F0526492252F01200006D0BA /* Constants.swift */,
 				F07C1C6F25257A6200DB9AE1 /* UIView+Constrain+Extension.swift */,
 				F02F35E325241FE600876428 /* Observable+Extension.swift */,
 				F07C1C7125257A8000DB9AE1 /* UITableview+Extension.swift */,
 				F07C1C7325257A8B00DB9AE1 /* NSObject+Extension.swift */,
 				F07C1C842525B25400DB9AE1 /* UIColor+Extension.swift */,
-				F0526492252F01200006D0BA /* Constants.swift */,
 				F0526494252F04680006D0BA /* String.swift */,
 				F00CDDA4253020860080024B /* Double+Extension.swift */,
 			);
