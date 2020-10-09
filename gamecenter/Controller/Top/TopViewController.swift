@@ -31,7 +31,15 @@ class TopViewController: BaseViewController<TopViewModel> {
         return collectionView
     }()
     
-    private lazy var popupView: StoresPopUpView = StoresPopUpView()
+    private lazy var popupView = StoresPopUpView()
+    
+    private lazy var noIntenetView: UnavailableView = {
+        let view = UnavailableView()
+        view.image.image = UIImage(named: "ic_no_intenet")
+        view.titleLabel.text = noInternetTitle
+        view.detailLabel.text = noInternetDetail
+        return view
+    }()
     
     private var currentItem = IndexPath(row: 0, section: 0)
     
@@ -64,27 +72,37 @@ class TopViewController: BaseViewController<TopViewModel> {
                               leading: view.leadingAnchor,
                               bottom: view.safeAreaLayoutGuide.bottomAnchor,
                               trailing: view.trailingAnchor)
+        view.addSubview(noIntenetView)
+        noIntenetView.fillSuperview()
+    }
+    
+    override func netWorkStatusChange(isConnected: Bool) {
+        super.netWorkStatusChange(isConnected: isConnected)
+        if viewModel.datas.isEmpty {
+            noIntenetView.isHidden = isConnected
+            if isConnected {
+                viewModel.getVideo()
+            }
+        }
     }
     
     override func bindViewModel() {
         super.bindViewModel()
-        viewModel.collectionViewUpdate.bind { (update) in
-            switch update {
-            case .add(_, let position):
-                DispatchQueue.main.async {
-                    self.collectionView.performBatchUpdates({
-                        self.collectionView.insertItems(at: position)
-                    }, completion: nil)
-                }
-            case .reload:
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                }
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.playVideo(at: self.currentItem)
+        viewModel.collectionViewUpdate.bind {[weak self] (update) in
+            DispatchQueue.main.async {
+                switch update {
+                case .add(_, let position):
+                        self?.collectionView.performBatchUpdates({
+                            self?.collectionView.insertItems(at: position)
+                        }, completion: nil)
+                case .reload:
+                    self?.collectionView.reloadData()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        self?.playVideo(at: self?.currentItem ?? IndexPath())
+                    }
                 }
             }
+            
         }.disposed(by: disposeBag)
     }
     
@@ -143,7 +161,7 @@ extension TopViewController: UICollectionViewDelegate {
                         willDisplay cell: UICollectionViewCell,
                         forItemAt indexPath: IndexPath) {
         currentItem = indexPath
-        if currentItem.row == viewModel.datas.count - 1 {
+        if currentItem.row == viewModel.datas.count - 2 {
             viewModel.getVideo(isLoadmore: true)
         }
     }
@@ -202,11 +220,11 @@ extension TopViewController: TopViewCellAction {
     func share(model: TopVideoGameModel) {
         var urlToShare: URL?
         if let url = model.store?.first?.urlEn {
-           urlToShare = URL(string: url)
+            urlToShare = URL(string: url)
         } else {
             urlToShare = URL(string: model.videoUrl!)
         }
-        let someText: String = "Share to"
+        let someText: String = "\(model.name ?? "Share to")"
         let sharedObjects: [AnyObject] = [urlToShare as AnyObject, someText as AnyObject]
         let activityViewController = UIActivityViewController(activityItems: sharedObjects, applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = self.view

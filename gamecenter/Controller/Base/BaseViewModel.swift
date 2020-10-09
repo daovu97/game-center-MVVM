@@ -21,4 +21,8 @@ open class BaseViewModel {
         showProgressStatus.onNext(false)
     }
     
+    func isConnectedToNetwork() -> Bool {
+        return NetworkManager.shared.isConnected
+    }
+    
 }

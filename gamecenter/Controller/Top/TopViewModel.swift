@@ -36,9 +36,8 @@ final class TopViewModel: BaseViewModel {
     }
     
     func getVideo(isLoadmore: Bool = false) {
-        if isLoading {
-            return
-        }
+        guard !(isLoading || !isConnectedToNetwork()) else { return }
+        
         isLoading = true
         if !isLoadmore {
             showProgress()
