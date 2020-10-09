@@ -126,7 +126,7 @@ extension TopViewController: UICollectionViewDataSource {
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell =  collectionView.dequeueReusableCell(TopViewCell.self, for: indexPath)
         cell.configure(data: viewModel.datas[indexPath.row])
-        cell.delegate = self
+        cell.action = self
         return cell
     }
 }

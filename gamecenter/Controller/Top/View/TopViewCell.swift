@@ -10,6 +10,8 @@ import UIKit
 import AVFoundation
 
 class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
+     
+    var action: TopViewCellAction?
     
     private var data: TopVideoGameModel?
     // MARK: - Video Layer
@@ -61,7 +63,7 @@ class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.didTapped = { [weak self] in
             if let data = self?.data {
-                self?.delegate?.like(model: data)
+                self?.action?.like(model: data)
             }
         }
         return view
@@ -72,7 +74,7 @@ class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.didTapped = { [weak self] in
             if let data = self?.data {
-                self?.delegate?.share(model: data)
+                self?.action?.share(model: data)
             }
         }
         return view
@@ -83,7 +85,7 @@ class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.didTapped = { [weak self] in
             if let data = self?.data {
-                self?.delegate?.save(model: data)
+                self?.action?.save(model: data)
             }
         }
         return view
@@ -114,24 +116,6 @@ class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
         self.contentView.addGestureRecognizer(likeDoubleTapGesture)
         
         pauseGesture.require(toFail: likeDoubleTapGesture)
-    }
-    
-    private func setupMaskedColor() {
-        let gradientMaskLayer = CAGradientLayer()
-        gradientMaskLayer.frame = maskedView.bounds
-        
-        gradientMaskLayer.colors = [UIColor.clear.cgColor,
-                                    UIColor.black.withAlphaComponent(0.05).cgColor,
-                                    UIColor.black.withAlphaComponent(0.2).cgColor,
-                                    UIColor.black.withAlphaComponent(0.4).cgColor]
-        gradientMaskLayer.locations = [0, 0.1, 0.3, 1]
-        
-        maskedView.layer.mask = gradientMaskLayer
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        setupMaskedColor()
     }
     
     private func setupConstrain() {
@@ -251,8 +235,6 @@ class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
         pauseImageView.alpha = 0
     }
     
-    var delegate: TopViewCellAction?
-    
     private func addPlatformIcon(platforms: [ParentPlatformModel]) {
         platformContainer.isHidden = false
         platforms.forEach { (platform) in
@@ -270,6 +252,24 @@ class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
         image.tintColor = .white
         return image
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setupMaskedColor()
+    }
+    
+    private func setupMaskedColor() {
+           let gradientMaskLayer = CAGradientLayer()
+           gradientMaskLayer.frame = maskedView.bounds
+           
+           gradientMaskLayer.colors = [UIColor.clear.cgColor,
+                                       UIColor.black.withAlphaComponent(0.05).cgColor,
+                                       UIColor.black.withAlphaComponent(0.2).cgColor,
+                                       UIColor.black.withAlphaComponent(0.4).cgColor]
+           gradientMaskLayer.locations = [0, 0.1, 0.3, 1]
+           
+           maskedView.layer.mask = gradientMaskLayer
+       }
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -331,25 +331,8 @@ extension TopViewCell {
         })
         likeButton.isLike = true
         if let data = data {
-            delegate?.like(model: data)
+            action?.like(model: data)
         }
-    }
-}
-
-extension UIStackView {
-    
-    func removeAllArrangedSubviews() {
-        
-        let removedSubviews = arrangedSubviews.reduce([]) { (allSubviews, subview) -> [UIView] in
-            self.removeArrangedSubview(subview)
-            return allSubviews + [subview]
-        }
-        
-        // Deactivate all constraints
-        NSLayoutConstraint.deactivate(removedSubviews.flatMap({ $0.constraints }))
-        
-        // Remove the views from self
-        removedSubviews.forEach({ $0.removeFromSuperview() })
     }
 }
 
@@ -362,28 +345,6 @@ protocol TopViewCellAction {
 extension AVPlayer {
     var isPlaying: Bool {
         return rate != 0 && error == nil
-    }
-}
-
-class GradianView: UIView {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupView()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupView()
-    }
-    
-    func setupView() {
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [UIColor.black.withAlphaComponent(1.0).cgColor,
-                                UIColor.black.withAlphaComponent(0.0).cgColor]
-        gradientLayer.frame = frame
-        gradientLayer.startPoint = CGPoint(x: 1.0, y: 0.0)
-        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-        layer.insertSublayer(gradientLayer, at: 0)
     }
 }
 

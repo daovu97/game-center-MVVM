@@ -51,19 +51,13 @@ final class TopViewModel: BaseViewModel {
                              pageSize: pageSize)
         
         service.loadVideo(param: param) {[weak self] (games, error) in
-            if let games = games {
-                guard !games.isEmpty else { return }
-                let response = games.map { (game) -> TopVideoGameModel in
-                    game.mapToTopGameModel()
-                }
+            if let games = games, !games.isEmpty {
                 
                 let lastCount = self?.datas.count ?? 0
-                
-                self?.datas.append(contentsOf: response)
-                self?.doLoadVideoWork(data: response)
+                self?.datas.append(contentsOf: games)
+                self?.doLoadVideoWork(data: games)
                 
                 var addIndexPath = [IndexPath]()
-                
                 for index in lastCount...(self?.datas.count ?? 1) - 1 {
                     addIndexPath.append(IndexPath(row: index, section: 0))
                 }

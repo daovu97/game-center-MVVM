@@ -54,13 +54,13 @@ struct APIParam {
 }
 
 protocol APIServiceType {
-    func loadVideo(param: APIParam, completion: (([Game]?, Error?) -> Void)?)
+    func loadVideo(param: APIParam, completion: (([TopVideoGameModel]?, Error?) -> Void)?)
 }
 
 struct APIService: APIServiceType {
     static let baseUrl = "https://api.rawg.io/api/games"
     
-    func loadVideo(param: APIParam, completion: (([Game]?, Error?) -> Void)?) {
+    func loadVideo(param: APIParam, completion: (([TopVideoGameModel]?, Error?) -> Void)?) {
         AF.request(APIService.baseUrl, method: .get, parameters: param.getParam())
             .validate()
             .responseDecodable(of: BaseResponse<Game>.self) { (response) in
@@ -68,7 +68,10 @@ struct APIService: APIServiceType {
                     completion?(nil, response.error)
                     return
                 }
-                completion?(data.filter { $0.clip?.clip != nil }, nil)
+                completion?(data
+                    .filter { $0.clip?.clip != nil }
+                    .map { $0.mapToTopGameModel() }
+                    , nil)
         }
     }
 }

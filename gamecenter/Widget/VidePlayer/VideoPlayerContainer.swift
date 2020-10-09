@@ -10,22 +10,6 @@ import UIKit
 import AVFoundation
 
 class VideoPlayerContainer: NSDiscardableContent {
-    func beginContentAccess() -> Bool {
-        return true
-    }
-    
-    func endContentAccess() {
-        
-    }
-    
-    func discardContentIfPossible() {
-        
-    }
-    
-    func isContentDiscarded() -> Bool {
-        return false
-    }
-    
     var url: String
     var appEnteredFromBackground: Bool = false
     var playOn: Bool {
@@ -48,5 +32,21 @@ class VideoPlayerContainer: NSDiscardableContent {
         self.playerItem = item
         self.url = url
         playOn = false
+    }
+    
+    func beginContentAccess() -> Bool {
+        return true
+    }
+    
+    func endContentAccess() {
+        
+    }
+    
+    func discardContentIfPossible() {
+        
+    }
+    
+    func isContentDiscarded() -> Bool {
+        return false
     }
 }
