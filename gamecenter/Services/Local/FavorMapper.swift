@@ -9,12 +9,6 @@
 import Foundation
 import RealmSwift
 
-extension List {
-    func toArray<T>() -> [T] {
-        return compactMap { $0 as? T }
-    }
-}
-
 extension Array {
     func toList<T>() -> List<T> {
         let list = List<T>()
@@ -32,9 +26,9 @@ extension TopVideoGameObject {
         return TopVideoGameModel(id: id.value, name: name,
                                  star: star.value, detail: detail,
                                  videoUrl: videoUrl,
-                                 platform: platform.toArray(),
+                                 platform: platform.map { $0.mapToParentPlatformModel() },
                                  suggestionCount: suggestionCount.value,
-                                 store: store.toArray())
+                                 store: store.map { $0.mapToStoreModel() })
     }
 }
 
@@ -45,9 +39,9 @@ extension TopVideoGameModel {
         object.name = name
         object.detail = detail
         object.videoUrl = videoUrl
-        object.platform = (platform ?? .init()).toList()
+        object.platform = (platform?.compactMap { $0.mapToParentPlatformObject() })!.toList()
         object.suggestionCount = RealmOptional(suggestionCount)
-        object.store = (store ?? .init()).toList()
+        object.store = (store?.compactMap { $0.mapToStoreObject() })!.toList()
         return object
     }
 }
