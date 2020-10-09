@@ -57,34 +57,4 @@ struct Store: Codable {
         gamesCount = try values.decodeIfPresent(Int.self, forKey: .gamesCount)
         imageBackground = try values.decodeIfPresent(String.self, forKey: .imageBackground)
     }
-    
-    var icon: UIImage? {
-           get {
-               switch id {
-               case 1:
-                   return UIImage(named: "ic_store_steam")
-               case 2:
-                   return UIImage(named: "ic_store_window")
-               case 3:
-                   return UIImage(named: "ic_store_playstation")
-               case 4:
-                   return UIImage(named: "ic_store_app_store")
-               case 5:
-                   return UIImage(named: "ic_store_gog")
-               case 6:
-                   return UIImage(named: "ic_store_nintendo")
-               case 7:
-                   return UIImage(named: "ic_store_xbox")
-               case 8:
-                   return UIImage(named: "ic_store_play_store")
-               case 9:
-                   return  UIImage(named: "ic_store_itch")
-               case 11:
-                   return UIImage(named: "ic_store_epic_game")
-               default:
-                   return UIImage(named: "ic_store_xbox")
-               }
-           }
-       }
-    
 }

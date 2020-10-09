@@ -18,4 +18,6 @@ pod 'Alamofire', '~> 5.2'
 #lottie
 pod 'lottie-ios'
 
+pod 'RealmSwift'
+
 end

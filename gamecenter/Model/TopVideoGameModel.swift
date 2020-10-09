@@ -16,5 +16,5 @@ struct TopVideoGameModel {
     let videoUrl: String?
     let platform: [ParentPlatformModel]?
     let suggestionCount: Int?
-    let store: [Stores]?
+    let store: [StoreModel]?
 }

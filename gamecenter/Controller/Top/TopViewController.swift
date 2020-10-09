@@ -245,7 +245,7 @@ extension TopViewController: TopViewCellAction {
 
 // MARK: - Popup view
 extension TopViewController {
-    func showPopup(with value: [Stores]?) {
+    func showPopup(with value: [StoreModel]?) {
         popupView.show()
         popupView.setupData(data: value)
     }

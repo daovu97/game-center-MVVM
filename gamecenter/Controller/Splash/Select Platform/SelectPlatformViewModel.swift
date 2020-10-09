@@ -25,9 +25,11 @@ final class SelectPlatformViewModel: BaseSelectViewModel {
         collectionViewAupdate.onNext(.reload)
     }
     
-    func gotoSelectGenre() {
-        SceneCoordinator.shared.transition(to: Scene.selectGenre(SelectGenreViewModel()))
-    }
+    func saveFavorPlatform() {
+          var platforms = [ParentPlatformModel]()
+          selectedIndexPath.forEach { platforms.append(self.platforms[$0.row]) }
+          getLocalDB().savePlatform(platforms: platforms)
+      }
     
 }
 

@@ -10,7 +10,7 @@ import UIKit
 
 class StoresPopUpView: UIView {
     
-    private var store = [Stores]()
+    private var store = [StoreModel]()
     
     // MARK: - UI Components
     private lazy var backgroundView: UIView = {
@@ -93,7 +93,7 @@ class StoresPopUpView: UIView {
         setupView()
     }
     
-    func setupData(data: [Stores]?) {
+    func setupData(data: [StoreModel]?) {
         if let data = data {
             unavailableStoreView.isHidden = true
             collectionView.isHidden = false

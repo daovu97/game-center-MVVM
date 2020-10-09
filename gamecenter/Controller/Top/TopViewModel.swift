@@ -45,7 +45,8 @@ final class TopViewModel: BaseViewModel {
             currentPage += 1
         }
         
-        let param = APIParam(parrentPlatforms: nil,
+        let param = APIParam(parrentPlatforms: LocalDB.shared.getFavorPlatform(),
+                             genres: LocalDB.shared.getFavorGenre(),
                              page: currentPage, dates: nil,
                              ordering: .relevance,
                              pageSize: pageSize)

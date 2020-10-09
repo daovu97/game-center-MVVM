@@ -95,20 +95,25 @@ struct Game: Codable {
 extension Game {
     func mapToTopGameModel() -> TopVideoGameModel {
         let platform = parentPlatforms?
-            .filter { $0.platform != nil}
-            .map { $0.platform!.mapToParrentPlatform() }
+            .compactMap { $0.platform?.mapToParrentPlatform() }
         
         let detail = genres?
-            .filter { $0.name != nil}
-            .map { $0.name! }
+            .compactMap { $0.name }
             .toString(with: ", ")
+        
+        let store = stores?
+            .compactMap { StoreModel(id: $0.store?.id,
+                              name: $0.store?.name,
+                              domain: $0.store?.domain,
+                              urlEn: $0.urlEn,
+                              urlRu: $0.urlRu) }
 
         return TopVideoGameModel(id: id, name: name,
                                  star: rating, detail: detail,
                                  videoUrl: clip?.clip,
                                  platform: platform,
                                  suggestionCount: suggestionsCount,
-                                 store: stores)
+                                 store: store)
     }
 }
 

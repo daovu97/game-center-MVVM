@@ -40,6 +40,10 @@ class SelectGenreViewController: BaseSelectViewController<SelectGenreViewModel> 
             self?.showFloatingButton(shouldShow: selected)
         }.disposed(by: disposeBag)
     }
+    
+    override func didDoneTaped() {
+        viewModel.saveFavorGenre()
+    }
 }
 
 extension SelectGenreViewController: UICollectionViewDelegateFlowLayout {

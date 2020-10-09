@@ -12,6 +12,7 @@ import Alamofire
 
 struct APIParam {
     var parrentPlatforms: String?
+    var genres: String?
     var page: Int
     var dates: String?
     var ordering: OrderingType?
@@ -34,16 +35,20 @@ struct APIParam {
     
     func getParam() -> [String: Any] {
         var parram = [String: Any]()
-        if let parrentPlatforms = parrentPlatforms {
+        if let parrentPlatforms = parrentPlatforms, !parrentPlatforms.isEmpty {
             parram["parrent_platforms"] = parrentPlatforms
         }
         
-        if let dates = dates {
+        if let dates = dates, !dates.isEmpty {
             parram["dates"] = dates
         }
         
         if let ordering = ordering?.rawValue {
             parram["ordering"] = ordering
+        }
+        
+        if let genres = genres, !genres.isEmpty {
+            parram["genres"] = genres
         }
         
         parram["page_size"] = pageSize
