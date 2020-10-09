@@ -16,12 +16,12 @@ struct Tags: Codable {
     let image_background: String?
 
     enum CodingKeys: String, CodingKey {
-        case id = "id"
-        case name = "name"
-        case slug = "slug"
-        case language = "language"
-        case games_count = "games_count"
-        case image_background = "image_background"
+        case id
+        case name
+        case slug
+        case language
+        case games_count
+        case image_background 
     }
 
     init(from decoder: Decoder) throws {

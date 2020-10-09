@@ -12,8 +12,7 @@ struct Platforms: Codable {
     let platform: Platform?
 
     enum CodingKeys: String, CodingKey {
-
-        case platform = "platform"
+        case platform
     }
 
     init(from decoder: Decoder) throws {

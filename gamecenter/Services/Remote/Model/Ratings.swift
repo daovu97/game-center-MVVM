@@ -14,11 +14,10 @@ struct Ratings: Codable {
     let percent: Double?
 
     enum CodingKeys: String, CodingKey {
-
-        case id = "id"
-        case title = "title"
-        case count = "count"
-        case percent = "percent"
+        case id
+        case title
+        case count
+        case percent
     }
 
     init(from decoder: Decoder) throws {

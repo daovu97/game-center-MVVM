@@ -73,10 +73,6 @@ class SplashViewController: BaseViewController<SplashViewModel> {
                          padding: .init(top: 0, left: 16, bottom: 8, right: 16))
     }
     
-    override func bindViewModel() {
-        
-    }
-    
     override func setupNaviBar() {
         navigationItem.title = ""
     }

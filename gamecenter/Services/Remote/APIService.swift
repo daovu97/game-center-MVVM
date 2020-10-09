@@ -33,19 +33,34 @@ struct APIParam {
     }
     
     func getParam() -> [String: Any] {
-        return ["parrent_platforms": parrentPlatforms, "dates": dates, "page": page,
-                "ordering": ordering?.rawValue, "page_size": pageSize]
+        var parram = [String: Any]()
+        if let parrentPlatforms = parrentPlatforms {
+            parram["parrent_platforms"] = parrentPlatforms
+        }
+        
+        if let dates = dates {
+            parram["dates"] = dates
+        }
+        
+        if let ordering = ordering?.rawValue {
+            parram["ordering"] = ordering
+        }
+        
+        parram["page_size"] = pageSize
+        parram["page"] = page
+        
+        return parram
     }
 }
 
 protocol APIServiceType {
-    func loadVideo(param: APIParam, completion: (([Game]?, Error?) -> Void)?)
+    func loadVideo(param: APIParam, completion: (([TopVideoGameModel]?, Error?) -> Void)?)
 }
 
 struct APIService: APIServiceType {
     static let baseUrl = "https://api.rawg.io/api/games"
     
-    func loadVideo(param: APIParam, completion: (([Game]?, Error?) -> Void)?) {
+    func loadVideo(param: APIParam, completion: (([TopVideoGameModel]?, Error?) -> Void)?) {
         AF.request(APIService.baseUrl, method: .get, parameters: param.getParam())
             .validate()
             .responseDecodable(of: BaseResponse<Game>.self) { (response) in
@@ -53,7 +68,11 @@ struct APIService: APIServiceType {
                     completion?(nil, response.error)
                     return
                 }
-                completion?(data.filter { $0.clip?.clip != nil }, nil)
+                completion?(data
+                           .filter { $0.clip?.clip != nil }
+                           .map { $0.mapToTopGameModel() }
+                           .shuffled(),
+                            nil)
         }
     }
 }

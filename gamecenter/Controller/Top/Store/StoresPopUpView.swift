@@ -48,7 +48,7 @@ class StoresPopUpView: UIView {
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .vertical
         }
-        collectionView.backgroundColor = .clear
+        collectionView.backgroundColor = UIColor.black.withAlphaComponent(0.08)
         return collectionView
     }()
     
@@ -73,6 +73,10 @@ class StoresPopUpView: UIView {
     private lazy var unavailableStoreView: UnavailableView = {
         let view = UnavailableView()
         view.isHidden = true
+        view.image.image = UIImage(named: "ic_unavailable_store")
+        view.titleLabel.text = noStoreAvailable
+        view.titleLabel.textColor = UIColor.black.withAlphaComponent(0.7)
+        view.detailLabel.text = noStoreAvailableDetail
         return view
     }()
     
@@ -86,86 +90,7 @@ class StoresPopUpView: UIView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-    }
-    
-    // MARK: - Setup
-    private func setupTitleView() {
-        popUpView.addSubview(titleLabel)
-        titleLabel.anchor(top: popUpView.topAnchor,
-                          leading: popUpView.leadingAnchor,
-                          bottom: dismissBtn.bottomAnchor,
-                          trailing: popUpView.trailingAnchor,
-                          padding: .init(top: 8, left: 0, bottom: 0, right: 0))
-    }
-    
-    private func setupPopupView() {
-        addSubview(popUpView)
-        
-        let blurEffect = UIBlurEffect.init(style: .regular)
-        let visualEffectView = UIVisualEffectView.init(effect: blurEffect)
-        visualEffectView.frame = self.popUpView.bounds
-        visualEffectView.alpha = 1.0
-        popUpView.addSubview(visualEffectView)
-        popUpView.addSubview(dismissBtn)
-    }
-    
-    private func setupUnavailableStore() {
-        addSubview(unavailableStoreView)
-        
-        unavailableStoreView.anchor(top: dismissBtn.bottomAnchor,
-                                    leading: popUpView.leadingAnchor,
-                                    bottom: popUpView.bottomAnchor,
-                                    trailing: popUpView.trailingAnchor,
-                                    padding: .init(top: 8, left: 0, bottom: 0, right: 0))
-    }
-    
-    private func setupCollectionview() {
-        popUpView.addSubview(collectionView)
-        collectionView.anchor(top: dismissBtn.bottomAnchor,
-                              leading: popUpView.leadingAnchor,
-                              bottom: popUpView.bottomAnchor,
-                              trailing: popUpView.trailingAnchor,
-                              padding: .init(top: 8, left: 0, bottom: 0, right: 0))
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.alwaysBounceVertical = false
-        collectionView.bounces = false
-        collectionView.registerCell(StoreViewCell.self)
-        collectionView.contentInset = .init(top: 8, left: 8, bottom: 8, right: 8)
-    }
-    
-    private func setupView() {
-        panGesture = UIPanGestureRecognizer(target: self, action: #selector(animatePopUpView(sender:)))
-        addSubview(backgroundView)
-        setupPopupView()
-        setupTitleView()
-        setupCollectionview()
-        setupUnavailableStore()
-       
-    }
-    
-    // MARK: - Display Animations
-    @objc func show() {
-        if #available(iOS 13.0, *) {
-            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                let sceneDelegate = windowScene.delegate as? SceneDelegate
-                else {
-                    return
-            }
-            sceneDelegate.window?.addSubview(self)
-            
-            UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseOut, animations: {
-                self.frame.origin.y = 0
-            })
-        } else {
-            guard let window = UIApplication.shared.delegate?.window else {
-                return
-            }
-            window?.addSubview(self)
-            UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseOut, animations: {
-                self.frame.origin.y = 0
-            })
-        }
+        setupView()
     }
     
     func setupData(data: [Stores]?) {
@@ -175,62 +100,69 @@ class StoresPopUpView: UIView {
             store = data
             collectionView.reloadData()
         } else {
-            //handle empty data
              unavailableStoreView.isHidden = false
-            collectionView.isHidden = true
+             collectionView.isHidden = true
         }
         
     }
-    
-    @objc func dismiss() {
-        UIView.animate(withDuration: 0.25, delay: 0.0,
-                       options: .curveEaseIn,
-                       animations: {
-                        self.frame.origin.y = ScreenSize.Height},
-                       completion: {[weak self]_ in self?.removeFromSuperview()})
-    }
-    
-    @objc func handleDismiss(sender: UITapGestureRecognizer) {
-        let point = sender.location(in: self)
-        if self.backgroundView.layer.contains(point) {
-            dismiss()
-        }
-    }
-    
-    @objc func animatePopUpView(sender: UIPanGestureRecognizer) {
-        let transition = sender.translation(in: popUpView)
-        
-        switch sender.state {
-        case .began, .changed:
-            if totalSlidingDistance <= 0 && transition.y < 0 { return }
-            if self.frame.origin.y + transition.y >= 0 {
-                self.frame.origin.y += transition.y
-                sender.setTranslation(.zero, in: popUpView)
-                totalSlidingDistance += transition.y
-            }
-            
-        case .ended:
-            if sender.velocity(in: popUpView).y > 300 {
-                dismiss()
-            } else if totalSlidingDistance >= 0 {
-                UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut],
-                               animations: {
-                                self.frame.origin.y -= self.totalSlidingDistance
-                                self.layoutIfNeeded()
-                }, completion: nil)
-            }
-            collectionView.isUserInteractionEnabled = true
-            totalSlidingDistance = 0
-        default:
-            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut],
-                           animations: {
-                            self.frame.origin.y -= self.totalSlidingDistance
-                            self.layoutIfNeeded()
-            }, completion: nil)
-            collectionView.isUserInteractionEnabled = true
-            totalSlidingDistance = 0
-        }
-    }
+}
+
+// MARK: - SETUP VIEW
+extension StoresPopUpView {
+    private func setupView() {
+          panGesture = UIPanGestureRecognizer(target: self, action: #selector(animatePopUpView(sender:)))
+          addSubview(backgroundView)
+          setupPopupView()
+          setupTitleView()
+          setupCollectionview()
+          setupUnavailableStore()
+      }
+      
+      // MARK: - Setup
+      private func setupTitleView() {
+          popUpView.addSubview(titleLabel)
+          titleLabel.anchor(top: popUpView.topAnchor,
+                            leading: popUpView.leadingAnchor,
+                            bottom: dismissBtn.bottomAnchor,
+                            trailing: popUpView.trailingAnchor,
+                            padding: .init(top: 8, left: 0, bottom: 0, right: 0))
+      }
+      
+      private func setupPopupView() {
+          addSubview(popUpView)
+          
+          let blurEffect = UIBlurEffect.init(style: .regular)
+          let visualEffectView = UIVisualEffectView.init(effect: blurEffect)
+          visualEffectView.frame = self.popUpView.bounds
+          visualEffectView.alpha = 1.0
+          popUpView.addSubview(visualEffectView)
+          popUpView.addSubview(dismissBtn)
+      }
+      
+      private func setupUnavailableStore() {
+          addSubview(unavailableStoreView)
+          
+          unavailableStoreView.anchor(top: dismissBtn.bottomAnchor,
+                                      leading: popUpView.leadingAnchor,
+                                      bottom: popUpView.bottomAnchor,
+                                      trailing: popUpView.trailingAnchor,
+                                      padding: .init(top: 8, left: 0, bottom: 0, right: 0))
+      }
+      
+      private func setupCollectionview() {
+          popUpView.addSubview(collectionView)
+          collectionView.anchor(top: dismissBtn.bottomAnchor,
+                                leading: popUpView.leadingAnchor,
+                                bottom: popUpView.bottomAnchor,
+                                trailing: popUpView.trailingAnchor,
+                                padding: .init(top: 8, left: 0, bottom: 0, right: 0))
+          collectionView.dataSource = self
+          collectionView.delegate = self
+          collectionView.alwaysBounceVertical = false
+          collectionView.bounces = false
+          collectionView.registerCell(StoreViewCell.self)
+          collectionView.contentInset = .init(top: 8, left: 8, bottom: 8, right: 8)
+      }
 }
 
 extension StoresPopUpView: UICollectionViewDelegate {
@@ -280,6 +212,83 @@ extension StoresPopUpView: UIScrollViewDelegate {
             collectionView.isUserInteractionEnabled = false
         } else {
             collectionView.isUserInteractionEnabled = true
+        }
+    }
+}
+
+ // MARK: - Display Animations
+extension StoresPopUpView {
+    
+    @objc func show() {
+        if #available(iOS 13.0, *) {
+            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                let sceneDelegate = windowScene.delegate as? SceneDelegate
+                else {
+                    return
+            }
+            sceneDelegate.window?.addSubview(self)
+            
+            UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseOut, animations: {
+                self.frame.origin.y = 0
+            })
+        } else {
+            guard let window = UIApplication.shared.delegate?.window else {
+                return
+            }
+            window?.addSubview(self)
+            UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseOut, animations: {
+                self.frame.origin.y = 0
+            })
+        }
+    }
+    
+    @objc func dismiss() {
+        UIView.animate(withDuration: 0.25, delay: 0.0,
+                       options: .curveEaseIn,
+                       animations: {
+                        self.frame.origin.y = ScreenSize.Height},
+                       completion: {[weak self]_ in self?.removeFromSuperview()})
+    }
+    
+    @objc func handleDismiss(sender: UITapGestureRecognizer) {
+        let point = sender.location(in: self)
+        if self.backgroundView.layer.contains(point) {
+            dismiss()
+        }
+    }
+    
+    @objc func animatePopUpView(sender: UIPanGestureRecognizer) {
+        let transition = sender.translation(in: popUpView)
+        
+        switch sender.state {
+        case .began, .changed:
+            if totalSlidingDistance <= 0 && transition.y < 0 { return }
+            if self.frame.origin.y + transition.y >= 0 {
+                self.frame.origin.y += transition.y
+                sender.setTranslation(.zero, in: popUpView)
+                totalSlidingDistance += transition.y
+            }
+            
+        case .ended:
+            if sender.velocity(in: popUpView).y > 300 {
+                dismiss()
+            } else if totalSlidingDistance >= 0 {
+                UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut],
+                               animations: {
+                                self.frame.origin.y -= self.totalSlidingDistance
+                                self.layoutIfNeeded()
+                }, completion: nil)
+            }
+            collectionView.isUserInteractionEnabled = true
+            totalSlidingDistance = 0
+        default:
+            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut],
+                           animations: {
+                            self.frame.origin.y -= self.totalSlidingDistance
+                            self.layoutIfNeeded()
+            }, completion: nil)
+            collectionView.isUserInteractionEnabled = true
+            totalSlidingDistance = 0
         }
     }
 }

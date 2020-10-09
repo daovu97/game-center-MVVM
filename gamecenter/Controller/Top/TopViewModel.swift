@@ -13,7 +13,7 @@ final class TopViewModel: BaseViewModel {
     private let service: APIServiceType = APIService()
     private var currentPage = 1
     private var isLoading: Bool = false
-    private let pageSize = 10
+    private let pageSize = 5
     
     var datas = [TopVideoGameModel]()
     
@@ -36,9 +36,8 @@ final class TopViewModel: BaseViewModel {
     }
     
     func getVideo(isLoadmore: Bool = false) {
-        if isLoading {
-            return
-        }
+        guard !(isLoading || !isConnectedToNetwork()) else { return }
+        
         isLoading = true
         if !isLoadmore {
             showProgress()
@@ -52,19 +51,13 @@ final class TopViewModel: BaseViewModel {
                              pageSize: pageSize)
         
         service.loadVideo(param: param) {[weak self] (games, error) in
-            if let games = games {
-                guard !games.isEmpty else { return }
-                let response = games.map { (game) -> TopVideoGameModel in
-                    game.mapToTopGameModel()
-                }
+            if let games = games, !games.isEmpty {
                 
                 let lastCount = self?.datas.count ?? 0
-                
-                self?.datas.append(contentsOf: response)
-                self?.doLoadVideoWork(data: response)
+                self?.datas.append(contentsOf: games)
+                self?.doLoadVideoWork(data: games)
                 
                 var addIndexPath = [IndexPath]()
-                
                 for index in lastCount...(self?.datas.count ?? 1) - 1 {
                     addIndexPath.append(IndexPath(row: index, section: 0))
                 }

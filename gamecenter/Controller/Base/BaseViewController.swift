@@ -31,18 +31,16 @@ class BaseViewController<T: BaseViewModel>: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstrain()
-        viewModel.showProgressStatus.bind {[weak self] (isShow) in
-            if isShow {
-                self?.loadingAnimation.isHidden = false
-                self?.loadingAnimation.play()
-            } else {
-                self?.loadingAnimation.isHidden = true
-                self?.loadingAnimation.stop()
-            }
-        }.disposed(by: disposeBag)
+        setupLoaddingAnimation()
         setupView()
         bindViewModel()
         setupNaviBar()
+        
+        NetworkManager.shared.networkStatusChange.bind {[weak self] (connected) in
+            DispatchQueue.main.async {
+                 self?.netWorkStatusChange(isConnected: connected)
+            }
+        }.disposed(by: disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,5 +66,19 @@ class BaseViewController<T: BaseViewModel>: UIViewController {
     open func refreshView() {}
     
     open func setupNaviBar() {}
+    
+    @objc open func netWorkStatusChange(isConnected: Bool) {}
+    
+    private func setupLoaddingAnimation() {
+        viewModel.showProgressStatus.bind {[weak self] (isShow) in
+            if isShow {
+                self?.loadingAnimation.isHidden = false
+                self?.loadingAnimation.play()
+            } else {
+                self?.loadingAnimation.isHidden = true
+                self?.loadingAnimation.stop()
+            }
+        }.disposed(by: disposeBag)
+    }
     
 }

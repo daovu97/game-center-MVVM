@@ -17,6 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        NetworkManager.shared = NetworkManager()
+        NetworkManager.shared.start()
+        
         if #available(iOS 13.0, *) {
             // do something
         } else {
