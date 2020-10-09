@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7FD066ACC52A29C7D7A6E76F /* Pods_gamecenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E42BDB4B65C83F230AA7C1D /* Pods_gamecenter.framework */; };
 		F00CDDA32530108C0080024B /* UnavailableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00CDDA22530108C0080024B /* UnavailableView.swift */; };
+		F00CDDA5253020860080024B /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00CDDA4253020860080024B /* Double+Extension.swift */; };
 		F02F35E425241FE600876428 /* Observable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02F35E325241FE600876428 /* Observable+Extension.swift */; };
 		F02F35E92524203B00876428 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02F35E82524203B00876428 /* BaseViewController.swift */; };
 		F02F35EB2524205F00876428 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02F35EA2524205F00876428 /* BaseViewModel.swift */; };
@@ -81,6 +82,7 @@
 		5E42BDB4B65C83F230AA7C1D /* Pods_gamecenter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_gamecenter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE65B5C542E9CC8371E1F3C4 /* Pods-gamecenter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gamecenter.debug.xcconfig"; path = "Target Support Files/Pods-gamecenter/Pods-gamecenter.debug.xcconfig"; sourceTree = "<group>"; };
 		F00CDDA22530108C0080024B /* UnavailableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnavailableView.swift; sourceTree = "<group>"; };
+		F00CDDA4253020860080024B /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
 		F02F35E325241FE600876428 /* Observable+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observable+Extension.swift"; sourceTree = "<group>"; };
 		F02F35E82524203B00876428 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		F02F35EA2524205F00876428 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 				F07C1C842525B25400DB9AE1 /* UIColor+Extension.swift */,
 				F0526492252F01200006D0BA /* Constants.swift */,
 				F0526494252F04680006D0BA /* String.swift */,
+				F00CDDA4253020860080024B /* Double+Extension.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -608,6 +611,7 @@
 				F02F3600252462CA00876428 /* UserDefault.swift in Sources */,
 				F066AE9725270B5F00800ABB /* Genre.swift in Sources */,
 				F0526493252F01200006D0BA /* Constants.swift in Sources */,
+				F00CDDA5253020860080024B /* Double+Extension.swift in Sources */,
 				F07C1C852525B25400DB9AE1 /* UIColor+Extension.swift in Sources */,
 				F03BF5202523310F006018BC /* ViewController.swift in Sources */,
 				F02F35EF252421A900876428 /* SplashViewModel.swift in Sources */,
