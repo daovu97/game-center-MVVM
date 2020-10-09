@@ -25,12 +25,23 @@ class SelectedGenreCell: BaseSelectedCell {
         
     }
     
-    func setupData(genre: GenreModel) {
-        labelName.text = genre.name ?? ""
-    }
-    
-    override func setSelected(isSelect: Bool = false) {
+    func setupData(genre: GenreModel, isSelect: Bool = false) {
         super.setSelected(isSelect: isSelect)
+        labelName.text = genre.name ?? ""
+        rounedWithShadown()
         labelName.textColor = isSelect ? UIColor.white : UIColor.black
+    }
+}
+
+extension BaseSelectedCell {
+    func rounedWithShadown() {
+        layer.shadowColor = UIColor.lightGray.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 2.0)
+        layer.shadowRadius = 2.0
+        layer.shadowOpacity = 1.0
+        layer.masksToBounds = false
+        layer.shadowPath = UIBezierPath(roundedRect: bounds,
+                                        cornerRadius: contentView.layer.cornerRadius).cgPath
+        layer.backgroundColor = UIColor.clear.cgColor
     }
 }

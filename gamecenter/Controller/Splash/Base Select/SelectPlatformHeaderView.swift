@@ -8,23 +8,15 @@
 
 import UIKit
 
-let primaryFontName_light = "HelveticaNeue"
-let primaryFontName_medium = "HelveticaNeue-Medium"
-let primaryFontName_bold = "HelveticaNeue-Bold"
-
 class SelectPlatformHeaderView: UICollectionReusableView {
     
     static let titleSize = CGFloat(34)
     static let subTitleSize = CGFloat(12)
     
-    static let selectPlatformHeaderTitle = "Choose your favorite Platforms"
-    static let selectGenreHeaderTitle = "and Genres"
-    static let subSelectHeaderTitle = "Get personalized game recommendations"
-    
     private lazy var titleName: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: primaryFontName_bold, size: SelectPlatformHeaderView.titleSize)
-        label.text = SelectPlatformHeaderView.selectPlatformHeaderTitle
+        label.text = selectPlatformHeaderTitle
         label.numberOfLines = 0
         label.textColor = .systemPink
         return label
@@ -33,7 +25,7 @@ class SelectPlatformHeaderView: UICollectionReusableView {
     private lazy var subTitleName: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: primaryFontName_light, size: SelectPlatformHeaderView.subTitleSize)
-        label.text = SelectPlatformHeaderView.subSelectHeaderTitle
+        label.text = subSelectHeaderTitle
         label.numberOfLines = 1
         label.textColor = .lightGray
         return label

@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             if LocalDB.shared.isFirstLaunch() {
                 sceneCoordinator.transition(to: Scene.splash(SplashViewModel()))
-//                LocalDB.shared.setFirstLaunch(isFirstLaunch: true)
+                LocalDB.shared.setFirstLaunch(isFirstLaunch: true)
             } else {
                 sceneCoordinator.transition(to: Scene.top)
             }

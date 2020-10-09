@@ -23,12 +23,8 @@ extension Scene: TargetScene {
     var transition: SceneTransitionType {
         switch self {
         case .top:
-            let topVc = UITabBarController()
-            let top = TopViewController()
-            top.initViewModel(viewModel: TopViewModel())
-            top.tabBarItem = UITabBarItem(title: "Top", image: UIImage(named: "ic_messenger"), tag: 0)
-            topVc.addChild(top)
-            return .root(UINavigationController(rootViewController: topVc))
+            let topVc = TopTabBarViewController()
+            return .root(topVc)
         case .splash(let viewModel):
             let splash = SplashViewController()
             splash.initViewModel(viewModel: viewModel)
