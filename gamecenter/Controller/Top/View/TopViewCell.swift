@@ -49,6 +49,8 @@ class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
     
     private lazy var starView: StarView = {
         let view = StarView()
+        maskedView.backgroundColor = .black
+        maskedView.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -96,6 +98,11 @@ class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
         return image
     }()
     
+    private lazy var maskedView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
     override func setupView() {
         setupConstrain()
         self.contentView.isUserInteractionEnabled = true
@@ -109,9 +116,40 @@ class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
         pauseGesture.require(toFail: likeDoubleTapGesture)
     }
     
+    private func setupMaskedColor() {
+        let gradientMaskLayer = CAGradientLayer()
+        gradientMaskLayer.frame = maskedView.bounds
+        
+        gradientMaskLayer.colors = [UIColor.clear.cgColor,
+                                    UIColor.black.withAlphaComponent(0.05).cgColor,
+                                    UIColor.black.withAlphaComponent(0.2).cgColor,
+                                    UIColor.black.withAlphaComponent(0.4).cgColor]
+        gradientMaskLayer.locations = [0, 0.1, 0.3, 1]
+        
+        maskedView.layer.mask = gradientMaskLayer
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setupMaskedColor()
+    }
+    
     private func setupConstrain() {
+        setupmaskedView()
         setupDetailConstrain()
         setupActionConstrain()
+    }
+    
+    private func setupmaskedView() {
+        contentView.addSubview(maskedView)
+        let bottomMaskedViewConstrain = [
+            maskedView.heightAnchor.constraint(equalToConstant: 120),
+            maskedView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            maskedView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            maskedView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ]
+        
+        NSLayoutConstraint.activate(bottomMaskedViewConstrain)
     }
     
     private func setupActionConstrain() {

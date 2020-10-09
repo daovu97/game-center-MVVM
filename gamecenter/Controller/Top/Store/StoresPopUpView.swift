@@ -28,7 +28,7 @@ class StoresPopUpView: UIView {
                                         width: ScreenSize.Width,
                                         height: ScreenSize.Height * 0.75))
         
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.9)
+        view.backgroundColor = UIColor.white.withAlphaComponent(0.9)
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(panGesture)
         
@@ -48,13 +48,13 @@ class StoresPopUpView: UIView {
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .vertical
         }
-        
+        collectionView.backgroundColor = .clear
         return collectionView
     }()
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .white
+        label.textColor = .lightGray
         label.textAlignment = .center
         label.font = UIFont(name: primaryFontName_medium, size: 18)
         label.text = "Stores"
@@ -65,9 +65,15 @@ class StoresPopUpView: UIView {
         let dismissBtn = UIButton(frame: CGRect(x: ScreenSize.Width - 45, y: 15, width: 30, height: 30))
         dismissBtn.setTitle("", for: .normal)
         dismissBtn.setImage(UIImage(named: "ic_close"), for: .normal)
-        dismissBtn.tintColor = .white
+        dismissBtn.tintColor = .lightGray
         dismissBtn.addTarget(self, action: #selector(dismiss), for: .touchUpInside)
         return dismissBtn
+    }()
+    
+    private lazy var unavailableStoreView: UnavailableView = {
+        let view = UnavailableView()
+        view.isHidden = true
+        return view
     }()
     
     var totalSlidingDistance = CGFloat()
@@ -95,7 +101,7 @@ class StoresPopUpView: UIView {
     private func setupPopupView() {
         addSubview(popUpView)
         
-        let blurEffect = UIBlurEffect.init(style: .dark)
+        let blurEffect = UIBlurEffect.init(style: .regular)
         let visualEffectView = UIVisualEffectView.init(effect: blurEffect)
         visualEffectView.frame = self.popUpView.bounds
         visualEffectView.alpha = 1.0
@@ -103,12 +109,17 @@ class StoresPopUpView: UIView {
         popUpView.addSubview(dismissBtn)
     }
     
-    private func setupView() {
-        panGesture = UIPanGestureRecognizer(target: self, action: #selector(animatePopUpView(sender:)))
-        addSubview(backgroundView)
-        setupPopupView()
-        setupTitleView()
+    private func setupUnavailableStore() {
+        addSubview(unavailableStoreView)
         
+        unavailableStoreView.anchor(top: dismissBtn.bottomAnchor,
+                                    leading: popUpView.leadingAnchor,
+                                    bottom: popUpView.bottomAnchor,
+                                    trailing: popUpView.trailingAnchor,
+                                    padding: .init(top: 8, left: 0, bottom: 0, right: 0))
+    }
+    
+    private func setupCollectionview() {
         popUpView.addSubview(collectionView)
         collectionView.anchor(top: dismissBtn.bottomAnchor,
                               leading: popUpView.leadingAnchor,
@@ -118,8 +129,18 @@ class StoresPopUpView: UIView {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.alwaysBounceVertical = false
+        collectionView.bounces = false
         collectionView.registerCell(StoreViewCell.self)
         collectionView.contentInset = .init(top: 8, left: 8, bottom: 8, right: 8)
+    }
+    
+    private func setupView() {
+        panGesture = UIPanGestureRecognizer(target: self, action: #selector(animatePopUpView(sender:)))
+        addSubview(backgroundView)
+        setupPopupView()
+        setupTitleView()
+        setupCollectionview()
+        setupUnavailableStore()
        
     }
     
@@ -149,10 +170,14 @@ class StoresPopUpView: UIView {
     
     func setupData(data: [Stores]?) {
         if let data = data {
+            unavailableStoreView.isHidden = true
+            collectionView.isHidden = false
             store = data
             collectionView.reloadData()
         } else {
             //handle empty data
+             unavailableStoreView.isHidden = false
+            collectionView.isHidden = true
         }
         
     }
@@ -225,7 +250,7 @@ extension StoresPopUpView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: collectionView.frame.width - 16, height: 56)
+        return .init(width: (collectionView.frame.width - 16) / 2 - 5, height: 160)
     }
     
     func collectionView(_ collectionView: UICollectionView,

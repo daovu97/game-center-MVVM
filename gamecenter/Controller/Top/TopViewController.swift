@@ -200,7 +200,24 @@ extension TopViewController: TopViewCellAction {
     }
     
     func share(model: TopVideoGameModel) {
-        print("share + \(model)")
+        var urlToShare: URL?
+        if let url = model.store?.first?.urlEn {
+           urlToShare = URL(string: url)
+        } else {
+            urlToShare = URL(string: model.videoUrl!)
+        }
+        let someText: String = "Share to"
+        let sharedObjects: [AnyObject] = [urlToShare as AnyObject, someText as AnyObject]
+        let activityViewController = UIActivityViewController(activityItems: sharedObjects, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        
+        activityViewController.excludedActivityTypes = [ UIActivity.ActivityType.airDrop,
+                                                         UIActivity.ActivityType.postToFacebook,
+                                                         UIActivity.ActivityType.postToTwitter,
+                                                         UIActivity.ActivityType.mail,
+                                                         UIActivity.ActivityType.message]
+        
+        self.present(activityViewController, animated: true, completion: nil)
     }
     
     func save(model: TopVideoGameModel) {

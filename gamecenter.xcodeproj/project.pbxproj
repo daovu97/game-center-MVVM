@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7FD066ACC52A29C7D7A6E76F /* Pods_gamecenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E42BDB4B65C83F230AA7C1D /* Pods_gamecenter.framework */; };
+		F00CDDA32530108C0080024B /* UnavailableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00CDDA22530108C0080024B /* UnavailableView.swift */; };
 		F02F35E425241FE600876428 /* Observable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02F35E325241FE600876428 /* Observable+Extension.swift */; };
 		F02F35E92524203B00876428 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02F35E82524203B00876428 /* BaseViewController.swift */; };
 		F02F35EB2524205F00876428 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02F35EA2524205F00876428 /* BaseViewModel.swift */; };
@@ -79,6 +80,7 @@
 /* Begin PBXFileReference section */
 		5E42BDB4B65C83F230AA7C1D /* Pods_gamecenter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_gamecenter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE65B5C542E9CC8371E1F3C4 /* Pods-gamecenter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gamecenter.debug.xcconfig"; path = "Target Support Files/Pods-gamecenter/Pods-gamecenter.debug.xcconfig"; sourceTree = "<group>"; };
+		F00CDDA22530108C0080024B /* UnavailableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnavailableView.swift; sourceTree = "<group>"; };
 		F02F35E325241FE600876428 /* Observable+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observable+Extension.swift"; sourceTree = "<group>"; };
 		F02F35E82524203B00876428 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		F02F35EA2524205F00876428 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
@@ -397,6 +399,7 @@
 			children = (
 				F0526490252EFF810006D0BA /* StoresPopUpView.swift */,
 				F06DE62C252F1438008C9F7C /* StoreViewCell.swift */,
+				F00CDDA22530108C0080024B /* UnavailableView.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -638,6 +641,7 @@
 				F03A31B4252C0DAA00BE562F /* VideoPlayerController.swift in Sources */,
 				F0AE44182526D9D4001D218F /* SelectGenreViewModel.swift in Sources */,
 				F07C1C6E2525794B00DB9AE1 /* SelectPlatformViewModel.swift in Sources */,
+				F00CDDA32530108C0080024B /* UnavailableView.swift in Sources */,
 				F02F35F62524253200876428 /* LoadingButton.swift in Sources */,
 				F07C1C7725257ACF00DB9AE1 /* SellectPlatformCell.swift in Sources */,
 				F0526481252EB5290006D0BA /* Stores.swift in Sources */,
