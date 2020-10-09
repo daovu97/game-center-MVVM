@@ -13,7 +13,7 @@ final class TopViewModel: BaseViewModel {
     private let service: APIServiceType = APIService()
     private var currentPage = 1
     private var isLoading: Bool = false
-    private let pageSize = 10
+    private let pageSize = 5
     
     var datas = [TopVideoGameModel]()
     

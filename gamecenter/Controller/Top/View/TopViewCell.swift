@@ -56,7 +56,14 @@ class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
         return view
     }()
     
-    private var stackDetail: UIStackView!
+    private lazy var stackDetail: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [nameLabel, platformContainer, detailLabel])
+        stack.axis = .vertical
+        stack.spacing = 8
+        stack.alignment = .leading
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
     
     private lazy var likeButton: LikeButton = {
         let view = LikeButton(frame: .zero, image: UIImage(named: "ic_heart"))
@@ -142,6 +149,7 @@ class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
         actionContainer.alignment = .center
         actionContainer.spacing = 24
         actionContainer.distribution = .equalSpacing
+        actionContainer.isUserInteractionEnabled = true
         contentView.addSubview(actionContainer)
         actionContainer.anchor(top: nil, leading: nil,
                                bottom: contentView.bottomAnchor,
@@ -168,11 +176,6 @@ class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
     }
     
     private func setupDetailConstrain() {
-        stackDetail = UIStackView(arrangedSubviews: [nameLabel, platformContainer, detailLabel])
-        stackDetail.axis = .vertical
-        stackDetail.spacing = 8
-        stackDetail.alignment = .leading
-        stackDetail.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(stackDetail)
         let platformConstrain = [
             platformContainer.heightAnchor.constraint(equalToConstant: 20)

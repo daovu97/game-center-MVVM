@@ -69,9 +69,10 @@ struct APIService: APIServiceType {
                     return
                 }
                 completion?(data
-                    .filter { $0.clip?.clip != nil }
-                    .map { $0.mapToTopGameModel() }
-                    , nil)
+                           .filter { $0.clip?.clip != nil }
+                           .map { $0.mapToTopGameModel() }
+                           .shuffled(),
+                            nil)
         }
     }
 }
