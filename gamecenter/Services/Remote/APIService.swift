@@ -33,8 +33,23 @@ struct APIParam {
     }
     
     func getParam() -> [String: Any] {
-        return ["parrent_platforms": parrentPlatforms, "dates": dates, "page": page,
-                "ordering": ordering?.rawValue, "page_size": pageSize]
+        var parram = [String: Any]()
+        if let parrentPlatforms = parrentPlatforms {
+            parram["parrent_platforms"] = parrentPlatforms
+        }
+        
+        if let dates = dates {
+            parram["dates"] = dates
+        }
+        
+        if let ordering = ordering?.rawValue {
+            parram["ordering"] = ordering
+        }
+        
+        parram["page_size"] = pageSize
+        parram["page"] = page
+        
+        return parram
     }
 }
 
