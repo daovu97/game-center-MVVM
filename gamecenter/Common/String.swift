@@ -11,3 +11,5 @@ import Foundation
 let selectPlatformHeaderTitle = "Choose your favorite Platforms"
 let selectGenreHeaderTitle = "and Genres"
 let subSelectHeaderTitle = "Get personalized game recommendations"
+
+let splashHeaderTitle = "Explore your favorite games"

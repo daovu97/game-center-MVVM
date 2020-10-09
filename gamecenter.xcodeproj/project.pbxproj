@@ -10,6 +10,7 @@
 		7FD066ACC52A29C7D7A6E76F /* Pods_gamecenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E42BDB4B65C83F230AA7C1D /* Pods_gamecenter.framework */; };
 		F00CDDA32530108C0080024B /* UnavailableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00CDDA22530108C0080024B /* UnavailableView.swift */; };
 		F00CDDA5253020860080024B /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00CDDA4253020860080024B /* Double+Extension.swift */; };
+		F00CDDA7253032FF0080024B /* SplashAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = F00CDDA6253032FF0080024B /* SplashAnimation.json */; };
 		F02F35E425241FE600876428 /* Observable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02F35E325241FE600876428 /* Observable+Extension.swift */; };
 		F02F35E92524203B00876428 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02F35E82524203B00876428 /* BaseViewController.swift */; };
 		F02F35EB2524205F00876428 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02F35EA2524205F00876428 /* BaseViewModel.swift */; };
@@ -83,6 +84,7 @@
 		BE65B5C542E9CC8371E1F3C4 /* Pods-gamecenter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gamecenter.debug.xcconfig"; path = "Target Support Files/Pods-gamecenter/Pods-gamecenter.debug.xcconfig"; sourceTree = "<group>"; };
 		F00CDDA22530108C0080024B /* UnavailableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnavailableView.swift; sourceTree = "<group>"; };
 		F00CDDA4253020860080024B /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
+		F00CDDA6253032FF0080024B /* SplashAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SplashAnimation.json; sourceTree = "<group>"; };
 		F02F35E325241FE600876428 /* Observable+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observable+Extension.swift"; sourceTree = "<group>"; };
 		F02F35E82524203B00876428 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		F02F35EA2524205F00876428 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 		F03A31BD252DA90500BE562F /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
+				F00CDDA6253032FF0080024B /* SplashAnimation.json */,
 				F03A31BE252DA91300BE562F /* LoadingAnimation.json */,
 			);
 			path = Lottie;
@@ -534,6 +537,7 @@
 				F03A31BF252DA91300BE562F /* LoadingAnimation.json in Resources */,
 				F03BF52525233113006018BC /* Assets.xcassets in Resources */,
 				F03BF5232523310F006018BC /* Main.storyboard in Resources */,
+				F00CDDA7253032FF0080024B /* SplashAnimation.json in Resources */,
 				F066AE90252708E800800ABB /* SelectGenre.json in Resources */,
 				F0AE441A2526E2AA001D218F /* PlatformsData.json in Resources */,
 			);

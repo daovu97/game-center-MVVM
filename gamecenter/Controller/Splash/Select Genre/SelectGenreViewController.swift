@@ -72,7 +72,7 @@ extension SelectGenreViewController: UICollectionViewDelegateFlowLayout {
         let subTextSize = calculateFrameInText(message: subSelectHeaderTitle,
                                                      textSize: SelectPlatformHeaderView.subTitleSize,
                                                      withFont: primaryFontName_light,
-                                                     maxWidth: view.frame.width - 24)
+                                                     maxWidth: view.frame.width - 34)
         
         return .init(width: view.frame.width, height: textHeaderSize.height + 8 + subTextSize.height + 24)
     }
