@@ -17,6 +17,7 @@ enum Scene {
     case top
     case selectPlatform(SelectPlatformViewModel)
     case selectGenre(SelectGenreViewModel)
+    case presentVideo(data: [TopVideoGameModel], position: Int)
 }
 
 extension Scene: TargetScene {
@@ -37,6 +38,12 @@ extension Scene: TargetScene {
             let vc = SelectGenreViewController()
             vc.initViewModel(viewModel: viewModel)
             return .push(vc, withAnim: true)
+        case .presentVideo(let data, let position):
+            let homeViewController = TopViewController()
+            let viewModel = TopViewModel()
+            viewModel.setUpPresentData(datas: data, position: position)
+            homeViewController.initViewModel(viewModel: viewModel)
+            return .present(homeViewController, .fullScreen)
         }
     }
     

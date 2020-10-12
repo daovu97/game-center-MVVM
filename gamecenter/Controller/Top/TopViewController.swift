@@ -31,6 +31,13 @@ class TopViewController: BaseViewController<TopViewModel> {
         return collectionView
     }()
     
+    private lazy var backButton: UIImageView = {
+        let button = UIImageView()
+        button.image = UIImage(named: "ic_back")
+        button.tintColor = .white
+        return button
+    }()
+    
     private lazy var popupView = StoresPopUpView()
     
     private lazy var noIntenetView: UnavailableView = {
@@ -78,11 +85,13 @@ class TopViewController: BaseViewController<TopViewModel> {
     
     override func netWorkStatusChange(isConnected: Bool) {
         super.netWorkStatusChange(isConnected: isConnected)
-        if viewModel.datas.isEmpty {
+        if viewModel.datas.isEmpty && viewModel.topViewControllerType == .top {
             noIntenetView.isHidden = isConnected
             if isConnected {
                 viewModel.getVideo()
             }
+        } else {
+            noIntenetView.isHidden = true
         }
     }
     
@@ -92,24 +101,47 @@ class TopViewController: BaseViewController<TopViewModel> {
             DispatchQueue.main.async {
                 switch update {
                 case .add(_, let position):
-                        self?.collectionView.performBatchUpdates({
-                            self?.collectionView.insertItems(at: position)
-                        }, completion: nil)
+                    self?.collectionView.performBatchUpdates({
+                        self?.collectionView.insertItems(at: position)
+                    }, completion: nil)
                 case .reload:
                     self?.collectionView.reloadData()
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self?.playVideo(at: self?.currentItem ?? IndexPath())
                     }
+                case .scrollTo:
+                    break
                 }
             }
             
         }.disposed(by: disposeBag)
+        
+        viewModel.shouldShowbackButton.bind {[weak self] (show) in
+            if show {
+                self?.setUpBackButton()
+            } else {
+                self?.backButton.removeFromSuperview()
+            }
+        }.disposed(by: disposeBag)
+    }
+    
+    private func setUpBackButton() {
+        view.addSubview(backButton)
+        backButton.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                          leading: view.leadingAnchor,
+                          bottom: nil, trailing: nil,
+                          padding: .init(top: 0, left: 8, bottom: 0, right: 0),
+                          size: .init(width: 30, height: 30))
+        backButton.isUserInteractionEnabled = true
+        backButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didBackTapped)))
+    }
+    
+    @objc private func didBackTapped() {
+        self.dismiss(animated: true, completion: nil)
     }
     
     override func setupNaviBar() {
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = true
+        transparentNavibar()
     }
     
     override func viewDidAppear(_ animated: Bool) {

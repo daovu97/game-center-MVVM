@@ -45,9 +45,11 @@ class VideoPlayerController: NSObject, NSCacheDelegate {
             return
         }
         if self.videoCache.object(forKey: url as NSString) != nil {
+            loaded?()
             return
         }
         guard let URL = URL(string: url) else {
+            loaded?()
             return
         }
 
@@ -63,9 +65,11 @@ class VideoPlayerController: NSObject, NSCacheDelegate {
             case .loaded:
                 loaded?()
             case .failed, .cancelled:
+                loaded?()
                 print("Failed to load asset successfully")
                 return
             default:
+                loaded?()
                 print("Unkown state of asset")
                 return
             }
@@ -88,6 +92,7 @@ class VideoPlayerController: NSObject, NSCacheDelegate {
         currentLayer = layer
         if let videoContainer = self.videoCache.object(forKey: url as NSString) {
             layer.player = videoContainer.player
+            videoContainer.player.replaceCurrentItem(with: videoContainer.playerItem)
             videoContainer.playOn = true
             addObservers(url: url, videoContainer: videoContainer)
         }

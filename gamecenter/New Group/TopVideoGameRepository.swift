@@ -12,6 +12,8 @@ protocol TopVideoGameRespositoryType {
     func getGame(isLoadMore: Bool, completion: (([TopVideoGameModel]?, Error?) -> Void)?)
     
     func likeGame(gameModel: TopVideoGameModel)
+    
+    func loadVideoWork(data: [TopVideoGameModel])
 }
 
 class TopVideoGameRespository: TopVideoGameRespositoryType {
@@ -35,16 +37,16 @@ class TopVideoGameRespository: TopVideoGameRespositoryType {
             currentPage = 0
             numberOfPageEmptyVideo = 0
             param = APIParam(parrentPlatforms: nil,
-                                 genres: nil,
-                                 page: currentPage, dates: nil,
-                                 ordering: .relevance,
-                                 pageSize: pageSize)
+                             genres: nil,
+                             page: currentPage, dates: nil,
+                             ordering: .relevance,
+                             pageSize: pageSize)
         } else {
             param = APIParam(parrentPlatforms: LocalDB.shared.getFavorPlatform(),
-                                 genres: LocalDB.shared.getFavorGenre(),
-                                 page: currentPage, dates: nil,
-                                 ordering: .relevance,
-                                 pageSize: pageSize)
+                             genres: LocalDB.shared.getFavorGenre(),
+                             page: currentPage, dates: nil,
+                             ordering: .relevance,
+                             pageSize: pageSize)
         }
         
         service.loadVideo(param: param) {[weak self] (games, error) in
@@ -76,12 +78,13 @@ class TopVideoGameRespository: TopVideoGameRespositoryType {
     }
     
     func likeGame(gameModel: TopVideoGameModel) {
-        print(gameModel.isLike)
-        favorDB.getListFavorGame { (game) in
-            print(game?.map { $0.isLike })
-        }
         favorDB.saveFavorGame(game: gameModel)
     }
+    
+    func loadVideoWork(data: [TopVideoGameModel]) {
+        doLoadVideoWork(data: data)
+    }
+    
     
     private var callBackWhenLoaded:(() -> Void)?
     

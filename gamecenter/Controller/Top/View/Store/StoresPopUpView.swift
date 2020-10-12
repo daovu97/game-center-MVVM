@@ -162,7 +162,8 @@ extension StoresPopUpView {
           collectionView.alwaysBounceVertical = false
           collectionView.bounces = false
           collectionView.registerCell(StoreViewCell.self)
-          collectionView.registerCell(StoresHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader)
+          collectionView.registerCell(StoresHeaderView.self,
+                                      forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader)
           collectionView.contentInset = .init(top: 8, left: 8, bottom: 8, right: 8)
       }
 }

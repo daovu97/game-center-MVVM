@@ -13,12 +13,19 @@ final class TopViewModel: BaseViewModel {
     
     var datas = [TopVideoGameModel]()
     private var isLoading: Bool = false
+    var topViewControllerType: TopViewControllerType = .top
     
     private var respository: TopVideoGameRespositoryType = TopVideoGameRespository()
     
     var collectionViewUpdate = PublishSubject<ScrollViewUpdate<TopVideoGameModel>>()
     
+    var shouldShowbackButton = BehaviorSubject<Bool>(value: false)
+    
     func getVideo(isLoadmore: Bool = false) {
+        guard topViewControllerType == .top else {
+            return
+        }
+        
         guard !(isLoading || !isConnectedToNetwork()) else { return }
         
         isLoading = true
@@ -56,5 +63,18 @@ final class TopViewModel: BaseViewModel {
     func likeVideo(isLike: Bool, position: Int) {
         datas[position].isLike = isLike
         respository.likeGame(gameModel: datas[position])
+    }
+    
+    func setUpPresentData(datas: [TopVideoGameModel], position: Int) {
+        shouldShowbackButton.onNext(true)
+        topViewControllerType = .present
+        self.datas = datas
+        respository.loadVideoWork(data: datas)
+        collectionViewUpdate.onNext(.scrollTo(position: IndexPath(row: position, section: 0)))
+    }
+    
+    enum TopViewControllerType {
+        case top
+        case present
     }
 }

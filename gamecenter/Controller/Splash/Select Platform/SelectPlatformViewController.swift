@@ -35,6 +35,7 @@ class SelectPlatformViewController: BaseSelectViewController<SelectPlatformViewM
                 DispatchQueue.main.async {
                     self?.collectionView.reloadData()
                 }
+            case .scrollTo: break
             }
         }.disposed(by: disposeBag)
         

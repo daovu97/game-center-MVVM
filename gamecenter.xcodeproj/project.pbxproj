@@ -82,6 +82,11 @@
 		F0A1B0842533F7F800DBCEB2 /* GameMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B0832533F7F800DBCEB2 /* GameMapper.swift */; };
 		F0A1B08725340D4100DBCEB2 /* TopVideoGameRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B08625340D4100DBCEB2 /* TopVideoGameRepository.swift */; };
 		F0A1B08A2534309200DBCEB2 /* StoresHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B0892534309200DBCEB2 /* StoresHeaderView.swift */; };
+		F0A1B08C2534333D00DBCEB2 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B08B2534333D00DBCEB2 /* ProfileViewController.swift */; };
+		F0A1B08E2534335900DBCEB2 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B08D2534335900DBCEB2 /* ProfileViewModel.swift */; };
+		F0A1B0902534367600DBCEB2 /* ProfileheaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B08F2534367600DBCEB2 /* ProfileheaderView.swift */; };
+		F0A1B0932534371B00DBCEB2 /* ProfileFavorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B0922534371B00DBCEB2 /* ProfileFavorCell.swift */; };
+		F0A1B0952534485D00DBCEB2 /* NoFavorVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B0942534485D00DBCEB2 /* NoFavorVideoCell.swift */; };
 		F0AE44122526D6DB001D218F /* BaseSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AE44112526D6DB001D218F /* BaseSelectViewController.swift */; };
 		F0AE44162526D9AE001D218F /* SelectGenreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AE44152526D9AE001D218F /* SelectGenreViewController.swift */; };
 		F0AE44182526D9D4001D218F /* SelectGenreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AE44172526D9D4001D218F /* SelectGenreViewModel.swift */; };
@@ -167,6 +172,11 @@
 		F0A1B0832533F7F800DBCEB2 /* GameMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMapper.swift; sourceTree = "<group>"; };
 		F0A1B08625340D4100DBCEB2 /* TopVideoGameRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopVideoGameRepository.swift; sourceTree = "<group>"; };
 		F0A1B0892534309200DBCEB2 /* StoresHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoresHeaderView.swift; sourceTree = "<group>"; };
+		F0A1B08B2534333D00DBCEB2 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		F0A1B08D2534335900DBCEB2 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		F0A1B08F2534367600DBCEB2 /* ProfileheaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileheaderView.swift; sourceTree = "<group>"; };
+		F0A1B0922534371B00DBCEB2 /* ProfileFavorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFavorCell.swift; sourceTree = "<group>"; };
+		F0A1B0942534485D00DBCEB2 /* NoFavorVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoFavorVideoCell.swift; sourceTree = "<group>"; };
 		F0AE44112526D6DB001D218F /* BaseSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSelectViewController.swift; sourceTree = "<group>"; };
 		F0AE44152526D9AE001D218F /* SelectGenreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenreViewController.swift; sourceTree = "<group>"; };
 		F0AE44172526D9D4001D218F /* SelectGenreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenreViewModel.swift; sourceTree = "<group>"; };
@@ -512,8 +522,21 @@
 		F0A1B08825342D4C00DBCEB2 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				F0A1B0912534367B00DBCEB2 /* View */,
+				F0A1B08B2534333D00DBCEB2 /* ProfileViewController.swift */,
+				F0A1B08D2534335900DBCEB2 /* ProfileViewModel.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		F0A1B0912534367B00DBCEB2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F0A1B08F2534367600DBCEB2 /* ProfileheaderView.swift */,
+				F0A1B0922534371B00DBCEB2 /* ProfileFavorCell.swift */,
+				F0A1B0942534485D00DBCEB2 /* NoFavorVideoCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		F0AE44102526D6B5001D218F /* Base Select */ = {
@@ -690,12 +713,14 @@
 				F066AE9725270B5F00800ABB /* Genre.swift in Sources */,
 				F0526493252F01200006D0BA /* Constants.swift in Sources */,
 				F00CDDA5253020860080024B /* Double+Extension.swift in Sources */,
+				F0A1B08C2534333D00DBCEB2 /* ProfileViewController.swift in Sources */,
 				F0A1B0802533F77C00DBCEB2 /* TopVideoGameObject.swift in Sources */,
 				F07C1C852525B25400DB9AE1 /* UIColor+Extension.swift in Sources */,
 				F03BF5202523310F006018BC /* ViewController.swift in Sources */,
 				F02F35EF252421A900876428 /* SplashViewModel.swift in Sources */,
 				F07C1C832525937A00DB9AE1 /* ParentPlatfomModel.swift in Sources */,
 				F03A31B6252D624900BE562F /* TopVideoGameModel.swift in Sources */,
+				F0A1B0932534371B00DBCEB2 /* ProfileFavorCell.swift in Sources */,
 				F0A1B0842533F7F800DBCEB2 /* GameMapper.swift in Sources */,
 				F03A31B8252D710B00BE562F /* StarView.swift in Sources */,
 				F066AE9B25271C7100800ABB /* SelectedGenreCell.swift in Sources */,
@@ -705,10 +730,12 @@
 				F052647D252EB4590006D0BA /* Game.swift in Sources */,
 				F03BF53825241F7E006018BC /* Scene.swift in Sources */,
 				F07C1C872525B2FB00DB9AE1 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
+				F0A1B0952534485D00DBCEB2 /* NoFavorVideoCell.swift in Sources */,
 				F03BF51C2523310F006018BC /* AppDelegate.swift in Sources */,
 				F03BF51E2523310F006018BC /* SceneDelegate.swift in Sources */,
 				F052647A252EB0610006D0BA /* APIService.swift in Sources */,
 				F052648D252EB6C80006D0BA /* ParentPlatformsResponse.swift in Sources */,
+				F0A1B08E2534335900DBCEB2 /* ProfileViewModel.swift in Sources */,
 				F02F35EB2524205F00876428 /* BaseViewModel.swift in Sources */,
 				F066AE9525270B1F00800ABB /* GenreModel.swift in Sources */,
 				F07C1C80252592A500DB9AE1 /* BaseResponse.swift in Sources */,
@@ -737,6 +764,7 @@
 				F04E1BA725304253005B6D54 /* NetworkManager.swift in Sources */,
 				F07C1C7925257AE700DB9AE1 /* BaseCollectionViewCell.swift in Sources */,
 				F0526495252F04680006D0BA /* String.swift in Sources */,
+				F0A1B0902534367600DBCEB2 /* ProfileheaderView.swift in Sources */,
 				F0AE44122526D6DB001D218F /* BaseSelectViewController.swift in Sources */,
 				F052648B252EB66F0006D0BA /* ShortScreenshots.swift in Sources */,
 				F02F35E92524203B00876428 /* BaseViewController.swift in Sources */,

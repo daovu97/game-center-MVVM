@@ -33,6 +33,8 @@ class SelectGenreViewController: BaseSelectViewController<SelectGenreViewModel> 
                 DispatchQueue.main.async {
                     self?.collectionView.reloadData()
                 }
+            case .scrollTo:
+                break
             }
         }.disposed(by: disposeBag)
         
