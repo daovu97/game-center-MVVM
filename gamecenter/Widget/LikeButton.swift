@@ -10,11 +10,7 @@ import UIKit
 
 class LikeButton: ImageSubLabelView {
     
-    var isLike: Bool = false {
-        didSet {
-            animate(isLike: isLike)
-        }
-    }
+    private(set) var isLike: Bool = false
     
     private lazy var fakeLikeButton: UIImageView = {
         let imge = UIImageView(image: UIImage(named: "ic_heart"))
@@ -24,7 +20,16 @@ class LikeButton: ImageSubLabelView {
     
     override func didTapItem() {
         super.didTapItem()
-        isLike = !isLike
+        setLike(isLike: !isLike)
+    }
+    
+    func setLike(isLike: Bool, withAnime: Bool = true) {
+        self.isLike = isLike
+        if withAnime {
+            animate(isLike: isLike)
+        } else {
+            self.imageView.tintColor = isLike ? UIColor.systemPink : UIColor.white
+        }
     }
     
     private func animate(isLike: Bool) {

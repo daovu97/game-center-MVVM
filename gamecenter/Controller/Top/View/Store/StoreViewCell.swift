@@ -46,8 +46,8 @@ class StoreViewCell: BaseCollectionViewCell {
                          trailing: contentView.trailingAnchor)
     }
     
-    func setupData(data: Stores) {
-        labelname.text = data.store?.name ?? ""
-        image.image = data.store?.icon
+    func setupData(data: StoreModel) {
+        labelname.text = data.name ?? ""
+        image.image = data.icon
     }
 }

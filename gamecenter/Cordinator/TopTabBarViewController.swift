@@ -11,7 +11,8 @@ import UIKit
 class TopTabBarViewController: UITabBarController {
     
     var homeViewController: TopViewController!
-    var discoverViewController: UIViewController!
+    //Not have enough time, so remove it
+//    var discoverViewController: UIViewController!
     var profileViewController: UIViewController!
     
     override func viewDidLoad() {
@@ -25,8 +26,8 @@ class TopTabBarViewController: UITabBarController {
         homeViewController = TopViewController()
         homeViewController.initViewModel(viewModel: TopViewModel())
         
-        discoverViewController = UIViewController()
-        discoverViewController.view.backgroundColor = .black
+//        discoverViewController = UIViewController()
+//        discoverViewController.view.backgroundColor = .black
         
         profileViewController = UIViewController()
         profileViewController.view.backgroundColor = .black
@@ -35,9 +36,9 @@ class TopTabBarViewController: UITabBarController {
         homeViewController.tabBarItem.selectedImage = UIImage(named: "ic_tab_home_selected")
         homeViewController.tabBarItem.title = "Home"
         
-        discoverViewController.tabBarItem.image = UIImage(named: "ic_tab_discovery_selected")
-        discoverViewController.tabBarItem.selectedImage = UIImage(named: "ic_tab_discovery_selected")
-        discoverViewController.tabBarItem.title = "Discover"
+//        discoverViewController.tabBarItem.image = UIImage(named: "ic_tab_discovery_selected")
+//        discoverViewController.tabBarItem.selectedImage = UIImage(named: "ic_tab_discovery_selected")
+//        discoverViewController.tabBarItem.title = "Discover"
         
         profileViewController.tabBarItem.image = UIImage(named: "ic_tab_profile_selected")
         profileViewController.tabBarItem.selectedImage = UIImage(named: "ic_tab_profile_selected")
@@ -45,7 +46,7 @@ class TopTabBarViewController: UITabBarController {
         
         viewControllers = [
          UINavigationController(rootViewController: homeViewController),
-         UINavigationController(rootViewController: discoverViewController),
+//         UINavigationController(rootViewController: discoverViewController),
          UINavigationController(rootViewController: profileViewController)
         ]
         

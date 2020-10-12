@@ -23,4 +23,10 @@ final class SelectGenreViewModel: BaseSelectViewModel {
         super.setSelectedIndexPath(indexPath: indexPath)
         collectionViewAupdate.onNext(.reload)
     }
+    
+    func saveFavorGenre() {
+        var genres = [GenreModel]()
+        selectedIndexPath.forEach { genres.append(self.genres[$0.row]) }
+        getLocalDB().saveGenre(genres: genres)
+    }
 }

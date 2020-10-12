@@ -125,7 +125,7 @@ extension TopViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell =  collectionView.dequeueReusableCell(TopViewCell.self, for: indexPath)
-        cell.configure(data: viewModel.datas[indexPath.row])
+        cell.configure(data: viewModel.datas[indexPath.row], position: indexPath.row)
         cell.action = self
         return cell
     }
@@ -196,11 +196,11 @@ extension TopViewController {
     private func observeNotification() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.appEnteredFromBackground),
-                                               name: UIApplication.willEnterForegroundNotification, object: nil)
+                                               name: UIApplication.didBecomeActiveNotification, object: nil)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(didEnterBackgroundNotification(notification:)),
-                                               name: UIApplication.didEnterBackgroundNotification, object: nil)
+                                               name: UIApplication.willResignActiveNotification, object: nil)
     }
     
     @objc private func appEnteredFromBackground() {
@@ -213,8 +213,8 @@ extension TopViewController {
 }
 
 extension TopViewController: TopViewCellAction {
-    func like(model: TopVideoGameModel) {
-        print("like + \(model)")
+    func like(isLike: Bool, position: Int) {
+        viewModel.likeVideo(isLike: isLike, position: position)
     }
     
     func share(model: TopVideoGameModel) {
@@ -239,14 +239,14 @@ extension TopViewController: TopViewCellAction {
     }
     
     func save(model: TopVideoGameModel) {
-        showPopup(with: model.store)
+        showPopup(with: model.store, itemName: model.name)
     }
 }
 
 // MARK: - Popup view
 extension TopViewController {
-    func showPopup(with value: [Stores]?) {
+    func showPopup(with value: [StoreModel]?, itemName: String?) {
         popupView.show()
-        popupView.setupData(data: value)
+        popupView.setupData(data: value, itemName: itemName)
     }
 }

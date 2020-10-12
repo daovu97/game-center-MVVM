@@ -12,6 +12,7 @@ import Alamofire
 
 struct APIParam {
     var parrentPlatforms: String?
+    var genres: String?
     var page: Int
     var dates: String?
     var ordering: OrderingType?
@@ -34,16 +35,20 @@ struct APIParam {
     
     func getParam() -> [String: Any] {
         var parram = [String: Any]()
-        if let parrentPlatforms = parrentPlatforms {
+        if let parrentPlatforms = parrentPlatforms, !parrentPlatforms.isEmpty {
             parram["parrent_platforms"] = parrentPlatforms
         }
         
-        if let dates = dates {
+        if let dates = dates, !dates.isEmpty {
             parram["dates"] = dates
         }
         
         if let ordering = ordering?.rawValue {
             parram["ordering"] = ordering
+        }
+        
+        if let genres = genres, !genres.isEmpty {
+            parram["genres"] = genres
         }
         
         parram["page_size"] = pageSize
@@ -54,25 +59,22 @@ struct APIParam {
 }
 
 protocol APIServiceType {
-    func loadVideo(param: APIParam, completion: (([TopVideoGameModel]?, Error?) -> Void)?)
+    func loadVideo(param: APIParam, completion: ((BaseResponse<Game>?, Error?) -> Void)?)
 }
 
 struct APIService: APIServiceType {
     static let baseUrl = "https://api.rawg.io/api/games"
     
-    func loadVideo(param: APIParam, completion: (([TopVideoGameModel]?, Error?) -> Void)?) {
+    func loadVideo(param: APIParam, completion: ((BaseResponse<Game>?, Error?) -> Void)?) {
         AF.request(APIService.baseUrl, method: .get, parameters: param.getParam())
             .validate()
             .responseDecodable(of: BaseResponse<Game>.self) { (response) in
-                guard let data = response.value?.results  else {
+                guard let data = response.value  else {
                     completion?(nil, response.error)
                     return
                 }
-                completion?(data
-                           .filter { $0.clip?.clip != nil }
-                           .map { $0.mapToTopGameModel() }
-                           .shuffled(),
-                            nil)
+                
+                completion?(data, nil)
         }
     }
 }

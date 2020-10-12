@@ -10,7 +10,7 @@ import UIKit
 
 class StoresPopUpView: UIView {
     
-    private var store = [Stores]()
+    private var store = [StoreModel]()
     
     // MARK: - UI Components
     private lazy var backgroundView: UIView = {
@@ -56,13 +56,14 @@ class StoresPopUpView: UIView {
         let label = UILabel()
         label.textColor = .lightGray
         label.textAlignment = .center
-        label.font = UIFont(name: primaryFontName_medium, size: 18)
+        label.font = UIFont(name: primaryFontName_medium, size: 16)
         label.text = "Stores"
+        label.numberOfLines = 2
         return label
     }()
     
     private lazy var dismissBtn: UIButton = {
-        let dismissBtn = UIButton(frame: CGRect(x: ScreenSize.Width - 45, y: 15, width: 30, height: 30))
+        let dismissBtn = UIButton(frame: CGRect(x: ScreenSize.Width - 30, y: 10, width: 24, height: 24))
         dismissBtn.setTitle("", for: .normal)
         dismissBtn.setImage(UIImage(named: "ic_close"), for: .normal)
         dismissBtn.tintColor = .lightGray
@@ -93,7 +94,7 @@ class StoresPopUpView: UIView {
         setupView()
     }
     
-    func setupData(data: [Stores]?) {
+    func setupData(data: [StoreModel]?, itemName: String? = "Stores") {
         if let data = data {
             unavailableStoreView.isHidden = true
             collectionView.isHidden = false
@@ -103,7 +104,7 @@ class StoresPopUpView: UIView {
              unavailableStoreView.isHidden = false
              collectionView.isHidden = true
         }
-        
+        titleLabel.text = itemName
     }
 }
 
@@ -125,7 +126,7 @@ extension StoresPopUpView {
                             leading: popUpView.leadingAnchor,
                             bottom: dismissBtn.bottomAnchor,
                             trailing: popUpView.trailingAnchor,
-                            padding: .init(top: 8, left: 0, bottom: 0, right: 0))
+                            padding: .init(top: 8, left: 54, bottom: 2, right: 54))
       }
       
       private func setupPopupView() {
@@ -161,6 +162,7 @@ extension StoresPopUpView {
           collectionView.alwaysBounceVertical = false
           collectionView.bounces = false
           collectionView.registerCell(StoreViewCell.self)
+          collectionView.registerCell(StoresHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader)
           collectionView.contentInset = .init(top: 8, left: 8, bottom: 8, right: 8)
       }
 }
@@ -190,6 +192,12 @@ extension StoresPopUpView: UICollectionViewDelegateFlowLayout {
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 14
     }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return .init(width: collectionView.frame.width, height: 50)
+    }
 }
 
 extension StoresPopUpView: UICollectionViewDataSource {
@@ -203,6 +211,15 @@ extension StoresPopUpView: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(StoreViewCell.self, for: indexPath)
         cell.setupData(data: store[indexPath.row])
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        viewForSupplementaryElementOfKind kind: String,
+                        at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableCell(StoresHeaderView.self,
+                                                        ofKind: UICollectionView.elementKindSectionHeader,
+                                                        for: indexPath)
+        return header
     }
 }
 

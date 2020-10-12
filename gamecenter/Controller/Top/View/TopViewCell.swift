@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 
 class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
-     
+    var cellPosition: Int = 0
     var action: TopViewCellAction?
     
     private var data: TopVideoGameModel?
@@ -68,11 +68,6 @@ class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
     private lazy var likeButton: LikeButton = {
         let view = LikeButton(frame: .zero, image: UIImage(named: "ic_heart"))
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.didTapped = { [weak self] in
-            if let data = self?.data {
-                self?.action?.like(model: data)
-            }
-        }
         return view
     }()
     
@@ -168,6 +163,12 @@ class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
         likeButton.widthAnchor.constraint(equalToConstant: width).isActive = true
         likeButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
         
+        likeButton.didTapped = { [weak self] in
+            if self?.data != nil {
+                self?.action?.like(isLike: self?.likeButton.isLike ?? false, position: self?.cellPosition ?? 0)
+            }
+        }
+        
         shareButton.widthAnchor.constraint(equalToConstant: width).isActive = true
         shareButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
         
@@ -191,7 +192,8 @@ class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
         NSLayoutConstraint.activate(stackDetailConstrain)
     }
     
-    func configure(data: TopVideoGameModel) {
+    func configure(data: TopVideoGameModel, position: Int) {
+        self.cellPosition = position
         self.data = data
         self.videoURL = data.videoUrl
         videoLayer = AVPlayerLayer()
@@ -227,10 +229,12 @@ class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
         }
         
         if let suggest = data.suggestionCount {
-             likeButton.textLabel.text = "\(suggest)"
+            likeButton.textLabel.text = "\(suggest)"
         } else {
-             likeButton.textLabel.text = ""
+            likeButton.textLabel.text = ""
         }
+        
+        likeButton.setLike(isLike: data.isLike, withAnime: false)
         
     }
     
@@ -262,17 +266,17 @@ class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
     }
     
     private func setupMaskedColor() {
-           let gradientMaskLayer = CAGradientLayer()
-           gradientMaskLayer.frame = maskedView.bounds
-           
-           gradientMaskLayer.colors = [UIColor.clear.cgColor,
-                                       UIColor.black.withAlphaComponent(0.05).cgColor,
-                                       UIColor.black.withAlphaComponent(0.2).cgColor,
-                                       UIColor.black.withAlphaComponent(0.4).cgColor]
-           gradientMaskLayer.locations = [0, 0.1, 0.3, 1]
-           
-           maskedView.layer.mask = gradientMaskLayer
-       }
+        let gradientMaskLayer = CAGradientLayer()
+        gradientMaskLayer.frame = maskedView.bounds
+        
+        gradientMaskLayer.colors = [UIColor.clear.cgColor,
+                                    UIColor.black.withAlphaComponent(0.05).cgColor,
+                                    UIColor.black.withAlphaComponent(0.2).cgColor,
+                                    UIColor.black.withAlphaComponent(0.4).cgColor]
+        gradientMaskLayer.locations = [0, 0.1, 0.3, 1]
+        
+        maskedView.layer.mask = gradientMaskLayer
+    }
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -332,15 +336,15 @@ extension TopViewCell {
                 heartView.removeFromSuperview()
             })
         })
-        likeButton.isLike = true
-        if let data = data {
-            action?.like(model: data)
+        likeButton.setLike(isLike: true)
+        if data != nil {
+            action?.like(isLike: true, position: cellPosition)
         }
     }
 }
 
 protocol TopViewCellAction {
-    func like(model: TopVideoGameModel)
+    func like(isLike: Bool, position: Int)
     func share(model: TopVideoGameModel)
     func save(model: TopVideoGameModel)
 }

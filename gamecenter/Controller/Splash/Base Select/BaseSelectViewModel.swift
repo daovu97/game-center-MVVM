@@ -37,4 +37,8 @@ open class BaseSelectViewModel: BaseViewModel {
             SceneCoordinator.shared.transition(to: Scene.selectGenre(SelectGenreViewModel()))
         }
     }
+    
+    func getLocalDB() -> LocalDB {
+        LocalDB.shared
+    }
 }

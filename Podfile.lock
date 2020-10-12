@@ -1,9 +1,17 @@
 PODS:
   - Alamofire (5.2.2)
   - lottie-ios (3.1.8)
+  - Realm (5.4.6):
+    - Realm/Headers (= 5.4.6)
+  - Realm/Headers (5.4.6)
+  - RealmSwift (5.4.6):
+    - Realm (= 5.4.6)
   - RxCocoa (5.1.1):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
+  - RxRealm (3.1.0):
+    - RealmSwift (~> 5.2)
+    - RxSwift (~> 5.0)
   - RxRelay (5.1.1):
     - RxSwift (~> 5)
   - RxSwift (5.1.1)
@@ -12,7 +20,9 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 5.2)
   - lottie-ios
+  - RealmSwift
   - RxCocoa (~> 5)
+  - RxRealm
   - RxSwift (~> 5)
   - SwiftLint
 
@@ -20,7 +30,10 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - lottie-ios
+    - Realm
+    - RealmSwift
     - RxCocoa
+    - RxRealm
     - RxRelay
     - RxSwift
     - SwiftLint
@@ -28,11 +41,14 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
   lottie-ios: 48fac6be217c76937e36e340e2d09cf7b10b7f5f
+  Realm: bb8d7be40d0bc92f139c47095124513c489c0baf
+  RealmSwift: c469118d55feccd985f1de12973c6ef5587213ca
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
+  RxRealm: 50e5fe5c1f22518205afbb313fbc5580d73bc586
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
   SwiftLint: dfd554ff0dff17288ee574814ccdd5cea85d76f7
 
-PODFILE CHECKSUM: bab77d979b87437a15e5fb7641517079065938f5
+PODFILE CHECKSUM: f8fa8857399ce2be3a35de7a029c1f2d9def16e0
 
 COCOAPODS: 1.9.3

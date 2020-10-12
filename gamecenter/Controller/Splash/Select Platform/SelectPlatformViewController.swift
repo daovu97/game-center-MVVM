@@ -43,6 +43,10 @@ class SelectPlatformViewController: BaseSelectViewController<SelectPlatformViewM
         }.disposed(by: disposeBag)
     }
     
+    override func didDoneTaped() {
+        viewModel.saveFavorPlatform()
+    }
+    
 }
 
 extension SelectPlatformViewController: UICollectionViewDelegateFlowLayout {
