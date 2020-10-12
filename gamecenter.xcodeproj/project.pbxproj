@@ -81,6 +81,7 @@
 		F0A1B0802533F77C00DBCEB2 /* TopVideoGameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B07F2533F77C00DBCEB2 /* TopVideoGameObject.swift */; };
 		F0A1B0842533F7F800DBCEB2 /* GameMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B0832533F7F800DBCEB2 /* GameMapper.swift */; };
 		F0A1B08725340D4100DBCEB2 /* TopVideoGameRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B08625340D4100DBCEB2 /* TopVideoGameRepository.swift */; };
+		F0A1B08A2534309200DBCEB2 /* StoresHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B0892534309200DBCEB2 /* StoresHeaderView.swift */; };
 		F0AE44122526D6DB001D218F /* BaseSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AE44112526D6DB001D218F /* BaseSelectViewController.swift */; };
 		F0AE44162526D9AE001D218F /* SelectGenreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AE44152526D9AE001D218F /* SelectGenreViewController.swift */; };
 		F0AE44182526D9D4001D218F /* SelectGenreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AE44172526D9D4001D218F /* SelectGenreViewModel.swift */; };
@@ -165,6 +166,7 @@
 		F0A1B07F2533F77C00DBCEB2 /* TopVideoGameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopVideoGameObject.swift; sourceTree = "<group>"; };
 		F0A1B0832533F7F800DBCEB2 /* GameMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMapper.swift; sourceTree = "<group>"; };
 		F0A1B08625340D4100DBCEB2 /* TopVideoGameRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopVideoGameRepository.swift; sourceTree = "<group>"; };
+		F0A1B0892534309200DBCEB2 /* StoresHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoresHeaderView.swift; sourceTree = "<group>"; };
 		F0AE44112526D6DB001D218F /* BaseSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSelectViewController.swift; sourceTree = "<group>"; };
 		F0AE44152526D9AE001D218F /* SelectGenreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenreViewController.swift; sourceTree = "<group>"; };
 		F0AE44172526D9D4001D218F /* SelectGenreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenreViewModel.swift; sourceTree = "<group>"; };
@@ -204,7 +206,6 @@
 		F02F35E52524201800876428 /* Top */ = {
 			isa = PBXGroup;
 			children = (
-				F06DE62B252F140A008C9F7C /* Store */,
 				F05D2538252AD82800E019DB /* View */,
 				F02F35F02524240500876428 /* TopViewController.swift */,
 				F02F35F22524241400876428 /* TopViewModel.swift */,
@@ -335,6 +336,7 @@
 			children = (
 				F02F35E72524202600876428 /* Base */,
 				F02F35E62524202000876428 /* Splash */,
+				F0A1B08825342D4C00DBCEB2 /* Profile */,
 				F02F35E52524201800876428 /* Top */,
 			);
 			path = Controller;
@@ -400,6 +402,7 @@
 		F05D2538252AD82800E019DB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F06DE62B252F140A008C9F7C /* Store */,
 				F05D2539252AD83E00E019DB /* TopViewCell.swift */,
 			);
 			path = View;
@@ -437,6 +440,7 @@
 			children = (
 				F0526490252EFF810006D0BA /* StoresPopUpView.swift */,
 				F06DE62C252F1438008C9F7C /* StoreViewCell.swift */,
+				F0A1B0892534309200DBCEB2 /* StoresHeaderView.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -503,6 +507,13 @@
 				F0A1B08625340D4100DBCEB2 /* TopVideoGameRepository.swift */,
 			);
 			path = "New Group";
+			sourceTree = "<group>";
+		};
+		F0A1B08825342D4C00DBCEB2 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		F0AE44102526D6B5001D218F /* Base Select */ = {
@@ -704,6 +715,7 @@
 				F05D2537252ACADF00E019DB /* TopTabBarViewController.swift in Sources */,
 				F05D2535252ABAC500E019DB /* BaseSelectedCell.swift in Sources */,
 				F0526483252EB55F0006D0BA /* Ratings.swift in Sources */,
+				F0A1B08A2534309200DBCEB2 /* StoresHeaderView.swift in Sources */,
 				F07C1C7025257A6200DB9AE1 /* UIView+Constrain+Extension.swift in Sources */,
 				F07C1C7225257A8000DB9AE1 /* UITableview+Extension.swift in Sources */,
 				F043A0CA253069ED000A8CFE /* StoreModel.swift in Sources */,

@@ -239,14 +239,14 @@ extension TopViewController: TopViewCellAction {
     }
     
     func save(model: TopVideoGameModel) {
-        showPopup(with: model.store)
+        showPopup(with: model.store, itemName: model.name)
     }
 }
 
 // MARK: - Popup view
 extension TopViewController {
-    func showPopup(with value: [StoreModel]?) {
+    func showPopup(with value: [StoreModel]?, itemName: String?) {
         popupView.show()
-        popupView.setupData(data: value)
+        popupView.setupData(data: value, itemName: itemName)
     }
 }
