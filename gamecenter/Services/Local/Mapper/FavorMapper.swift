@@ -26,9 +26,11 @@ extension TopVideoGameObject {
         return TopVideoGameModel(id: id.value, name: name,
                                  star: star.value, detail: detail,
                                  videoUrl: videoUrl,
+                                 backgroundImage: backgroundImage,
                                  platform: platform.map { $0.mapToParentPlatformModel() },
                                  suggestionCount: suggestionCount.value,
-                                 store: store.map { $0.mapToStoreModel() })
+                                 store: store.map { $0.mapToStoreModel() },
+                                 isLike: isLike )
     }
 }
 
@@ -39,9 +41,11 @@ extension TopVideoGameModel {
         object.name = name
         object.detail = detail
         object.videoUrl = videoUrl
+        object.backgroundImage = backgroundImage
         object.platform = (platform?.compactMap { $0.mapToParentPlatformObject() })!.toList()
         object.suggestionCount = RealmOptional(suggestionCount)
         object.store = (store?.compactMap { $0.mapToStoreObject() })!.toList()
+        object.isLike = isLike
         return object
     }
 }

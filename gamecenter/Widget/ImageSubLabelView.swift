@@ -62,8 +62,8 @@ class ImageSubLabelView: UIView {
     }
     
     @objc private func didTap() {
-        didTapped?()
         didTapItem()
+        didTapped?()
     }
     
     open func didTapItem() {}

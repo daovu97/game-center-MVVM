@@ -78,6 +78,9 @@
 		F07C1C852525B25400DB9AE1 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07C1C842525B25400DB9AE1 /* UIColor+Extension.swift */; };
 		F07C1C872525B2FB00DB9AE1 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07C1C862525B2FB00DB9AE1 /* LeftAlignedCollectionViewFlowLayout.swift */; };
 		F07C1C8B2525C6FF00DB9AE1 /* SelectPlatformHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07C1C8A2525C6FF00DB9AE1 /* SelectPlatformHeaderView.swift */; };
+		F0A1B0802533F77C00DBCEB2 /* TopVideoGameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B07F2533F77C00DBCEB2 /* TopVideoGameObject.swift */; };
+		F0A1B0842533F7F800DBCEB2 /* GameMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B0832533F7F800DBCEB2 /* GameMapper.swift */; };
+		F0A1B08725340D4100DBCEB2 /* TopVideoGameRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B08625340D4100DBCEB2 /* TopVideoGameRepository.swift */; };
 		F0AE44122526D6DB001D218F /* BaseSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AE44112526D6DB001D218F /* BaseSelectViewController.swift */; };
 		F0AE44162526D9AE001D218F /* SelectGenreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AE44152526D9AE001D218F /* SelectGenreViewController.swift */; };
 		F0AE44182526D9D4001D218F /* SelectGenreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AE44172526D9D4001D218F /* SelectGenreViewModel.swift */; };
@@ -159,6 +162,9 @@
 		F07C1C842525B25400DB9AE1 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		F07C1C862525B2FB00DB9AE1 /* LeftAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		F07C1C8A2525C6FF00DB9AE1 /* SelectPlatformHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlatformHeaderView.swift; sourceTree = "<group>"; };
+		F0A1B07F2533F77C00DBCEB2 /* TopVideoGameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopVideoGameObject.swift; sourceTree = "<group>"; };
+		F0A1B0832533F7F800DBCEB2 /* GameMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMapper.swift; sourceTree = "<group>"; };
+		F0A1B08625340D4100DBCEB2 /* TopVideoGameRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopVideoGameRepository.swift; sourceTree = "<group>"; };
 		F0AE44112526D6DB001D218F /* BaseSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSelectViewController.swift; sourceTree = "<group>"; };
 		F0AE44152526D9AE001D218F /* SelectGenreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenreViewController.swift; sourceTree = "<group>"; };
 		F0AE44172526D9D4001D218F /* SelectGenreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGenreViewModel.swift; sourceTree = "<group>"; };
@@ -280,10 +286,11 @@
 		F03BF51A2523310F006018BC /* gamecenter */ = {
 			isa = PBXGroup;
 			children = (
-				F07C1C7A252591FC00DB9AE1 /* Model */,
-				F02F35FE252462BA00876428 /* Services */,
 				F03BF53125241F3D006018BC /* Common */,
 				F03BF53325241F53006018BC /* Cordinator */,
+				F07C1C7A252591FC00DB9AE1 /* Model */,
+				F02F35FE252462BA00876428 /* Services */,
+				F0A1B08525340D2F00DBCEB2 /* New Group */,
 				F03BF53225241F45006018BC /* Controller */,
 				F02F35F42524251100876428 /* Widget */,
 				F05D253D252B0B2500E019DB /* Utils */,
@@ -347,9 +354,10 @@
 		F04E1BAC25305D33005B6D54 /* Local */ = {
 			isa = PBXGroup;
 			children = (
+				F0A1B0812533F79B00DBCEB2 /* Mapper */,
+				F0A1B07E2533F76400DBCEB2 /* Object */,
 				F02F35FF252462CA00876428 /* LocalDB.swift */,
 				F04E1BAD25306398005B6D54 /* FavorGameDB.swift */,
-				F043A0C725306911000A8CFE /* FavorMapper.swift */,
 			);
 			path = Local;
 			sourceTree = "<group>";
@@ -357,13 +365,14 @@
 		F0526478252EB03F0006D0BA /* Remote */ = {
 			isa = PBXGroup;
 			children = (
-				F052647B252EB4110006D0BA /* Model */,
+				F0A1B0822533F7E800DBCEB2 /* Mapper */,
+				F052647B252EB4110006D0BA /* Object */,
 				F0526479252EB0610006D0BA /* APIService.swift */,
 			);
 			path = Remote;
 			sourceTree = "<group>";
 		};
-		F052647B252EB4110006D0BA /* Model */ = {
+		F052647B252EB4110006D0BA /* Object */ = {
 			isa = PBXGroup;
 			children = (
 				F052647C252EB4590006D0BA /* Game.swift */,
@@ -377,7 +386,7 @@
 				F052648C252EB6C80006D0BA /* ParentPlatformsResponse.swift */,
 				F052648E252EB70E0006D0BA /* GenreRespnse.swift */,
 			);
-			path = Model;
+			path = Object;
 			sourceTree = "<group>";
 		};
 		F05D2533252ABA9E00E019DB /* View */ = {
@@ -462,6 +471,38 @@
 				F043A0C9253069ED000A8CFE /* StoreModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		F0A1B07E2533F76400DBCEB2 /* Object */ = {
+			isa = PBXGroup;
+			children = (
+				F0A1B07F2533F77C00DBCEB2 /* TopVideoGameObject.swift */,
+			);
+			path = Object;
+			sourceTree = "<group>";
+		};
+		F0A1B0812533F79B00DBCEB2 /* Mapper */ = {
+			isa = PBXGroup;
+			children = (
+				F043A0C725306911000A8CFE /* FavorMapper.swift */,
+			);
+			path = Mapper;
+			sourceTree = "<group>";
+		};
+		F0A1B0822533F7E800DBCEB2 /* Mapper */ = {
+			isa = PBXGroup;
+			children = (
+				F0A1B0832533F7F800DBCEB2 /* GameMapper.swift */,
+			);
+			path = Mapper;
+			sourceTree = "<group>";
+		};
+		F0A1B08525340D2F00DBCEB2 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				F0A1B08625340D4100DBCEB2 /* TopVideoGameRepository.swift */,
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		F0AE44102526D6B5001D218F /* Base Select */ = {
@@ -638,15 +679,18 @@
 				F066AE9725270B5F00800ABB /* Genre.swift in Sources */,
 				F0526493252F01200006D0BA /* Constants.swift in Sources */,
 				F00CDDA5253020860080024B /* Double+Extension.swift in Sources */,
+				F0A1B0802533F77C00DBCEB2 /* TopVideoGameObject.swift in Sources */,
 				F07C1C852525B25400DB9AE1 /* UIColor+Extension.swift in Sources */,
 				F03BF5202523310F006018BC /* ViewController.swift in Sources */,
 				F02F35EF252421A900876428 /* SplashViewModel.swift in Sources */,
 				F07C1C832525937A00DB9AE1 /* ParentPlatfomModel.swift in Sources */,
 				F03A31B6252D624900BE562F /* TopVideoGameModel.swift in Sources */,
+				F0A1B0842533F7F800DBCEB2 /* GameMapper.swift in Sources */,
 				F03A31B8252D710B00BE562F /* StarView.swift in Sources */,
 				F066AE9B25271C7100800ABB /* SelectedGenreCell.swift in Sources */,
 				F07C1C6C2525793A00DB9AE1 /* SelectPlatformViewController.swift in Sources */,
 				F05D253A252AD83E00E019DB /* TopViewCell.swift in Sources */,
+				F0A1B08725340D4100DBCEB2 /* TopVideoGameRepository.swift in Sources */,
 				F052647D252EB4590006D0BA /* Game.swift in Sources */,
 				F03BF53825241F7E006018BC /* Scene.swift in Sources */,
 				F07C1C872525B2FB00DB9AE1 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,

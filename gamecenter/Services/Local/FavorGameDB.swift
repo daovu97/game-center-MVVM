@@ -9,54 +9,49 @@
 import Foundation
 import RealmSwift
 
-class TopVideoGameObject: Object {
-    var id = RealmOptional<Int>()
-    @objc dynamic var name: String? = nil
-    var star = RealmOptional<Double>()
-    @objc dynamic var detail: String? = nil
-    @objc dynamic var videoUrl: String? = nil
-    var platform = List<ParentPlatformObject>()
-    var suggestionCount = RealmOptional<Int>()
-    var store = List<StoreObject>()
-    
-    override class func primaryKey() -> String? {
-        return "id"
-    }
-}
-
-class ParentPlatformObject: Object {
-    var id = RealmOptional<Int>()
-    @objc dynamic var name: String?
-    
-    override class func primaryKey() -> String? {
-        return "id"
-    }
-}
-
-class StoreObject: Object {
-    var id = RealmOptional<Int>()
-    @objc dynamic var name: String? = nil
-    @objc dynamic var domain: String? = nil
-    @objc dynamic var urlEn: String? = nil
-    @objc dynamic var urlRu: String? = nil
-}
+private let realmBackground = "realmBackground"
 
 protocol FavorGameDBType {
     func saveFavorGame(game: TopVideoGameModel)
-    func getListFavorGame(completion: (([TopVideoGameModel]) -> Void)?)
-    func getListFavorIdGame(completion: (([String]) -> Void)?)
+    func getListFavorGame(completion: (([TopVideoGameModel]?) -> Void)?)
+    func isLike(with id: Int?) -> Bool
 }
 
 struct FavorGameDB: FavorGameDBType {
+
+    func isLike(with id: Int?) -> Bool {
+        guard let id = id else { return false }
+        let realm = try? Realm()
+        return realm?.object(ofType: TopVideoGameObject.self, forPrimaryKey: id)?.isLike == true
+    }
+    
+    private let background = DispatchQueue(label: realmBackground, qos: .background)
     func saveFavorGame(game: TopVideoGameModel) {
-        
+        background.async {
+            let realm = try? Realm()
+            do {
+                try realm?.write {
+                    realm?.add(game.mapToTopVideoGameObject(), update: .all)
+                }
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
     
-    func getListFavorGame(completion: (([TopVideoGameModel]) -> Void)?) {
-        
-    }
-    
-    func getListFavorIdGame(completion: (([String]) -> Void)?) {
-        
+    func getListFavorGame(completion: (([TopVideoGameModel]?) -> Void)?) {
+        background.async {
+            let realm = try? Realm()
+            do {
+                if let result = realm?.objects(TopVideoGameObject.self) {
+                    completion?(Array(result).compactMap { $0.mapToTopVideoGameModel() })
+                } else {
+                    completion?(nil)
+                }
+            } catch {
+                completion?(nil)
+                print(error.localizedDescription)
+            }
+        }
     }
 }
