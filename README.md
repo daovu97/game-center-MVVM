@@ -10,6 +10,16 @@
 - The ViewModel can only communicate with the Repository
 - And the Repository can only communicate with the Datasource, Service
 
+## Screenshots
+<p>
+<img src="./screenshort/screen_short_6.png" width="200px" height="auto">
+<img src="./screenshort/screen_short_5.png" width="200px" height="auto">
+<img src="./screenshort/screen_short_3.png" width="200px" height="auto">
+<img src="./screenshort/screen_short_4.png" width="200px" height="auto">
+<img src="./screenshort/screen_short_1.png" width="200px" height="auto">
+<img src="./screenshort/screen_short_2.png" width="200px" height="auto">
+ </p>
+
 ## Used libraries 
 
 - [Rx](https://github.com/ReactiveX/RxSwift)
