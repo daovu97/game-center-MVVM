@@ -10,7 +10,7 @@ import UIKit
 
 class ProfileheaderView: UICollectionReusableView {
     
-    private let imageProfile: UIImageView = {
+    private lazy var imageProfile: UIImageView = {
         let image = UIImageView(image: UIImage(named: "ic_game"))
         image.isUserInteractionEnabled = true
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -19,22 +19,28 @@ class ProfileheaderView: UICollectionReusableView {
         return image
     }()
     
-    private let labelName: UILabel = {
+    private lazy var labelName: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: primaryFontName_bold, size: 18)
         label.textAlignment = .center
         label.textColor = .lightGray
-        label.text = "Name"
+        label.text = "#User1286"
         return label
     }()
     
-    private let labelBio: UILabel = {
+    private lazy var labelBio: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: primaryFontName_light, size: 16)
         label.textAlignment = .center
         label.textColor = .lightGray
         label.text = "Like action game"
         return label
+    }()
+    
+    private lazy var divider: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        return view
     }()
     
     override init(frame: CGRect) {
@@ -68,10 +74,24 @@ class ProfileheaderView: UICollectionReusableView {
         NSLayoutConstraint.activate(constrain)
     }
     
+    private func setupDivider() {
+        addSubview(divider)
+        divider.translatesAutoresizingMaskIntoConstraints = false
+        let constrain = [
+            divider.leadingAnchor.constraint(equalTo: leadingAnchor),
+            divider.trailingAnchor.constraint(equalTo: trailingAnchor),
+            divider.bottomAnchor.constraint(equalTo: bottomAnchor),
+            divider.heightAnchor.constraint(equalToConstant: 0.6)
+        ]
+        
+        NSLayoutConstraint.activate(constrain)
+    }
+    
     private func setUpView() {
         setupConstrainImagePriflie()
         setupLabelNameConstrain()
         setupBioLabel()
+        setupDivider()
     }
     
     private func setupConstrainImagePriflie() {
@@ -79,8 +99,8 @@ class ProfileheaderView: UICollectionReusableView {
         let constrain = [
             imageProfile.topAnchor.constraint(equalTo: topAnchor, constant: 8),
             imageProfile.centerXAnchor.constraint(equalTo: centerXAnchor),
-            imageProfile.widthAnchor.constraint(equalTo: heightAnchor, multiplier: 0.4),
-            imageProfile.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.4)
+            imageProfile.widthAnchor.constraint(equalTo: heightAnchor, multiplier: 0.55),
+            imageProfile.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.55)
             
         ]
         

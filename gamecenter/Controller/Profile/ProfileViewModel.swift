@@ -23,6 +23,7 @@ final class ProfileViewModel: BaseViewModel {
     }
     
     func presentVideo(at position: IndexPath) {
+        guard !data.isEmpty else { return }
         SceneCoordinator.shared.transition(to: Scene.presentVideo(data: data, position: position.row))
     }
 }

@@ -12,8 +12,6 @@ protocol TopVideoGameRespositoryType {
     func getGame(isLoadMore: Bool, completion: (([TopVideoGameModel]?, Error?) -> Void)?)
     
     func likeGame(gameModel: TopVideoGameModel)
-    
-    func loadVideoWork(data: [TopVideoGameModel])
 }
 
 class TopVideoGameRespository: TopVideoGameRespositoryType {
@@ -66,7 +64,6 @@ class TopVideoGameRespository: TopVideoGameRespositoryType {
                     result[i].isLike = self?.favorDB.isLike(with: element.id) ?? false
                 }
                 
-                self?.doLoadVideoWork(data: result)
                 completion?(result, nil)
             }
             
@@ -79,27 +76,5 @@ class TopVideoGameRespository: TopVideoGameRespositoryType {
     
     func likeGame(gameModel: TopVideoGameModel) {
         favorDB.saveFavorGame(game: gameModel)
-    }
-    
-    func loadVideoWork(data: [TopVideoGameModel]) {
-        doLoadVideoWork(data: data)
-    }
-    
-    
-    private var callBackWhenLoaded:(() -> Void)?
-    
-    private func doLoadVideoWork(data: [TopVideoGameModel]) {
-        guard !data.isEmpty else { return }
-        var dataTemp = data
-        callBackWhenLoaded = { [weak self] in
-            guard !dataTemp.isEmpty  else { return }
-            dataTemp.remove(at: 0)
-            if dataTemp.isEmpty {
-                return
-            } else {
-                VideoPlayerController.shared.setupVideoFor(url: dataTemp[0].videoUrl, loaded: self?.callBackWhenLoaded)
-            }
-        }
-        VideoPlayerController.shared.setupVideoFor(url: dataTemp[0].videoUrl, loaded: self.callBackWhenLoaded)
     }
 }

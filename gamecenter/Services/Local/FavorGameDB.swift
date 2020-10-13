@@ -43,7 +43,7 @@ struct FavorGameDB: FavorGameDBType {
         background.async {
             let realm = try? Realm()
             do {
-                if let result = realm?.objects(TopVideoGameObject.self).filter { $0.isLike == true } {
+                if let result = realm?.objects(TopVideoGameObject.self).filter({ $0.isLike == true }) {
                     completion?(Array(result).compactMap { $0.mapToTopVideoGameModel() })
                 } else {
                     completion?(nil)

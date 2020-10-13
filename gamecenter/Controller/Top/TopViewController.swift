@@ -109,6 +109,7 @@ class TopViewController: BaseViewController<TopViewModel> {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self?.playVideo(at: self?.currentItem ?? IndexPath())
                     }
+                    
                 case .scrollTo:
                     break
                 }
@@ -116,11 +117,19 @@ class TopViewController: BaseViewController<TopViewModel> {
             
         }.disposed(by: disposeBag)
         
-        viewModel.shouldShowbackButton.bind {[weak self] (show) in
-            if show {
-                self?.setUpBackButton()
-            } else {
-                self?.backButton.removeFromSuperview()
+        viewModel.isPresentMode.bind {[weak self] (show, position) in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                if show {
+                    self?.setUpBackButton()
+                } else {
+                    self?.backButton.removeFromSuperview()
+                }
+                
+                self?.collectionView.scrollToItem(at: position, at: .top, animated: false)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self?.playVideo(at: self?.currentItem ?? IndexPath())
+                }
             }
         }.disposed(by: disposeBag)
     }
@@ -201,7 +210,9 @@ extension TopViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         didEndDisplaying cell: UICollectionViewCell,
                         forItemAt indexPath: IndexPath) {
-        VideoPlayerController.shared.pauseVideosFor(cell: cell)
+        if let cell = cell as? TopViewCell {
+            cell.pause()
+        }
     }
     
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
@@ -210,14 +221,13 @@ extension TopViewController: UICollectionViewDelegate {
     
     func playVideo(at item: IndexPath) {
         if let cell = self.collectionView.cellForItem(at: item) as? TopViewCell {
-            cell.hidePause()
-            cell.playVideosFor()
+            cell.replay()
         }
     }
     
     func pauseVideo(at item: IndexPath) {
         if let cell = self.collectionView.cellForItem(at: item) as? TopViewCell {
-            cell.pauseVideoFor()
+            cell.pause()
         }
     }
 }

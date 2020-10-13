@@ -19,7 +19,7 @@ final class TopViewModel: BaseViewModel {
     
     var collectionViewUpdate = PublishSubject<ScrollViewUpdate<TopVideoGameModel>>()
     
-    var shouldShowbackButton = BehaviorSubject<Bool>(value: false)
+    var isPresentMode = BehaviorSubject<(Bool, IndexPath)>(value: (false, IndexPath()))
     
     func getVideo(isLoadmore: Bool = false) {
         guard topViewControllerType == .top else {
@@ -66,11 +66,9 @@ final class TopViewModel: BaseViewModel {
     }
     
     func setUpPresentData(datas: [TopVideoGameModel], position: Int) {
-        shouldShowbackButton.onNext(true)
+        isPresentMode.onNext((true, IndexPath(row: position, section: 0)))
         topViewControllerType = .present
         self.datas = datas
-        respository.loadVideoWork(data: datas)
-        collectionViewUpdate.onNext(.scrollTo(position: IndexPath(row: position, section: 0)))
     }
     
     enum TopViewControllerType {
