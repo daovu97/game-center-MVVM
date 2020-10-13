@@ -121,14 +121,13 @@ class TopViewController: BaseViewController<TopViewModel> {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 if show {
                     self?.setUpBackButton()
+                    self?.collectionView.scrollToItem(at: position, at: .top, animated: false)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        self?.playVideo(at: self?.currentItem ?? IndexPath())
+                    }
                 } else {
                     self?.backButton.removeFromSuperview()
-                }
-                
-                self?.collectionView.scrollToItem(at: position, at: .top, animated: false)
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self?.playVideo(at: self?.currentItem ?? IndexPath())
                 }
             }
         }.disposed(by: disposeBag)

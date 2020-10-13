@@ -54,6 +54,7 @@ class TopVideoGameRespository: TopVideoGameRespositoryType {
                     .map { $0.mapToTopGameModel() }
                     .shuffled()
                 
+                //Recall when page have no clip
                 if result.isEmpty {
                     self?.numberOfPageEmptyVideo += 1
                     self?.getGame(isLoadMore: isLoadMore, completion: completion)

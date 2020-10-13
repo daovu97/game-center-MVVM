@@ -49,5 +49,6 @@ class StoreViewCell: BaseCollectionViewCell {
     func setupData(data: StoreModel) {
         labelname.text = data.name ?? ""
         image.image = data.icon
+        contentView.alpha = (data.urlEn == nil || data.urlEn!.isEmpty) ? 0.3 : 1
     }
 }
