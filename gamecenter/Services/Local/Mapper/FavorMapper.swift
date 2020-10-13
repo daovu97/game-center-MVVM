@@ -41,6 +41,7 @@ extension TopVideoGameModel {
         object.name = name
         object.detail = detail
         object.videoUrl = videoUrl
+        object.star = RealmOptional(star)
         object.backgroundImage = backgroundImage
         object.platform = (platform?.compactMap { $0.mapToParentPlatformObject() })!.toList()
         object.suggestionCount = RealmOptional(suggestionCount)

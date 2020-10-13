@@ -31,6 +31,13 @@ class TopViewController: BaseViewController<TopViewModel> {
         return collectionView
     }()
     
+    private lazy var backButton: UIImageView = {
+        let button = UIImageView()
+        button.image = UIImage(named: "ic_back")
+        button.tintColor = .white
+        return button
+    }()
+    
     private lazy var popupView = StoresPopUpView()
     
     private lazy var noIntenetView: UnavailableView = {
@@ -78,11 +85,13 @@ class TopViewController: BaseViewController<TopViewModel> {
     
     override func netWorkStatusChange(isConnected: Bool) {
         super.netWorkStatusChange(isConnected: isConnected)
-        if viewModel.datas.isEmpty {
+        if viewModel.datas.isEmpty && viewModel.topViewControllerType == .top {
             noIntenetView.isHidden = isConnected
             if isConnected {
                 viewModel.getVideo()
             }
+        } else {
+            noIntenetView.isHidden = true
         }
     }
     
@@ -92,24 +101,56 @@ class TopViewController: BaseViewController<TopViewModel> {
             DispatchQueue.main.async {
                 switch update {
                 case .add(_, let position):
-                        self?.collectionView.performBatchUpdates({
-                            self?.collectionView.insertItems(at: position)
-                        }, completion: nil)
+                    self?.collectionView.performBatchUpdates({
+                        self?.collectionView.insertItems(at: position)
+                    }, completion: nil)
                 case .reload:
                     self?.collectionView.reloadData()
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self?.playVideo(at: self?.currentItem ?? IndexPath())
                     }
+                    
+                case .scrollTo:
+                    break
                 }
             }
             
         }.disposed(by: disposeBag)
+        
+        viewModel.isPresentMode.bind {[weak self] (show, position) in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                if show {
+                    self?.setUpBackButton()
+                } else {
+                    self?.backButton.removeFromSuperview()
+                }
+                
+                self?.collectionView.scrollToItem(at: position, at: .top, animated: false)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self?.playVideo(at: self?.currentItem ?? IndexPath())
+                }
+            }
+        }.disposed(by: disposeBag)
+    }
+    
+    private func setUpBackButton() {
+        view.addSubview(backButton)
+        backButton.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                          leading: view.leadingAnchor,
+                          bottom: nil, trailing: nil,
+                          padding: .init(top: 0, left: 8, bottom: 0, right: 0),
+                          size: .init(width: 30, height: 30))
+        backButton.isUserInteractionEnabled = true
+        backButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didBackTapped)))
+    }
+    
+    @objc private func didBackTapped() {
+        self.dismiss(animated: true, completion: nil)
     }
     
     override func setupNaviBar() {
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = true
+        transparentNavibar()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -169,7 +210,9 @@ extension TopViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         didEndDisplaying cell: UICollectionViewCell,
                         forItemAt indexPath: IndexPath) {
-        VideoPlayerController.shared.pauseVideosFor(cell: cell)
+        if let cell = cell as? TopViewCell {
+            cell.pause()
+        }
     }
     
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
@@ -178,14 +221,13 @@ extension TopViewController: UICollectionViewDelegate {
     
     func playVideo(at item: IndexPath) {
         if let cell = self.collectionView.cellForItem(at: item) as? TopViewCell {
-            cell.hidePause()
-            cell.playVideosFor()
+            cell.replay()
         }
     }
     
     func pauseVideo(at item: IndexPath) {
         if let cell = self.collectionView.cellForItem(at: item) as? TopViewCell {
-            cell.pauseVideoFor()
+            cell.pause()
         }
     }
 }

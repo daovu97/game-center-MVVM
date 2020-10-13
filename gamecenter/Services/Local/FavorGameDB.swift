@@ -18,7 +18,7 @@ protocol FavorGameDBType {
 }
 
 struct FavorGameDB: FavorGameDBType {
-
+    
     func isLike(with id: Int?) -> Bool {
         guard let id = id else { return false }
         let realm = try? Realm()
@@ -43,7 +43,7 @@ struct FavorGameDB: FavorGameDBType {
         background.async {
             let realm = try? Realm()
             do {
-                if let result = realm?.objects(TopVideoGameObject.self) {
+                if let result = realm?.objects(TopVideoGameObject.self).filter({ $0.isLike == true }) {
                     completion?(Array(result).compactMap { $0.mapToTopVideoGameModel() })
                 } else {
                     completion?(nil)

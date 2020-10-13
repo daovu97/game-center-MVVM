@@ -20,6 +20,8 @@ pod 'lottie-ios'
 
 #Realm
 pod 'RealmSwift'
-pod "RxRealm"
+
+#ImageLoader
+pod 'Kingfisher', '~> 5.0'
 
 end

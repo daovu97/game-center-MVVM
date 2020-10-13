@@ -82,9 +82,7 @@ class SceneCoordinator: NSObject, SceneCoordinatorType {
             currentViewController.present(viewController, animated: true) {
                 subject.onCompleted()
             }
-            if style == .fullScreen {
-                  currentViewController = SceneCoordinator.actualViewController(for: viewController)
-            }
+            
         case let .alert(viewController):
             currentViewController.present(viewController, animated: true) {
                 subject.onCompleted()

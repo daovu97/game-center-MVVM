@@ -35,16 +35,16 @@ class TopVideoGameRespository: TopVideoGameRespositoryType {
             currentPage = 0
             numberOfPageEmptyVideo = 0
             param = APIParam(parrentPlatforms: nil,
-                                 genres: nil,
-                                 page: currentPage, dates: nil,
-                                 ordering: .relevance,
-                                 pageSize: pageSize)
+                             genres: nil,
+                             page: currentPage, dates: nil,
+                             ordering: .relevance,
+                             pageSize: pageSize)
         } else {
             param = APIParam(parrentPlatforms: LocalDB.shared.getFavorPlatform(),
-                                 genres: LocalDB.shared.getFavorGenre(),
-                                 page: currentPage, dates: nil,
-                                 ordering: .relevance,
-                                 pageSize: pageSize)
+                             genres: LocalDB.shared.getFavorGenre(),
+                             page: currentPage, dates: nil,
+                             ordering: .relevance,
+                             pageSize: pageSize)
         }
         
         service.loadVideo(param: param) {[weak self] (games, error) in
@@ -64,7 +64,6 @@ class TopVideoGameRespository: TopVideoGameRespositoryType {
                     result[i].isLike = self?.favorDB.isLike(with: element.id) ?? false
                 }
                 
-                self?.doLoadVideoWork(data: result)
                 completion?(result, nil)
             }
             
@@ -76,27 +75,6 @@ class TopVideoGameRespository: TopVideoGameRespositoryType {
     }
     
     func likeGame(gameModel: TopVideoGameModel) {
-        print(gameModel.isLike)
-        favorDB.getListFavorGame { (game) in
-            print(game?.map { $0.isLike })
-        }
         favorDB.saveFavorGame(game: gameModel)
-    }
-    
-    private var callBackWhenLoaded:(() -> Void)?
-    
-    private func doLoadVideoWork(data: [TopVideoGameModel]) {
-        guard !data.isEmpty else { return }
-        var dataTemp = data
-        callBackWhenLoaded = { [weak self] in
-            guard !dataTemp.isEmpty  else { return }
-            dataTemp.remove(at: 0)
-            if dataTemp.isEmpty {
-                return
-            } else {
-                VideoPlayerController.shared.setupVideoFor(url: dataTemp[0].videoUrl, loaded: self?.callBackWhenLoaded)
-            }
-        }
-        VideoPlayerController.shared.setupVideoFor(url: dataTemp[0].videoUrl, loaded: self.callBackWhenLoaded)
     }
 }

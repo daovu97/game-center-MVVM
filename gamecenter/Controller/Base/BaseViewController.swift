@@ -81,4 +81,10 @@ class BaseViewController<T: BaseViewModel>: UIViewController {
         }.disposed(by: disposeBag)
     }
     
+    func transparentNavibar() {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
+    }
+    
 }

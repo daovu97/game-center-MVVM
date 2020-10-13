@@ -13,7 +13,7 @@ class TopTabBarViewController: UITabBarController {
     var homeViewController: TopViewController!
     //Not have enough time, so remove it
 //    var discoverViewController: UIViewController!
-    var profileViewController: UIViewController!
+    var profileViewController: ProfileViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,8 +29,8 @@ class TopTabBarViewController: UITabBarController {
 //        discoverViewController = UIViewController()
 //        discoverViewController.view.backgroundColor = .black
         
-        profileViewController = UIViewController()
-        profileViewController.view.backgroundColor = .black
+        profileViewController = ProfileViewController()
+        profileViewController.initViewModel(viewModel: ProfileViewModel())
         
         homeViewController.tabBarItem.image = UIImage(named: "ic_tab_home_normal")
         homeViewController.tabBarItem.selectedImage = UIImage(named: "ic_tab_home_selected")

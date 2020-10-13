@@ -9,19 +9,13 @@
 import UIKit
 import AVFoundation
 
-class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
+class TopViewCell: BaseCollectionViewCell {
     var cellPosition: Int = 0
     var action: TopViewCellAction?
     
     private var data: TopVideoGameModel?
-    // MARK: - Video Layer
-    var videoURL: String? {
-        didSet {
-            videoLayer?.isHidden = videoURL == nil
-        }
-    }
     
-    var videoLayer: AVPlayerLayer?
+    private lazy var playerView = VideoPlayerView()
     
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
@@ -108,6 +102,12 @@ class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
     }()
     
     override func setupView() {
+        
+        contentView.addSubview(playerView)
+        contentView.sendSubviewToBack(playerView)
+        playerView.fillSuperview()
+        playerView.delegate = self
+        
         setupConstrain()
         self.contentView.isUserInteractionEnabled = true
         let pauseGesture = UITapGestureRecognizer(target: self, action: #selector(handlePause))
@@ -195,12 +195,8 @@ class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
     func configure(data: TopVideoGameModel, position: Int) {
         self.cellPosition = position
         self.data = data
-        self.videoURL = data.videoUrl
-        videoLayer = AVPlayerLayer()
-        videoLayer!.backgroundColor = UIColor.clear.cgColor
-        videoLayer!.videoGravity = .resizeAspectFill
-        layer.insertSublayer(videoLayer!, at: 0)
-        videoLayer!.frame = self.contentView.bounds
+        
+        playerView.configure(url: data.videoUrl)
         
         if let name = data.name {
             nameLabel.isHidden = false
@@ -282,18 +278,41 @@ class TopViewCell: BaseCollectionViewCell, AutoPlayVideoLayerContainer {
         super.prepareForReuse()
         pauseImageView.alpha = 0
         data = nil
-        videoLayer?.removeFromSuperlayer()
         platformContainer.removeAllArrangedSubviews()
-        videoLayer = nil
+        playerView.cancelAllLoadingRequest()
+    }
+    
+    private(set) var isPlaying = false
+    
+    func replay() {
+        if !isPlaying {
+            playerView.replay()
+            play()
+        }
+    }
+    
+    func play() {
+        if !isPlaying {
+            isPlaying = true
+            hidePause()
+            playerView.play()
+        }
+    }
+    
+    func pause() {
+        if isPlaying {
+            playerView.pause()
+            isPlaying = false
+        }
     }
 }
 
 extension TopViewCell {
     
     @objc func handlePause() {
-        if videoLayer?.player?.isPlaying == true {
+        if isPlaying == true {
             // Pause video and show pause sign
-            videoLayer?.player?.pause()
+            pause()
             UIView.animate(withDuration: 0.075, delay: 0, options: .curveEaseIn, animations: { [weak self] in
                 guard let self = self else { return }
                 self.pauseImageView.alpha = 0.35
@@ -301,7 +320,7 @@ extension TopViewCell {
             })
         } else {
             // Start video and remove pause sign
-            videoLayer?.player?.play()
+            play()
             UIView.animate(withDuration: 0.075, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
                 guard let self = self else { return }
                 self.pauseImageView.alpha = 0
@@ -343,6 +362,14 @@ extension TopViewCell {
     }
 }
 
+extension TopViewCell: VideoPlayerDelegate {
+    func readyToPlay() {
+        if isPlaying {
+            playerView.play()
+        }
+    }
+}
+
 protocol TopViewCellAction {
     func like(isLike: Bool, position: Int)
     func share(model: TopVideoGameModel)
@@ -352,15 +379,5 @@ protocol TopViewCellAction {
 extension AVPlayer {
     var isPlaying: Bool {
         return rate != 0 && error == nil
-    }
-}
-
-extension AutoPlayVideoLayerContainer where Self: UICollectionViewCell {
-    func playVideosFor() {
-        VideoPlayerController.shared.playVideosFor(cell: self)
-    }
-    
-    func pauseVideoFor() {
-        VideoPlayerController.shared.pauseVideosFor(cell: self)
     }
 }

@@ -26,16 +26,17 @@ final class SelectPlatformViewModel: BaseSelectViewModel {
     }
     
     func saveFavorPlatform() {
-          var platforms = [ParentPlatformModel]()
-          selectedIndexPath.forEach { platforms.append(self.platforms[$0.row]) }
-          getLocalDB().savePlatform(platforms: platforms)
-      }
+        var platforms = [ParentPlatformModel]()
+        selectedIndexPath.forEach { platforms.append(self.platforms[$0.row]) }
+        getLocalDB().savePlatform(platforms: platforms)
+    }
     
 }
 
 enum ScrollViewUpdate<T> {
     case add(value: [T], position: [IndexPath])
     case reload
+    case scrollTo(position: IndexPath)
 }
 
 func extractJson<T: Decodable>(from resource: String) -> T? {
