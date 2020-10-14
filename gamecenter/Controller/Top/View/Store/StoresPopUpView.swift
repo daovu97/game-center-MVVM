@@ -225,16 +225,6 @@ extension StoresPopUpView: UICollectionViewDataSource {
     }
 }
 
-extension StoresPopUpView: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y <= 0 && !scrollView.isDragging {
-            collectionView.isUserInteractionEnabled = false
-        } else {
-            collectionView.isUserInteractionEnabled = true
-        }
-    }
-}
-
  // MARK: - Display Animations
 extension StoresPopUpView {
     
@@ -298,7 +288,6 @@ extension StoresPopUpView {
                                 self.layoutIfNeeded()
                 }, completion: nil)
             }
-            collectionView.isUserInteractionEnabled = true
             totalSlidingDistance = 0
         default:
             UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut],
@@ -306,7 +295,6 @@ extension StoresPopUpView {
                             self.frame.origin.y -= self.totalSlidingDistance
                             self.layoutIfNeeded()
             }, completion: nil)
-            collectionView.isUserInteractionEnabled = true
             totalSlidingDistance = 0
         }
     }

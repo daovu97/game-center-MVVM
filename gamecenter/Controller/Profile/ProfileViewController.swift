@@ -20,6 +20,11 @@ class ProfileViewController: BaseViewController<ProfileViewModel> {
         
         collectionView.insetsLayoutMarginsFromSafeArea = false
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.alwaysBounceVertical = true
+        collectionView.registerCell(ProfileFavorCell.self)
+        collectionView.registerCell(NoFavorVideoCell.self)
+        collectionView.registerCell(ProfileheaderView.self,
+                                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader)
         return collectionView
     }()
     
@@ -37,11 +42,7 @@ class ProfileViewController: BaseViewController<ProfileViewModel> {
                               padding: .init(top: 0, left: 0, bottom: 0, right: 0))
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.alwaysBounceVertical = true
-        collectionView.registerCell(ProfileFavorCell.self)
-        collectionView.registerCell(NoFavorVideoCell.self)
-        collectionView.registerCell(ProfileheaderView.self,
-                                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader)
+        
     }
     
     override func bindViewModel() {
