@@ -1,11 +1,13 @@
 {
   "images" : [
     {
+      "filename" : "icons8-game-controller-40 (4).png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "20x20"
     },
     {
+      "filename" : "icons8-game-controller-60 (1).png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "20x20"
@@ -21,11 +23,13 @@
       "size" : "29x29"
     },
     {
+      "filename" : "icons8-game-controller-80.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "40x40"
     },
     {
+      "filename" : "icons8-game-controller-100.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "40x40"
@@ -41,11 +45,13 @@
       "size" : "60x60"
     },
     {
+      "filename" : "icons8-game-controller-20.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "20x20"
     },
     {
+      "filename" : "icons8-game-controller-40 (5).png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "20x20"
@@ -61,16 +67,19 @@
       "size" : "29x29"
     },
     {
+      "filename" : "icons8-game-controller-40 (5)-1.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "40x40"
     },
     {
+      "filename" : "icons8-game-controller-80 (1).png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "40x40"
     },
     {
+      "filename" : "icons8-game-controller-76.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "76x76"

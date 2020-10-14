@@ -31,14 +31,14 @@ class StoreViewCell: BaseCollectionViewCell {
         contentView.addSubview(labelname)
         contentView.addSubview(image)
         
-        let imageConstrain = [
+        let imageConstraint = [
             image.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
             image.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             image.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.6),
             image.heightAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.6)
         ]
         
-        NSLayoutConstraint.activate(imageConstrain)
+        NSLayoutConstraint.activate(imageConstraint)
         
         labelname.anchor(top: image.bottomAnchor,
                          leading: contentView.leadingAnchor,

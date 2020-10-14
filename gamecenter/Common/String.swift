@@ -19,3 +19,4 @@ let noInternetDetail = "There was a problem with the internet connection. Try ag
 let noStoreAvailable = "No store available!"
 let noStoreAvailableDetail = "There are no store available for this game"
 let whereTobuy = "Where to buy"
+let noInternetConnection = "No intenet connection!"

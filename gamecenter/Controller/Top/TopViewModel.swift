@@ -21,6 +21,9 @@ final class TopViewModel: BaseViewModel {
     
     var isPresentMode = BehaviorSubject<(Bool, IndexPath)>(value: (false, IndexPath()))
     
+    var noIntenetViewShow = BehaviorSubject<Bool>(value: false)
+    var noIntenetbannerViewShow = BehaviorSubject<Bool>(value: false)
+    
     func getVideo(isLoadmore: Bool = false) {
         guard topViewControllerType == .top else {
             return
@@ -89,6 +92,19 @@ final class TopViewModel: BaseViewModel {
         isPresentMode.onNext((true, IndexPath(row: position, section: 0)))
         topViewControllerType = .present
         self.datas = datas
+    }
+    
+    func networkSatuschange(isConnected: Bool) {
+        if datas.isEmpty && topViewControllerType == .top {
+            noIntenetViewShow.onNext(!isConnected)
+            noIntenetbannerViewShow.onNext(false)
+            if isConnected {
+                getVideo()
+            }
+        } else {
+            noIntenetViewShow.onNext(false)
+            noIntenetbannerViewShow.onNext(!isConnected)
+        }
     }
     
     enum TopViewControllerType {

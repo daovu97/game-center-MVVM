@@ -28,6 +28,24 @@ class BaseViewController<T: BaseViewModel>: UIViewController {
         return animationView
     }()
     
+    private lazy var noIntenetBannerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .red
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(label)
+        label.anchor(top: nil, leading: view.leadingAnchor,
+                     bottom: view.bottomAnchor,
+                     trailing: view.trailingAnchor,
+                     padding: .init(top: 0, left: 0, bottom: 6, right: 0))
+        label.text = noInternetConnection
+        label.textAlignment = .center
+        label.textColor = .white
+        view.isHidden = true
+        self.view.bringSubviewToFront(view)
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstrain()
@@ -35,10 +53,10 @@ class BaseViewController<T: BaseViewModel>: UIViewController {
         setupView()
         bindViewModel()
         setupNaviBar()
-        
+        setupNoIntenetBanner()
         NetworkManager.shared.networkStatusChange.bind {[weak self] (connected) in
             DispatchQueue.main.async {
-                 self?.netWorkStatusChange(isConnected: connected)
+                self?.netWorkStatusChange(isConnected: connected)
             }
         }.disposed(by: disposeBag)
     }
@@ -67,7 +85,10 @@ class BaseViewController<T: BaseViewModel>: UIViewController {
     
     open func setupNaviBar() {}
     
-    @objc open func netWorkStatusChange(isConnected: Bool) {}
+    @objc open func netWorkStatusChange(isConnected: Bool) {
+        guard !(self is SplashViewController) else { return }
+       showNoIntenetBanner(shouldShow: !isConnected)
+    }
     
     private func setupLoaddingAnimation() {
         viewModel.showProgressStatus.bind {[weak self] (isShow) in
@@ -85,6 +106,32 @@ class BaseViewController<T: BaseViewModel>: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
+    }
+    
+    private var noIntenetBannerHeight: CGFloat = 30
+    
+    private func setupNoIntenetBanner() {
+        view.addSubview(noIntenetBannerView)
+        let statusBarheight = UIApplication.shared.statusBarFrame.height
+        noIntenetBannerView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil,
+                                   trailing: view.trailingAnchor,
+                                   padding: .init(top: -noIntenetBannerHeight - statusBarheight,
+                                                  left: 0, bottom: 0, right: 0),
+                                   size: .init(width: view.frame.width,
+                                               height: noIntenetBannerHeight + statusBarheight))
+    }
+    
+    func showNoIntenetBanner(shouldShow: Bool = false) {
+        self.noIntenetBannerView.isHidden = false
+        let transform = shouldShow ?
+            CGAffineTransform(translationX: 0,
+                              y: noIntenetBannerHeight + UIApplication.shared.statusBarFrame.height) : .identity
+        UIView.animate(withDuration: 0.4, delay: 0,
+                       options: .curveEaseOut, animations: {
+                        self.noIntenetBannerView.transform = transform
+        }, completion: { _ in
+            self.noIntenetBannerView.isHidden = !shouldShow
+        })
     }
     
 }

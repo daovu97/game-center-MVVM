@@ -84,15 +84,7 @@ class TopViewController: BaseViewController<TopViewModel> {
     }
     
     override func netWorkStatusChange(isConnected: Bool) {
-        super.netWorkStatusChange(isConnected: isConnected)
-        if viewModel.datas.isEmpty && viewModel.topViewControllerType == .top {
-            noIntenetView.isHidden = isConnected
-            if isConnected {
-                viewModel.getVideo()
-            }
-        } else {
-            noIntenetView.isHidden = true
-        }
+        viewModel.networkSatuschange(isConnected: isConnected)
     }
     
     override func bindViewModel() {
@@ -130,6 +122,14 @@ class TopViewController: BaseViewController<TopViewModel> {
                     self?.backButton.removeFromSuperview()
                 }
             }
+        }.disposed(by: disposeBag)
+        
+        viewModel.noIntenetViewShow.bind {[weak self] (isShow) in
+            self?.noIntenetView.isHidden = !isShow
+        }.disposed(by: disposeBag)
+        
+        viewModel.noIntenetbannerViewShow.bind {[weak self] (isShow) in
+            self?.showNoIntenetBanner(shouldShow: isShow)
         }.disposed(by: disposeBag)
     }
     
