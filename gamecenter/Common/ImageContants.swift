@@ -19,6 +19,7 @@ enum Image {
     case download
     case play
     case noIntenet
+    case gameWhite
     
     var name: String {
         switch self {
@@ -32,6 +33,7 @@ enum Image {
         case .download: return "ic_download"
         case .play: return "ic_play"
         case .noIntenet: return "ic_no_intenet"
+        case .gameWhite: return "ic_game_white"
         }
         
     }

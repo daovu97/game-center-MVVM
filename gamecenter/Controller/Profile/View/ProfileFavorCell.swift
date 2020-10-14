@@ -14,7 +14,7 @@ class ProfileFavorCell: BaseCollectionViewCell {
     private lazy var image: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
-        image.image = UIImage(named: Image.game.name)
+        image.image = UIImage(named: Image.gameWhite.name)
         image.clipsToBounds = true
         return image
     }()
@@ -63,9 +63,10 @@ class ProfileFavorCell: BaseCollectionViewCell {
             let URL = URL(string: backgroundImage) {
             image.kf.indicatorType = .activity
             image.kf.setImage(with: URL,
+                              placeholder: UIImage(named: Image.gameWhite.name),
                               options: [.transition(.fade(1))])
         } else {
-            image.image = UIImage(named: Image.game.name)
+            image.image = UIImage(named: Image.gameWhite.name)
         }
     }
 }
