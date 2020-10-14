@@ -13,10 +13,8 @@ extension Game {
         let platform = parentPlatforms?
             .compactMap { $0.platform?.mapToParrentPlatform() }
         
-        let detail = genres?
-            .compactMap { $0.name }
-            .toString(with: ", ")
-        
+        let detail = "\(genres?.compactMap { $0.name }.toString(with: ", ") ?? "")\n#\(released ?? "")"
+      
         let store = stores?
             .compactMap { StoreModel(id: $0.store?.id,
                                      name: $0.store?.name,
