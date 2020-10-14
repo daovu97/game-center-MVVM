@@ -12,7 +12,7 @@ class UnavailableView: UIView {
     
     lazy var image: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "ic_unavailable_store")
+        image.image = UIImage(named: Image.unavailableStore.name)
         image.translatesAutoresizingMaskIntoConstraints = false
         image.tintColor = .lightGray
         return image

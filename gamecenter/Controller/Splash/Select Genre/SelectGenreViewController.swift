@@ -70,12 +70,12 @@ extension SelectGenreViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForHeaderInSection section: Int) -> CGSize {
-        let textHeaderSize = calculateFrameInText(message: selectGenreHeaderTitle,
+        let textHeaderSize = calculateFrameInText(message: Titles.selectGenreHeaderTitle,
                                                   textSize: SelectPlatformHeaderView.titleSize,
                                                   withFont: primaryFontName_bold,
                                                   maxWidth: view.frame.width - 24)
         
-        let subTextSize = calculateFrameInText(message: subSelectHeaderTitle,
+        let subTextSize = calculateFrameInText(message: Titles.subSelectHeaderTitle,
                                                      textSize: SelectPlatformHeaderView.subTitleSize,
                                                      withFont: primaryFontName_light,
                                                      maxWidth: view.frame.width - 34)
@@ -103,7 +103,7 @@ extension SelectGenreViewController: UICollectionViewDataSource {
         let header = collectionView.dequeueReusableCell(SelectPlatformHeaderView.self,
                                                         ofKind: UICollectionView.elementKindSectionHeader,
                                                         for: indexPath)
-        header.setTitle(title: selectGenreHeaderTitle)
+        header.setTitle(title: Titles.selectGenreHeaderTitle)
         return header
     }
 }

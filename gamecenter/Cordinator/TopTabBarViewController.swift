@@ -50,6 +50,7 @@ class TopTabBarViewController: UITabBarController {
          UINavigationController(rootViewController: profileViewController)
         ]
         
-        UIApplication.shared.statusBarStyle = .lightContent
+//        UIApplication.shared.statusBarStyle = .lightContent
     }
+    
 }

@@ -12,7 +12,7 @@ class NoFavorVideoCell: BaseCollectionViewCell {
     
     private lazy var labelDetail: UILabel = {
         let label = UILabel()
-        label.text = "Only you can see which videos you liked"
+        label.text = Titles.noFavoriteLabel
         label.numberOfLines = 0
         label.font = UIFont(name: primaryFontName_medium, size: 16)
         label.textColor = .lightGray

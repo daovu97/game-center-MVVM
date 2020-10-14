@@ -71,7 +71,7 @@ class StoresPopUpView: UIView {
     private lazy var dismissBtn: UIButton = {
         let dismissBtn = UIButton(frame: CGRect(x: ScreenSize.Width - 30, y: 10, width: 24, height: 24))
         dismissBtn.setTitle("", for: .normal)
-        dismissBtn.setImage(UIImage(named: "ic_close"), for: .normal)
+        dismissBtn.setImage(UIImage(named: Image.close.name), for: .normal)
         dismissBtn.tintColor = .lightGray
         dismissBtn.addTarget(self, action: #selector(dismiss), for: .touchUpInside)
         return dismissBtn
@@ -80,10 +80,10 @@ class StoresPopUpView: UIView {
     private lazy var unavailableStoreView: UnavailableView = {
         let view = UnavailableView()
         view.isHidden = true
-        view.image.image = UIImage(named: "ic_unavailable_store")
-        view.titleLabel.text = noStoreAvailable
+        view.image.image = UIImage(named: Image.unavailableStore.name)
+        view.titleLabel.text = Titles.noStoreAvailable
         view.titleLabel.textColor = UIColor.black.withAlphaComponent(0.7)
-        view.detailLabel.text = noStoreAvailableDetail
+        view.detailLabel.text = Titles.noStoreAvailableDetail
         return view
     }()
     

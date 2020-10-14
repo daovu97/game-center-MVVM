@@ -18,7 +18,7 @@ class SplashViewController: BaseViewController<SplashViewModel> {
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 12
         button.backgroundColor = .systemPink
-        button.setTitle("Start", for: .normal)
+        button.setTitle(Titles.start, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont(name: primaryFontName_medium, size: 24)
         return button
@@ -26,7 +26,7 @@ class SplashViewController: BaseViewController<SplashViewModel> {
     
     private lazy var textLabel: UILabel = {
         let label = UILabel()
-        label.text = splashHeaderTitle
+        label.text = Titles.splashHeaderTitle
         label.numberOfLines = 0
         label.textColor = .lightGray
         label.textAlignment = .center
@@ -35,7 +35,7 @@ class SplashViewController: BaseViewController<SplashViewModel> {
     }()
     
     private lazy var animationBackground: AnimationView = {
-        let animationView = AnimationView(name: "SplashAnimation")
+        let animationView = AnimationView(name: LottieAnimation.splash.name)
         animationView.translatesAutoresizingMaskIntoConstraints = false
         animationView.contentMode = .scaleAspectFit
         animationView.animationSpeed = 1.2

@@ -60,13 +60,13 @@ class TopViewCell: BaseCollectionViewCell {
     }()
     
     private lazy var likeButton: LikeButton = {
-        let view = LikeButton(frame: .zero, image: UIImage(named: "ic_heart"))
+        let view = LikeButton(frame: .zero, image: UIImage(named: Image.heart.name))
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     private lazy var shareButton: ImageSubLabelView = {
-        let view = ImageSubLabelView(frame: .zero, image: UIImage(named: "ic_share"), showText: false)
+        let view = ImageSubLabelView(frame: .zero, image: UIImage(named: Image.share.name), showText: false)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.didTapped = { [weak self] in
             if let data = self?.data {
@@ -77,7 +77,7 @@ class TopViewCell: BaseCollectionViewCell {
     }()
     
     private lazy var downloadButton: ImageSubLabelView = {
-        let view = ImageSubLabelView(frame: .zero, image: UIImage(named: "ic_download"), showText: false)
+        let view = ImageSubLabelView(frame: .zero, image: UIImage(named: Image.download.name), showText: false)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.didTapped = { [weak self] in
             if let data = self?.data {
@@ -88,7 +88,7 @@ class TopViewCell: BaseCollectionViewCell {
     }()
     
     private lazy var pauseImageView: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "ic_play"))
+        let image = UIImageView(image: UIImage(named: Image.play.name))
         self.contentView.addSubview(image)
         image.alpha = 0
         image.tintColor = .white
@@ -333,7 +333,7 @@ extension TopViewCell {
     // Heart Animation with random angle
     @objc func handleLikeGesture(sender: UITapGestureRecognizer) {
         let location = sender.location(in: self)
-        let heartView = UIImageView(image: UIImage(named: "ic_heart"))
+        let heartView = UIImageView(image: UIImage(named: Image.heart.name))
         heartView.tintColor = .systemPink
         let width: CGFloat = 110
         heartView.contentMode = .scaleAspectFit

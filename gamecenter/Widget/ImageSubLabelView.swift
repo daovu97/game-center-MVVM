@@ -23,7 +23,7 @@ class ImageSubLabelView: UIView {
         let image = UIImageView()
         image.clipsToBounds = true
         image.contentMode = .scaleToFill
-        image.image = UIImage(named: "ic_heart")
+        image.image = UIImage(named: Image.heart.name)
         image.tintColor = .white
         return image
     }()

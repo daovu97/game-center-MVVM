@@ -34,7 +34,7 @@ class BaseSelectViewController<T: BaseSelectViewModel>: BaseViewController<T> {
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 12
         button.backgroundColor = .systemPink
-        button.setTitle("Next", for: .normal)
+        button.setTitle(Titles.nextLabel, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont(name: primaryFontName_medium, size: 24)
         button.addTarget(self, action: #selector(didDoneTap), for: .touchUpInside)
@@ -65,7 +65,7 @@ class BaseSelectViewController<T: BaseSelectViewModel>: BaseViewController<T> {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
         navigationItem.title = ""
-        let rightButton = UIBarButtonItem(title: "Skip", style: .plain,
+        let rightButton = UIBarButtonItem(title: Titles.skipLabel, style: .plain,
         target: self, action: #selector(didRightBarTap))
         navigationItem.rightBarButtonItem = rightButton
         rightButton.tintColor = .lightGray

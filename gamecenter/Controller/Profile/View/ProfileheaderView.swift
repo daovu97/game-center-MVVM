@@ -11,7 +11,7 @@ import UIKit
 class ProfileheaderView: UICollectionReusableView {
     
     private lazy var imageProfile: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "ic_game"))
+        let image = UIImageView(image: UIImage(named: Image.game.name))
         image.isUserInteractionEnabled = true
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .center

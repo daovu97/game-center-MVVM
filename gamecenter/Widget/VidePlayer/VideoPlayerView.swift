@@ -25,7 +25,7 @@ class VideoPlayerView: UIView {
     
     private var observer: NSKeyValueObservation?
     
-    var delegate: VideoPlayerDelegate?
+    weak var delegate: VideoPlayerDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -13,7 +13,7 @@ class LikeButton: ImageSubLabelView {
     private(set) var isLike: Bool = false
     
     private lazy var fakeLikeButton: UIImageView = {
-        let imge = UIImageView(image: UIImage(named: "ic_heart"))
+        let imge = UIImageView(image: UIImage(named: Image.heart.name))
         imge.tintColor = .red
         return imge
     }()

@@ -20,7 +20,7 @@ class StoreViewCell: BaseCollectionViewCell {
     
     private lazy var image: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "ic_store_steam")
+        image.image = UIImage(named: Image.storeSteam.name)
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFit
         return image

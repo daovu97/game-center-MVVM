@@ -33,7 +33,7 @@ class TopViewController: BaseViewController<TopViewModel> {
     
     private lazy var closeButton: UIImageView = {
         let button = UIImageView()
-        button.image = UIImage(named: "ic_close")
+        button.image = UIImage(named: Image.close.name)
         button.tintColor = .white
         return button
     }()
@@ -42,9 +42,9 @@ class TopViewController: BaseViewController<TopViewModel> {
     
     private lazy var noIntenetView: UnavailableView = {
         let view = UnavailableView()
-        view.image.image = UIImage(named: "ic_no_intenet")
-        view.titleLabel.text = noInternetTitle
-        view.detailLabel.text = noInternetDetail
+        view.image.image = UIImage(named: Image.noIntenet.name)
+        view.titleLabel.text = Titles.noInternetTitle
+        view.detailLabel.text = Titles.noInternetDetail
         return view
     }()
     

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7FD066ACC52A29C7D7A6E76F /* Pods_gamecenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E42BDB4B65C83F230AA7C1D /* Pods_gamecenter.framework */; };
+		F006F6BF2536EE1100CF233A /* ImageContants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F006F6BE2536EE1100CF233A /* ImageContants.swift */; };
 		F00CDDA32530108C0080024B /* UnavailableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00CDDA22530108C0080024B /* UnavailableView.swift */; };
 		F00CDDA5253020860080024B /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00CDDA4253020860080024B /* Double+Extension.swift */; };
 		F00CDDA7253032FF0080024B /* SplashAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = F00CDDA6253032FF0080024B /* SplashAnimation.json */; };
@@ -98,6 +99,7 @@
 /* Begin PBXFileReference section */
 		5E42BDB4B65C83F230AA7C1D /* Pods_gamecenter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_gamecenter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE65B5C542E9CC8371E1F3C4 /* Pods-gamecenter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gamecenter.debug.xcconfig"; path = "Target Support Files/Pods-gamecenter/Pods-gamecenter.debug.xcconfig"; sourceTree = "<group>"; };
+		F006F6BE2536EE1100CF233A /* ImageContants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContants.swift; sourceTree = "<group>"; };
 		F00CDDA22530108C0080024B /* UnavailableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnavailableView.swift; sourceTree = "<group>"; };
 		F00CDDA4253020860080024B /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
 		F00CDDA6253032FF0080024B /* SplashAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SplashAnimation.json; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 				F04A108025368C530071E3AB /* Extension */,
 				F0526492252F01200006D0BA /* Constants.swift */,
 				F0526494252F04680006D0BA /* String.swift */,
+				F006F6BE2536EE1100CF233A /* ImageContants.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -726,6 +729,7 @@
 				F03BF53725241F7E006018BC /* SceneCoodinator.swift in Sources */,
 				F02F3600252462CA00876428 /* LocalDB.swift in Sources */,
 				F066AE9725270B5F00800ABB /* Genre.swift in Sources */,
+				F006F6BF2536EE1100CF233A /* ImageContants.swift in Sources */,
 				F0526493252F01200006D0BA /* Constants.swift in Sources */,
 				F00CDDA5253020860080024B /* Double+Extension.swift in Sources */,
 				F0A1B08C2534333D00DBCEB2 /* ProfileViewController.swift in Sources */,

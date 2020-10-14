@@ -8,15 +8,21 @@
 
 import Foundation
 
-let selectPlatformHeaderTitle = "Choose your favorite Platforms"
-let selectGenreHeaderTitle = "and Genres"
-let subSelectHeaderTitle = "Get personalized game recommendations"
-
-let splashHeaderTitle = "Explore your favorite games"
-let noInternetTitle = "Network error!"
-let noInternetDetail = "There was a problem with the internet connection. Try again later."
-
-let noStoreAvailable = "No store available!"
-let noStoreAvailableDetail = "There are no store available for this game"
-let whereTobuy = "Where to buy"
-let noInternetConnection = "No intenet connection!"
+struct Titles {
+    static let selectPlatformHeaderTitle = "Choose your favorite Platforms"
+    static let selectGenreHeaderTitle = "and Genres"
+    static let subSelectHeaderTitle = "Get personalized game recommendations"
+    
+    static let splashHeaderTitle = "Explore your favorite games"
+    static let noInternetTitle = "Network error!"
+    static let noInternetDetail = "There was a problem with the internet connection. Try again later."
+    
+    static let noStoreAvailable = "No store available!"
+    static let noStoreAvailableDetail = "There are no store available for this game"
+    static let whereTobuy = "Where to buy"
+    static let noInternetConnection = "No intenet connection!"
+    static let start = "Start"
+    static let nextLabel = "Next"
+    static let skipLabel = "skip"
+    static let noFavoriteLabel = "Only you can see which videos you liked"
+}

@@ -11,7 +11,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    var window: UIWindow!
+    var window: UIWindow?
     
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -24,8 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // do something
         } else {
             window = UIWindow()
-            window.rootViewController = UIViewController()
-            window.makeKeyAndVisible()
+            window!.rootViewController = UIViewController()
+            window!.makeKeyAndVisible()
             let sceneCoordinator = SceneCoordinator(window: window!)
             SceneCoordinator.shared = sceneCoordinator
             LocalDB.shared = LocalDB()

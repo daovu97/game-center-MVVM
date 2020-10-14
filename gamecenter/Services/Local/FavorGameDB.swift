@@ -42,15 +42,10 @@ struct FavorGameDB: FavorGameDBType {
     func getListFavorGame(completion: (([TopVideoGameModel]?) -> Void)?) {
         background.async {
             let realm = try? Realm()
-            do {
-                if let result = realm?.objects(TopVideoGameObject.self).filter({ $0.isLike == true }) {
-                    completion?(Array(result).compactMap { $0.mapToTopVideoGameModel() })
-                } else {
-                    completion?(nil)
-                }
-            } catch {
+            if let result = realm?.objects(TopVideoGameObject.self).filter({ $0.isLike == true }) {
+                completion?(Array(result).compactMap { $0.mapToTopVideoGameModel() })
+            } else {
                 completion?(nil)
-                print(error.localizedDescription)
             }
         }
     }

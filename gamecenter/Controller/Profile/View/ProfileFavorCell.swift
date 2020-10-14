@@ -14,14 +14,14 @@ class ProfileFavorCell: BaseCollectionViewCell {
     private lazy var image: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
-        image.image = UIImage(named: "ic_game")
+        image.image = UIImage(named: Image.game.name)
         image.clipsToBounds = true
         return image
     }()
     
     private lazy var playImage: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "ic_play_normal")
+        image.image = UIImage(named: Image.playNormal.name)
         image.contentMode = .scaleAspectFill
         image.clipsToBounds = true
         image.tintColor = .white
@@ -61,9 +61,11 @@ class ProfileFavorCell: BaseCollectionViewCell {
     func setUpData(data: TopVideoGameModel) {
         if let backgroundImage = data.backgroundImage,
             let URL = URL(string: backgroundImage) {
-            image.kf.setImage(with: URL)
+            image.kf.indicatorType = .activity
+            image.kf.setImage(with: URL,
+                              options: [.transition(.fade(1))])
         } else {
-            image.image = UIImage(named: "ic_game")
+            image.image = UIImage(named: Image.game.name)
         }
     }
 }

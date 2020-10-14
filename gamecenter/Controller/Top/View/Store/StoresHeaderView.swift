@@ -12,7 +12,7 @@ class StoresHeaderView: UICollectionReusableView {
     
     private var labelName: UILabel = {
         let label = UILabel()
-        label.text = whereTobuy
+        label.text = Titles.whereTobuy
         label.font = UIFont(name: primaryFontName_bold, size: 20)
         label.textColor = .lightGray
         label.textAlignment = .center

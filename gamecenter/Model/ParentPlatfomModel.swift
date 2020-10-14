@@ -12,9 +12,7 @@ struct ParentPlatformModel {
     let id: Int?
     let name: String?
     var type: PlatformType? {
-        get {
-            return PlatformType.init(rawValue: id ?? PlatformType.window.rawValue)
-        }
+        return PlatformType.init(rawValue: id ?? PlatformType.window.rawValue)
     }
 }
 

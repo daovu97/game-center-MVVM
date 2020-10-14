@@ -16,7 +16,7 @@ class BaseViewController<T: BaseViewModel>: UIViewController {
     var viewModel: T!
     
     private lazy var loadingAnimation: AnimationView = {
-        let animationView = AnimationView(name: "LoadingAnimation")
+        let animationView = AnimationView(name: LottieAnimation.loadding.name)
         animationView.translatesAutoresizingMaskIntoConstraints = false
         animationView.contentMode = .scaleAspectFill
         animationView.animationSpeed = 0.8
@@ -38,7 +38,7 @@ class BaseViewController<T: BaseViewModel>: UIViewController {
                      bottom: view.bottomAnchor,
                      trailing: view.trailingAnchor,
                      padding: .init(top: 0, left: 0, bottom: 6, right: 0))
-        label.text = noInternetConnection
+        label.text = Titles.noInternetConnection
         label.textAlignment = .center
         label.textColor = .white
         view.isHidden = true
@@ -75,6 +75,18 @@ class BaseViewController<T: BaseViewModel>: UIViewController {
     
     open func setupView() {
         view.backgroundColor = .black
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if self is SplashViewController || self is SelectGenreViewController ||
+            self is SelectPlatformViewController {
+            navigationController?.navigationBar.barStyle = .default
+        } else {
+            navigationController?.navigationBar.barStyle = .black
+        }
+        
     }
     
     open func setupConstrain() {}
@@ -87,7 +99,7 @@ class BaseViewController<T: BaseViewModel>: UIViewController {
     
     @objc open func netWorkStatusChange(isConnected: Bool) {
         guard !(self is SplashViewController) else { return }
-       showNoIntenetBanner(shouldShow: !isConnected)
+        showNoIntenetBanner(shouldShow: !isConnected)
     }
     
     private func setupLoaddingAnimation() {

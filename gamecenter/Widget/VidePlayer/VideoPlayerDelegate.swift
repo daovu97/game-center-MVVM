@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol VideoPlayerDelegate {
+protocol VideoPlayerDelegate: class {
     func readyToPlay()
 }
