@@ -46,7 +46,9 @@ extension Scene: TargetScene {
             homeViewController.initViewModel(viewModel: viewModel)
             return .present(homeViewController, .fullScreen)
         case .share(let sharedObjects, let vc):
-            let activityViewController = UIActivityViewController(activityItems: sharedObjects, applicationActivities: nil)
+            let activityViewController = UIActivityViewController(activityItems: sharedObjects,
+                                                                  applicationActivities: nil)
+            
             activityViewController.popoverPresentationController?.sourceView = vc.view
             
             activityViewController.excludedActivityTypes = [ UIActivity.ActivityType.airDrop,
