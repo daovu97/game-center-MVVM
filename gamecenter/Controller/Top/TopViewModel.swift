@@ -61,6 +61,13 @@ final class TopViewModel: BaseViewModel {
     }
     
     func likeVideo(isLike: Bool, position: Int) {
+        if datas[position].suggestionCount != nil, datas[position].isLike != isLike {
+            if isLike {
+                datas[position].suggestionCount! += 1
+            } else {
+                datas[position].suggestionCount! -= 1
+            }
+        }
         datas[position].isLike = isLike
         respository.likeGame(gameModel: datas[position])
     }

@@ -24,6 +24,17 @@ class LikeButton: ImageSubLabelView {
     }
     
     func setLike(isLike: Bool, withAnime: Bool = true) {
+        //Change line count
+        if let likeCountString = textLabel.text, var count = Int(likeCountString), self.isLike != isLike {
+            if isLike {
+                count += 1
+            } else {
+                count -= 1
+            }
+            
+            textLabel.text = "\(count)"
+        }
+        
         self.isLike = isLike
         if withAnime {
             animate(isLike: isLike)

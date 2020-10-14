@@ -49,6 +49,12 @@ class StoresPopUpView: UIView {
             layout.scrollDirection = .vertical
         }
         collectionView.backgroundColor = UIColor.black.withAlphaComponent(0.08)
+        collectionView.alwaysBounceVertical = true
+        collectionView.bounces = true
+        collectionView.registerCell(StoreViewCell.self)
+        collectionView.registerCell(StoresHeaderView.self,
+                                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader)
+        collectionView.contentInset = .init(top: 8, left: 8, bottom: 8, right: 8)
         return collectionView
     }()
     
@@ -104,6 +110,7 @@ class StoresPopUpView: UIView {
              unavailableStoreView.isHidden = false
              collectionView.isHidden = true
         }
+        collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
         titleLabel.text = itemName
     }
 }
@@ -157,14 +164,8 @@ extension StoresPopUpView {
                                 bottom: popUpView.bottomAnchor,
                                 trailing: popUpView.trailingAnchor,
                                 padding: .init(top: 8, left: 0, bottom: 0, right: 0))
-          collectionView.dataSource = self
-          collectionView.delegate = self
-          collectionView.alwaysBounceVertical = false
-          collectionView.bounces = false
-          collectionView.registerCell(StoreViewCell.self)
-          collectionView.registerCell(StoresHeaderView.self,
-                                      forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader)
-          collectionView.contentInset = .init(top: 8, left: 8, bottom: 8, right: 8)
+        collectionView.dataSource = self
+        collectionView.delegate = self
       }
 }
 

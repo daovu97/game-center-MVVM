@@ -29,25 +29,23 @@ class TopVideoGameRespository: TopVideoGameRespositoryType {
             currentPage += 1
         }
         
-        var param: APIParam
+        var url = APIService.newGameUrl
         
-        if numberOfPageEmptyVideo > 2 {
-            currentPage = 0
-            numberOfPageEmptyVideo = 0
-            param = APIParam(parrentPlatforms: nil,
-                             genres: nil,
-                             page: currentPage, dates: nil,
-                             ordering: .relevance,
-                             pageSize: pageSize)
-        } else {
-            param = APIParam(parrentPlatforms: LocalDB.shared.getFavorPlatform(),
+        let param = APIParam(parrentPlatforms: LocalDB.shared.getFavorPlatform(),
                              genres: LocalDB.shared.getFavorGenre(),
                              page: currentPage, dates: nil,
                              ordering: .relevance,
                              pageSize: pageSize)
+        
+        if numberOfPageEmptyVideo > 2 {
+            currentPage = 0
+            numberOfPageEmptyVideo = 0
+            url = APIService.baseUrl
+        } else {
+            url = APIService.newGameUrl
         }
         
-        service.loadVideo(param: param) {[weak self] (games, error) in
+        service.loadVideo(url: url, param: param) {[weak self] (games, error) in
             if let games = games?.results, !games.isEmpty {
                 var result = games
                     .filter { $0.clip?.clip != nil }

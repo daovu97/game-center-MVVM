@@ -16,7 +16,7 @@ struct TopVideoGameModel {
     let videoUrl: String?
     let backgroundImage: String?
     let platform: [ParentPlatformModel]?
-    let suggestionCount: Int?
+    var suggestionCount: Int?
     let store: [StoreModel]?
     var isLike: Bool = false
 }
