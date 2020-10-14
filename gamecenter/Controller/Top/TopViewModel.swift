@@ -65,6 +65,19 @@ final class TopViewModel: BaseViewModel {
         respository.likeGame(gameModel: datas[position])
     }
     
+    func share(model: TopVideoGameModel, vc: UIViewController) {
+        var urlToShare: URL?
+        if let url = model.store?.first?.urlEn {
+            urlToShare = URL(string: url)
+        } else {
+            urlToShare = URL(string: model.videoUrl!)
+        }
+        let someText: String = "\(model.name ?? "Share to")"
+        let sharedObjects: [AnyObject] = [urlToShare as AnyObject, someText as AnyObject]
+        
+        SceneCoordinator.shared.transition(to: Scene.share(sharedObjects: sharedObjects, from: vc))
+    }
+    
     func setUpPresentData(datas: [TopVideoGameModel], position: Int) {
         isPresentMode.onNext((true, IndexPath(row: position, section: 0)))
         topViewControllerType = .present

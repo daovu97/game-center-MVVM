@@ -18,6 +18,7 @@ enum Scene {
     case selectPlatform(SelectPlatformViewModel)
     case selectGenre(SelectGenreViewModel)
     case presentVideo(data: [TopVideoGameModel], position: Int)
+    case share(sharedObjects: [AnyObject], from: UIViewController)
 }
 
 extension Scene: TargetScene {
@@ -44,6 +45,17 @@ extension Scene: TargetScene {
             viewModel.setUpPresentData(datas: data, position: position)
             homeViewController.initViewModel(viewModel: viewModel)
             return .present(homeViewController, .fullScreen)
+        case .share(let sharedObjects, let vc):
+            let activityViewController = UIActivityViewController(activityItems: sharedObjects, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = vc.view
+            
+            activityViewController.excludedActivityTypes = [ UIActivity.ActivityType.airDrop,
+                                                             UIActivity.ActivityType.postToFacebook,
+                                                             UIActivity.ActivityType.postToTwitter,
+                                                             UIActivity.ActivityType.mail,
+                                                             UIActivity.ActivityType.message]
+            
+            return .share(activityViewController, vc)
         }
     }
     

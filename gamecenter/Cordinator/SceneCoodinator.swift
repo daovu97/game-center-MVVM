@@ -87,6 +87,8 @@ class SceneCoordinator: NSObject, SceneCoordinatorType {
             currentViewController.present(viewController, animated: true) {
                 subject.onCompleted()
             }
+        case let .share(activityViewController, vc):
+             vc.present(activityViewController, animated: true, completion: nil)
         }
         
         return subject

@@ -19,6 +19,7 @@ enum SceneTransitionType {
         _ style: UIModalPresentationStyle = UIModalPresentationStyle.formSheet)    // present view controller.
     case alert(UIViewController)      // present alert.
     case tabBar(UITabBarController)   // make tab bar controller the root controller.
+    case share(UIActivityViewController, UIViewController)
 }
 
 protocol SceneCoordinatorType {
