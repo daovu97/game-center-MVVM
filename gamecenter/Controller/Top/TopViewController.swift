@@ -245,7 +245,9 @@ extension TopViewController {
     }
     
     @objc private func appEnteredFromBackground() {
-        playVideo(at: currentItem)
+        if isVisible() {
+            playVideo(at: currentItem)
+        }
     }
     
     @objc private func didEnterBackgroundNotification(notification: NSNotification) {
