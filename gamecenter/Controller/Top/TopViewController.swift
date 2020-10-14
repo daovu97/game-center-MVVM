@@ -31,9 +31,9 @@ class TopViewController: BaseViewController<TopViewModel> {
         return collectionView
     }()
     
-    private lazy var backButton: UIImageView = {
+    private lazy var closeButton: UIImageView = {
         let button = UIImageView()
-        button.image = UIImage(named: "ic_back")
+        button.image = UIImage(named: "ic_close")
         button.tintColor = .white
         return button
     }()
@@ -119,7 +119,7 @@ class TopViewController: BaseViewController<TopViewModel> {
                         self?.playVideo(at: self?.currentItem ?? IndexPath())
                     }
                 } else {
-                    self?.backButton.removeFromSuperview()
+                    self?.closeButton.removeFromSuperview()
                 }
             }
         }.disposed(by: disposeBag)
@@ -134,14 +134,14 @@ class TopViewController: BaseViewController<TopViewModel> {
     }
     
     private func setUpBackButton() {
-        view.addSubview(backButton)
-        backButton.anchor(top: view.safeAreaLayoutGuide.topAnchor,
-                          leading: view.leadingAnchor,
-                          bottom: nil, trailing: nil,
-                          padding: .init(top: 0, left: 8, bottom: 0, right: 0),
+        view.addSubview(closeButton)
+        closeButton.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                          leading: nil,
+                          bottom: nil, trailing: view.trailingAnchor,
+                          padding: .init(top: 0, left: 0, bottom: 0, right: 8),
                           size: .init(width: 30, height: 30))
-        backButton.isUserInteractionEnabled = true
-        backButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didBackTapped)))
+        closeButton.isUserInteractionEnabled = true
+        closeButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didBackTapped)))
     }
     
     @objc private func didBackTapped() {
