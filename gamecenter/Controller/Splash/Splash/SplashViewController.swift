@@ -46,6 +46,7 @@ class SplashViewController: BaseViewController<SplashViewModel> {
     override func setupView() {
         super.setupView()
         view.backgroundColor = .white
+        observeNotification()
     }
     
     override func setupConstrain() {
@@ -92,4 +93,26 @@ class SplashViewController: BaseViewController<SplashViewModel> {
         animationBackground.stop()
     }
     
+}
+
+// MARK: - App lifecycle
+extension SplashViewController {
+    
+    private func observeNotification() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.appEnteredFromBackground),
+                                               name: UIApplication.didBecomeActiveNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(didEnterBackgroundNotification(notification:)),
+                                               name: UIApplication.willResignActiveNotification, object: nil)
+    }
+    
+    @objc private func appEnteredFromBackground() {
+        animationBackground.play()
+    }
+    
+    @objc private func didEnterBackgroundNotification(notification: NSNotification) {
+        animationBackground.stop()
+    }
 }

@@ -14,6 +14,7 @@ class SelectGenreViewController: BaseSelectViewController<SelectGenreViewModel> 
         super.setupView()
         setupCollectionView()
         viewModel.getGenre()
+        viewModel.didPassSplash()
     }
     
     private func setupCollectionView() {
