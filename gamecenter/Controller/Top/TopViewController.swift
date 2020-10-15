@@ -55,6 +55,7 @@ class TopViewController: BaseViewController<TopViewModel> {
         setUpCollectionView()
         viewModel.getVideo()
         observeNotification()
+        viewModel.addNotificationWhenLikeChange()
     }
     
     override func refreshView() {
@@ -101,9 +102,12 @@ class TopViewController: BaseViewController<TopViewModel> {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self?.playVideo(at: self?.currentItem ?? IndexPath())
                     }
-                    
                 case .scrollTo:
                     break
+                case .reloadAt(let position):
+                    DispatchQueue.main.async {
+                        self?.collectionView.reloadItems(at: position)
+                    }
                 }
             }
             

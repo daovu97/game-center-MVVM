@@ -35,6 +35,8 @@ class SelectGenreViewController: BaseSelectViewController<SelectGenreViewModel> 
                 }
             case .scrollTo:
                 break
+            case .reloadAt:
+                break
             }
         }.disposed(by: disposeBag)
         

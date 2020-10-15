@@ -37,6 +37,7 @@ enum ScrollViewUpdate<T> {
     case add(value: [T], position: [IndexPath])
     case reload
     case scrollTo(position: IndexPath)
+    case reloadAt(position: [IndexPath])
 }
 
 func extractJson<T: Decodable>(from resource: String) -> T? {

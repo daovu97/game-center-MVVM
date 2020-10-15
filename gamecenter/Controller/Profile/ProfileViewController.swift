@@ -56,6 +56,7 @@ class ProfileViewController: BaseViewController<ProfileViewModel> {
                     self?.collectionView.reloadData()
                 }
             case .scrollTo: break
+            case .reloadAt: break
             }
         }.disposed(by: disposeBag)
     }

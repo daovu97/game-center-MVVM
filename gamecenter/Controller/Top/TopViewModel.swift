@@ -70,6 +70,7 @@ final class TopViewModel: BaseViewModel {
             } else {
                 datas[position].suggestionCount! -= 1
             }
+            sendNotifiWhenLikeChange(isLike: isLike, id: datas[position].id ?? 0)
         }
         datas[position].isLike = isLike
         respository.likeGame(gameModel: datas[position])
@@ -107,8 +108,47 @@ final class TopViewModel: BaseViewModel {
         }
     }
     
+    func sendNotifiWhenLikeChange(isLike: Bool, id: Int) {
+        if topViewControllerType == .present {
+            NotificationCenter.default.post(name: NSNotification.Name.didLikeChange,
+                                            object: nil,
+                                            userInfo: ["isLike": isLike, "id": id])
+        }
+    }
+    
+    func addNotificationWhenLikeChange() {
+        if topViewControllerType == .top {
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(self.didlikeChange),
+                                                   name: NSNotification.Name.didLikeChange, object: nil)
+        }
+    }
+    
+    private func removeNotificationWhenLikeChange() {
+        NotificationCenter.default.removeObserver(self,
+                                                  name: NSNotification.Name.didLikeChange,
+                                                  object: nil)
+    }
+    
+    @objc private func didlikeChange(_ notification: Notification) {
+        if let islike = notification.userInfo?["isLike"] as? Bool, let id = notification.userInfo?["id"] as? Int {
+            if let position = datas.firstIndex(where: { $0.id == id }) {
+                datas[position].isLike = islike
+                collectionViewUpdate.onNext(.reloadAt(position: [.init(row: position, section: 0)]))
+            }
+        }
+    }
+    
     enum TopViewControllerType {
         case top
         case present
     }
+    
+    deinit {
+        removeNotificationWhenLikeChange()
+    }
+}
+
+extension Notification.Name {
+    static let didLikeChange = Notification.Name("com.daovu.likeChange")
 }

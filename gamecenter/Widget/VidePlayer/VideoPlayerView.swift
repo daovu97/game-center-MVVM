@@ -21,7 +21,8 @@ class VideoPlayerView: UIView {
         return videoLayer
     }()
     
-    private var player: AVPlayer?
+    private var player: AVQueuePlayer?
+    private var playerLoop: AVPlayerLooper?
     
     private var observer: NSKeyValueObservation?
     
@@ -60,9 +61,9 @@ class VideoPlayerView: UIView {
             if let player = player {
                 player.replaceCurrentItem(with: playerItem)
             } else {
-                player = AVPlayer(playerItem: playerItem)
+                player = AVQueuePlayer(playerItem: playerItem)
             }
-            
+            playerLoop = AVPlayerLooper(player: player!, templateItem: playerItem!)
             avPlayerLayer.player = player
         } else {
             asset = AVURLAsset(url: URL)
@@ -77,10 +78,8 @@ class VideoPlayerView: UIView {
                 case .loaded:
                     VideoCacheManager.shared.storeDataToCache(data: strongSelf.asset!, key: url)
                 case .failed, .cancelled:
-                    print("Failed to load asset successfully")
                     return
                 default:
-                    print("Unkown state of asset")
                     return
                 }
                 
@@ -90,9 +89,10 @@ class VideoPlayerView: UIView {
                     if let player = strongSelf.player {
                         player.replaceCurrentItem(with: strongSelf.playerItem)
                     } else {
-                        strongSelf.player = AVPlayer(playerItem: strongSelf.playerItem)
+                        strongSelf.player = AVQueuePlayer(playerItem: strongSelf.playerItem)
                     }
-                    
+                    strongSelf.playerLoop = AVPlayerLooper(player: strongSelf.player!,
+                                                           templateItem: strongSelf.playerItem!)
                     strongSelf.avPlayerLayer.player = strongSelf.player
                 }
             }
@@ -155,15 +155,5 @@ extension VideoPlayerView {
                 fatalError("Status is not yet ready to present")
             }
         })
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.playerDidFinishPlaying(note:)),
-                                               name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
-                                               object: player?.currentItem)
-    }
-    
-    //Loop Play video again in case the current player has finished playing
-    @objc func playerDidFinishPlaying(note: NSNotification) {
-        replay()
     }
 }
