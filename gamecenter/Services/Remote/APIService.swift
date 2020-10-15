@@ -58,6 +58,20 @@ struct APIParam {
     }
 }
 
+enum APIURL: CaseIterable {
+    case base
+    case new
+    
+    var url: String {
+        switch self {
+        case .base:
+            return "https://api.rawg.io/api/games"
+        case .new:
+            return "https://api.rawg.io/api/games/lists/main"
+        }
+    }
+}
+
 protocol APIServiceType {
     func loadVideo(url: String, param: APIParam, completion: ((BaseResponse<Game>?, Error?) -> Void)?)
 }
@@ -74,19 +88,5 @@ struct APIService: APIServiceType {
                 }
                 completion?(data, nil)
             }
-    }
-}
-
-enum APIURL: CaseIterable {
-    case base
-    case new
-    
-    var url: String {
-        switch self {
-        case .base:
-            return "https://api.rawg.io/api/games"
-        case .new:
-            return "https://api.rawg.io/api/games/lists/main"
-        }
     }
 }
