@@ -19,7 +19,6 @@ class TopViewCell: BaseCollectionViewCell {
     
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "God of wars"
         label.textColor = .white
         label.font = UIFont(name: primaryFontName_medium, size: 20)
         label.numberOfLines = 0

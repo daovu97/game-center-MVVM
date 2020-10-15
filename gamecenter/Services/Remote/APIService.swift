@@ -63,8 +63,6 @@ protocol APIServiceType {
 }
 
 struct APIService: APIServiceType {
-    static let baseUrl = "https://api.rawg.io/api/games"
-    static let newGameUrl = "\(APIService.baseUrl)/lists/main"
     
     func loadVideo(url: String, param: APIParam, completion: ((BaseResponse<Game>?, Error?) -> Void)?) {
         AF.request(url, method: .get, parameters: param.getParam())
@@ -75,6 +73,20 @@ struct APIService: APIServiceType {
                     return
                 }
                 completion?(data, nil)
+            }
+    }
+}
+
+enum APIURL: CaseIterable {
+    case base
+    case new
+    
+    var url: String {
+        switch self {
+        case .base:
+            return "https://api.rawg.io/api/games"
+        case .new:
+            return "https://api.rawg.io/api/games/lists/main"
         }
     }
 }

@@ -20,30 +20,30 @@ class TopVideoGameRespository: TopVideoGameRespositoryType {
     
     private let service: APIServiceType = APIService()
     private var currentPage = 1
-    private let pageSize = 10
+    private var currentNewPage = 1
+    private let pageSize = 5
     private var numberOfPageEmptyVideo = 0
     
     func getGame(isLoadMore: Bool, completion: (([TopVideoGameModel]?, Error?) -> Void)?) {
         
+        let url = APIURL.allCases.randomElement()?.url ?? APIURL.new.url
+        
         if isLoadMore {
-            currentPage += 1
+            if url == APIURL.base.url {
+                currentPage += 1
+            } else {
+                currentNewPage += 1
+            }
+            
         }
         
-        var url = APIService.newGameUrl
+        let page = url == APIURL.base.url ? currentPage : currentNewPage
         
         let param = APIParam(parrentPlatforms: LocalDB.shared.getFavorPlatform(),
                              genres: LocalDB.shared.getFavorGenre(),
-                             page: currentPage, dates: nil,
+                             page: page, dates: nil,
                              ordering: .relevance,
                              pageSize: pageSize)
-        
-        if numberOfPageEmptyVideo > 2 {
-            currentPage = 0
-            numberOfPageEmptyVideo = 0
-            url = APIService.baseUrl
-        } else {
-            url = APIService.newGameUrl
-        }
         
         service.loadVideo(url: url, param: param) {[weak self] (games, error) in
             if let games = games?.results, !games.isEmpty {
@@ -54,7 +54,6 @@ class TopVideoGameRespository: TopVideoGameRespositoryType {
                 
                 //Recall when page have no clip , using recusive
                 if result.isEmpty {
-                    self?.numberOfPageEmptyVideo += 1
                     self?.getGame(isLoadMore: isLoadMore, completion: completion)
                     return
                 }
