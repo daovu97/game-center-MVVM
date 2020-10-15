@@ -9,8 +9,6 @@
 import Foundation
 import RealmSwift
 
-private let realmBackground = "realmBackground"
-
 protocol FavorGameDBType {
     func saveFavorGame(game: TopVideoGameModel)
     func getListFavorGame(completion: (([TopVideoGameModel]?) -> Void)?)
@@ -18,6 +16,9 @@ protocol FavorGameDBType {
 }
 
 struct FavorGameDB: FavorGameDBType {
+    private static let realmBackground = "realmBackground"
+    
+    private let background = DispatchQueue(label: FavorGameDB.realmBackground, qos: .background)
     
     func isLike(with id: Int?) -> Bool {
         guard let id = id else { return false }
@@ -25,7 +26,6 @@ struct FavorGameDB: FavorGameDBType {
         return realm?.object(ofType: TopVideoGameObject.self, forPrimaryKey: id)?.isLike == true
     }
     
-    private let background = DispatchQueue(label: realmBackground, qos: .background)
     func saveFavorGame(game: TopVideoGameModel) {
         background.async {
             let realm = try? Realm()
