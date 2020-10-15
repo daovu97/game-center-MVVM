@@ -186,7 +186,9 @@ extension StoresPopUpView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: (collectionView.frame.width - 16) / 2 - 5, height: 160)
+        
+        let width = (collectionView.frame.width - 16) / 2 - 5
+        return .init(width: width, height: width + 16)
     }
     
     func collectionView(_ collectionView: UICollectionView,
