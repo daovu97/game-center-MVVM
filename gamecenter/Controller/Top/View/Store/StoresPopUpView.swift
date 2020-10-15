@@ -101,16 +101,16 @@ class StoresPopUpView: UIView {
     }
     
     func setupData(data: [StoreModel]?, itemName: String? = "Stores") {
-        if let data = data {
+        if let data = data, !data.isEmpty {
             unavailableStoreView.isHidden = true
             collectionView.isHidden = false
             store = data
             collectionView.reloadData()
+            collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
         } else {
              unavailableStoreView.isHidden = false
              collectionView.isHidden = true
         }
-        collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
         titleLabel.text = itemName
     }
 }
