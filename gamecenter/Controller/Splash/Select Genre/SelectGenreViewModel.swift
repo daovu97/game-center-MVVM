@@ -29,8 +29,4 @@ final class SelectGenreViewModel: BaseSelectViewModel {
         selectedIndexPath.forEach { genres.append(self.genres[$0.row]) }
         getLocalDB().saveGenre(genres: genres)
     }
-    
-    func didPassSplash() {
-        LocalDB.shared.setFirstLaunch(isFirstLaunch: true)
-    }
 }
