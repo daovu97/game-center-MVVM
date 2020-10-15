@@ -59,6 +59,8 @@ class BaseViewController<T: BaseViewModel>: UIViewController {
                 self?.netWorkStatusChange(isConnected: connected)
             }
         }.disposed(by: disposeBag)
+        
+        navigationController?.navigationBar.tintColor = .systemPink
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -31,7 +31,7 @@ class StarView: UIView {
         backgroundColor = .white
         addSubview(scoreLabel)
         scoreLabel.centerInSuperview(size: .init(width: frame.size.width, height: frame.size.height / 1.3))
-        scoreLabel.font = UIFont(name: primaryFontName_bold, size: 16)
+        scoreLabel.font = UIFont(name: UIFont.primaryFontNameBold, size: 16)
     }
     
     override func layoutSubviews() {

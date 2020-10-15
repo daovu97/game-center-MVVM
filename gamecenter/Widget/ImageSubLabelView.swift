@@ -15,7 +15,7 @@ class ImageSubLabelView: UIView {
         label.text = "100"
         label.textAlignment = .center
         label.textColor = .white
-        label.font = UIFont(name: primaryFontName_medium, size: 14)
+        label.font = UIFont(name: UIFont.primaryFontNameMedium, size: 14)
         return label
     }()
     

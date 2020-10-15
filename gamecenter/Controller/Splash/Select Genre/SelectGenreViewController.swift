@@ -74,12 +74,12 @@ extension SelectGenreViewController: UICollectionViewDelegateFlowLayout {
                         referenceSizeForHeaderInSection section: Int) -> CGSize {
         let textHeaderSize = calculateFrameInText(message: Titles.selectGenreHeaderTitle,
                                                   textSize: SelectPlatformHeaderView.titleSize,
-                                                  withFont: primaryFontName_bold,
+                                                  withFont: UIFont.primaryFontNameBold,
                                                   maxWidth: view.frame.width - 24)
         
         let subTextSize = calculateFrameInText(message: Titles.subSelectHeaderTitle,
                                                      textSize: SelectPlatformHeaderView.subTitleSize,
-                                                     withFont: primaryFontName_light,
+                                                     withFont: UIFont.primaryFontNameLight,
                                                      maxWidth: view.frame.width - 34)
         
         return .init(width: view.frame.width, height: textHeaderSize.height + 8 + subTextSize.height + 24)

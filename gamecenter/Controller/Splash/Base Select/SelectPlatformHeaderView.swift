@@ -15,7 +15,7 @@ class SelectPlatformHeaderView: UICollectionReusableView {
     
     private lazy var titleName: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: primaryFontName_bold, size: SelectPlatformHeaderView.titleSize)
+        label.font = UIFont(name: UIFont.primaryFontNameBold, size: SelectPlatformHeaderView.titleSize)
         label.text = Titles.selectPlatformHeaderTitle
         label.numberOfLines = 0
         label.textColor = .systemPink
@@ -24,7 +24,7 @@ class SelectPlatformHeaderView: UICollectionReusableView {
     
     private lazy var subTitleName: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: primaryFontName_light, size: SelectPlatformHeaderView.subTitleSize)
+        label.font = UIFont(name: UIFont.primaryFontNameLight, size: SelectPlatformHeaderView.subTitleSize)
         label.text = Titles.subSelectHeaderTitle
         label.numberOfLines = 1
         label.textColor = .lightGray

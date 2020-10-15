@@ -79,12 +79,12 @@ extension SelectPlatformViewController: UICollectionViewDelegateFlowLayout {
                         referenceSizeForHeaderInSection section: Int) -> CGSize {
         let textHeaderSize = calculateFrameInText(message: Titles.selectPlatformHeaderTitle,
                                                   textSize: SelectPlatformHeaderView.titleSize,
-                                                  withFont: primaryFontName_bold,
+                                                  withFont: UIFont.primaryFontNameBold,
                                                   maxWidth: view.frame.width - 34)
         
         let subTextSize = calculateFrameInText(message: Titles.subSelectHeaderTitle,
                                                textSize: SelectPlatformHeaderView.subTitleSize,
-                                               withFont: primaryFontName_light,
+                                               withFont: UIFont.primaryFontNameLight,
                                                maxWidth: view.frame.width - 34)
         
         return .init(width: view.frame.width, height: textHeaderSize.height + 8 + subTextSize.height + 24)
@@ -123,7 +123,7 @@ extension SelectPlatformViewController: UICollectionViewDelegate {
 }
 
 func calculateFrameInText(message: String, textSize: CGFloat,
-                          withFont font: String = primaryFontName_light,
+                          withFont font: String = UIFont.primaryFontNameLight,
                           maxWidth: CGFloat) -> CGRect {
     return NSString(string: message)
         .boundingRect(with: CGSize(width: maxWidth, height: 9999999),

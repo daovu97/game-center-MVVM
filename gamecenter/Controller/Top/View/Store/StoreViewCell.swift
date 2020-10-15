@@ -14,7 +14,7 @@ class StoreViewCell: BaseCollectionViewCell {
         let label = UILabel()
         label.textAlignment = .center
         label.textColor = UIColor.black.withAlphaComponent(0.6)
-        label.font = UIFont(name: primaryFontName_medium, size: 14)
+        label.font = UIFont(name: UIFont.primaryFontNameMedium, size: 14)
         return label
     }()
     

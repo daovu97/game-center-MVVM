@@ -16,6 +16,8 @@ struct ScreenSize {
     static let Height = UIScreen.main.bounds.height
 }
 
-let primaryFontName_light = "HelveticaNeue"
-let primaryFontName_medium = "HelveticaNeue-Medium"
-let primaryFontName_bold = "HelveticaNeue-Bold"
+extension UIFont {
+    static let primaryFontNameLight = "HelveticaNeue"
+    static let primaryFontNameMedium = "HelveticaNeue-Medium"
+    static let primaryFontNameBold = "HelveticaNeue-Bold"
+}

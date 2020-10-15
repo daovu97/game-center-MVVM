@@ -20,7 +20,7 @@ class TopViewCell: BaseCollectionViewCell {
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = UIFont(name: primaryFontName_medium, size: 20)
+        label.font = UIFont(name: UIFont.primaryFontNameMedium, size: 20)
         label.numberOfLines = 0
         return label
     }()
@@ -28,7 +28,7 @@ class TopViewCell: BaseCollectionViewCell {
     private lazy var detailLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = UIFont(name: primaryFontName_medium, size: 12)
+        label.font = UIFont(name: UIFont.primaryFontNameMedium, size: 12)
         label.numberOfLines = 0
         return label
     }()

@@ -60,7 +60,7 @@ class StoresPopUpView: UIView {
         let label = UILabel()
         label.textColor = UIColor.black.withAlphaComponent(0.7)
         label.textAlignment = .center
-        label.font = UIFont(name: primaryFontName_medium, size: 16)
+        label.font = UIFont(name: UIFont.primaryFontNameMedium, size: 16)
         label.text = "Stores"
         label.numberOfLines = 2
         return label

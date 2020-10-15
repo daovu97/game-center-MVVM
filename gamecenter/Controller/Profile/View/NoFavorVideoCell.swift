@@ -14,7 +14,7 @@ class NoFavorVideoCell: BaseCollectionViewCell {
         let label = UILabel()
         label.text = Titles.noFavoriteLabel
         label.numberOfLines = 0
-        label.font = UIFont(name: primaryFontName_medium, size: 16)
+        label.font = UIFont(name: UIFont.primaryFontNameMedium, size: 16)
         label.textColor = .lightGray
         label.textAlignment = .center
         return label

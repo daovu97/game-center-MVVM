@@ -21,7 +21,7 @@ class ProfileheaderView: UICollectionReusableView {
     
     private lazy var labelName: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: primaryFontName_bold, size: 18)
+        label.font = UIFont(name: UIFont.primaryFontNameBold, size: 18)
         label.textAlignment = .center
         label.textColor = .lightGray
         label.text = "#User1286"
@@ -30,7 +30,7 @@ class ProfileheaderView: UICollectionReusableView {
     
     private lazy var labelBio: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: primaryFontName_light, size: 16)
+        label.font = UIFont(name: UIFont.primaryFontNameLight, size: 16)
         label.textAlignment = .center
         label.textColor = .lightGray
         label.text = "Like action game"

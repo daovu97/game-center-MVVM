@@ -36,7 +36,7 @@ class BaseSelectViewController<T: BaseSelectViewModel>: BaseViewController<T> {
         button.backgroundColor = .systemPink
         button.setTitle(Titles.nextLabel, for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont(name: primaryFontName_medium, size: 24)
+        button.titleLabel?.font = UIFont(name: UIFont.primaryFontNameMedium, size: 24)
         button.addTarget(self, action: #selector(didDoneTap), for: .touchUpInside)
         return button
     }()

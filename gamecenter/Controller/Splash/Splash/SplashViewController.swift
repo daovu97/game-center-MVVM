@@ -20,7 +20,7 @@ class SplashViewController: BaseViewController<SplashViewModel> {
         button.backgroundColor = .systemPink
         button.setTitle(Titles.start, for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont(name: primaryFontName_medium, size: 24)
+        button.titleLabel?.font = UIFont(name: UIFont.primaryFontNameMedium, size: 24)
         return button
     }()
     
@@ -30,7 +30,7 @@ class SplashViewController: BaseViewController<SplashViewModel> {
         label.numberOfLines = 0
         label.textColor = .lightGray
         label.textAlignment = .center
-        label.font = UIFont(name: primaryFontName_light, size: 16)
+        label.font = UIFont(name: UIFont.primaryFontNameLight, size: 16)
         return label
     }()
     

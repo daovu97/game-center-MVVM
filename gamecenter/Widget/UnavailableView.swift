@@ -22,7 +22,7 @@ class UnavailableView: UIView {
         let title = UILabel()
         title.textColor = UIColor.white.withAlphaComponent(0.7)
         title.textAlignment = .center
-        title.font = UIFont(name: primaryFontName_light, size: 16)
+        title.font = UIFont(name: UIFont.primaryFontNameLight, size: 16)
         image.translatesAutoresizingMaskIntoConstraints = false
         return title
     }()
@@ -32,7 +32,7 @@ class UnavailableView: UIView {
         title.textColor = .lightGray
         title.numberOfLines = 0
         title.textAlignment = .center
-        title.font = UIFont(name: primaryFontName_light, size: 14)
+        title.font = UIFont(name: UIFont.primaryFontNameLight, size: 14)
         image.translatesAutoresizingMaskIntoConstraints = false
         return title
     }()
