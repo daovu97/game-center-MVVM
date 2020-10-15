@@ -114,7 +114,7 @@ class TopViewController: BaseViewController<TopViewModel> {
         }.disposed(by: disposeBag)
         
         viewModel.isPresentMode.bind {[weak self] (show, position) in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
                 if show {
                     self?.setUpBackButton()
                     self?.collectionView.scrollToItem(at: position, at: .top, animated: false)
