@@ -127,10 +127,6 @@ extension VideoPlayerView {
         if let observer = observer {
             observer.invalidate()
         }
-    
-    NotificationCenter.default.removeObserver(self,
-                                              name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
-                                              object: playerItem)
     }
     
     private func addObserverToPlayerItem() {
