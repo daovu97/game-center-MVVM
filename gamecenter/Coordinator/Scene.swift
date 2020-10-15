@@ -41,7 +41,8 @@ extension Scene: TargetScene {
             return .push(vc, withAnim: true)
         case .presentVideo(let data, let position):
             let homeViewController = TopViewController()
-            let viewModel = TopViewModel()
+            let repository = TopVideoGameRespository(favorDB: FavorGameDB(), service: APIService())
+            let viewModel = TopViewModel(respository: repository)
             viewModel.setUpPresentData(datas: data, position: position)
             homeViewController.initViewModel(viewModel: viewModel)
             return .present(homeViewController, .fullScreen)

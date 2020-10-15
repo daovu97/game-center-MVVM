@@ -24,7 +24,8 @@ class TopTabBarViewController: UITabBarController {
         
         view.backgroundColor = .black
         homeViewController = TopViewController()
-        homeViewController.initViewModel(viewModel: TopViewModel())
+        let repository = TopVideoGameRespository(favorDB: FavorGameDB(), service: APIService())
+        homeViewController.initViewModel(viewModel: TopViewModel(respository: repository))
         
 //        discoverViewController = UIViewController()
 //        discoverViewController.view.backgroundColor = .black

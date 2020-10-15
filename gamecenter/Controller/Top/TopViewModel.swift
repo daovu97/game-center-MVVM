@@ -11,11 +11,15 @@ import RxSwift
 
 final class TopViewModel: BaseViewModel {
     
+    private var respository: TopVideoGameRespositoryType
+    
+    init(respository: TopVideoGameRespositoryType) {
+        self.respository = respository
+    }
+    
     var datas = [TopVideoGameModel]()
     private var isLoading: Bool = false
     var topViewControllerType: TopViewControllerType = .top
-    
-    private var respository: TopVideoGameRespositoryType = TopVideoGameRespository()
     
     var collectionViewUpdate = PublishSubject<ScrollViewUpdate<TopVideoGameModel>>()
     

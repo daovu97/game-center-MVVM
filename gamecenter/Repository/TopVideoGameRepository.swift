@@ -16,9 +16,14 @@ protocol TopVideoGameRespositoryType {
 
 class TopVideoGameRespository: TopVideoGameRespositoryType {
     
-    private var favorDB: FavorGameDBType = FavorGameDB()
+    private var favorDB: FavorGameDBType
+    private let service: APIServiceType
     
-    private let service: APIServiceType = APIService()
+    init(favorDB: FavorGameDBType, service: APIServiceType) {
+        self.favorDB = favorDB
+        self.service = service
+    }
+    
     private var currentPage = 1
     private var currentNewPage = 1
     private let pageSize = 5
