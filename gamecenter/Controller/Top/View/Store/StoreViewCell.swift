@@ -13,7 +13,7 @@ class StoreViewCell: BaseCollectionViewCell {
     private lazy var labelname: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.textColor = .lightGray
+        label.textColor = UIColor.black.withAlphaComponent(0.6)
         label.font = UIFont(name: primaryFontName_medium, size: 14)
         return label
     }()

@@ -28,7 +28,7 @@ class StoresPopUpView: UIView {
                                         width: ScreenSize.Width,
                                         height: ScreenSize.Height * 0.75))
         
-        view.backgroundColor = UIColor.white.withAlphaComponent(0.9)
+        view.backgroundColor = UIColor.white.withAlphaComponent(0.7)
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(panGesture)
         
@@ -48,19 +48,17 @@ class StoresPopUpView: UIView {
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .vertical
         }
-        collectionView.backgroundColor = UIColor.black.withAlphaComponent(0.08)
+        collectionView.backgroundColor = .clear
         collectionView.alwaysBounceVertical = true
         collectionView.bounces = true
         collectionView.registerCell(StoreViewCell.self)
-        collectionView.registerCell(StoresHeaderView.self,
-                                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader)
         collectionView.contentInset = .init(top: 8, left: 8, bottom: 8, right: 8)
         return collectionView
     }()
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .lightGray
+        label.textColor = UIColor.black.withAlphaComponent(0.7)
         label.textAlignment = .center
         label.font = UIFont(name: primaryFontName_medium, size: 16)
         label.text = "Stores"
@@ -72,7 +70,7 @@ class StoresPopUpView: UIView {
         let dismissBtn = UIButton(frame: CGRect(x: ScreenSize.Width - 30, y: 10, width: 24, height: 24))
         dismissBtn.setTitle("", for: .normal)
         dismissBtn.setImage(UIImage(named: Image.close.name), for: .normal)
-        dismissBtn.tintColor = .lightGray
+        dismissBtn.tintColor = UIColor.black.withAlphaComponent(0.8)
         dismissBtn.addTarget(self, action: #selector(dismiss), for: .touchUpInside)
         return dismissBtn
     }()
@@ -87,8 +85,8 @@ class StoresPopUpView: UIView {
         return view
     }()
     
-    var totalSlidingDistance = CGFloat()
-    var panGesture: UIPanGestureRecognizer!
+    private var totalSlidingDistance = CGFloat()
+    private var panGesture: UIPanGestureRecognizer!
     
     init() {
         super.init(frame: CGRect(x: 0, y: ScreenSize.Height, width: ScreenSize.Width, height: ScreenSize.Height))
@@ -196,12 +194,6 @@ extension StoresPopUpView: UICollectionViewDelegateFlowLayout {
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 14
     }
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return .init(width: collectionView.frame.width, height: 50)
-    }
 }
 
 extension StoresPopUpView: UICollectionViewDataSource {
@@ -215,15 +207,6 @@ extension StoresPopUpView: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(StoreViewCell.self, for: indexPath)
         cell.setupData(data: store[indexPath.row])
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        viewForSupplementaryElementOfKind kind: String,
-                        at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableCell(StoresHeaderView.self,
-                                                        ofKind: UICollectionView.elementKindSectionHeader,
-                                                        for: indexPath)
-        return header
     }
 }
 
@@ -239,7 +222,8 @@ extension StoresPopUpView {
             }
             sceneDelegate.window?.addSubview(self)
             
-            UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseOut, animations: {
+            UIView.animate(withDuration: 0.4, delay: 0.0,
+                           options: .curveEaseInOut, animations: {
                 self.frame.origin.y = 0
             })
         } else {
@@ -247,7 +231,8 @@ extension StoresPopUpView {
                 return
             }
             window?.addSubview(self)
-            UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseOut, animations: {
+            UIView.animate(withDuration: 0.4, delay: 0.0,
+                           options: .curveEaseInOut, animations: {
                 self.frame.origin.y = 0
             })
         }

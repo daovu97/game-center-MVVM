@@ -84,7 +84,6 @@
 		F0A1B0802533F77C00DBCEB2 /* TopVideoGameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B07F2533F77C00DBCEB2 /* TopVideoGameObject.swift */; };
 		F0A1B0842533F7F800DBCEB2 /* GameMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B0832533F7F800DBCEB2 /* GameMapper.swift */; };
 		F0A1B08725340D4100DBCEB2 /* TopVideoGameRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B08625340D4100DBCEB2 /* TopVideoGameRepository.swift */; };
-		F0A1B08A2534309200DBCEB2 /* StoresHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B0892534309200DBCEB2 /* StoresHeaderView.swift */; };
 		F0A1B08C2534333D00DBCEB2 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B08B2534333D00DBCEB2 /* ProfileViewController.swift */; };
 		F0A1B08E2534335900DBCEB2 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B08D2534335900DBCEB2 /* ProfileViewModel.swift */; };
 		F0A1B0902534367600DBCEB2 /* ProfileheaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A1B08F2534367600DBCEB2 /* ProfileheaderView.swift */; };
@@ -177,7 +176,6 @@
 		F0A1B07F2533F77C00DBCEB2 /* TopVideoGameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopVideoGameObject.swift; sourceTree = "<group>"; };
 		F0A1B0832533F7F800DBCEB2 /* GameMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMapper.swift; sourceTree = "<group>"; };
 		F0A1B08625340D4100DBCEB2 /* TopVideoGameRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopVideoGameRepository.swift; sourceTree = "<group>"; };
-		F0A1B0892534309200DBCEB2 /* StoresHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoresHeaderView.swift; sourceTree = "<group>"; };
 		F0A1B08B2534333D00DBCEB2 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		F0A1B08D2534335900DBCEB2 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		F0A1B08F2534367600DBCEB2 /* ProfileheaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileheaderView.swift; sourceTree = "<group>"; };
@@ -467,7 +465,6 @@
 			children = (
 				F0526490252EFF810006D0BA /* StoresPopUpView.swift */,
 				F06DE62C252F1438008C9F7C /* StoreViewCell.swift */,
-				F0A1B0892534309200DBCEB2 /* StoresHeaderView.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -761,7 +758,6 @@
 				F05D2537252ACADF00E019DB /* TopTabBarViewController.swift in Sources */,
 				F05D2535252ABAC500E019DB /* BaseSelectedCell.swift in Sources */,
 				F0526483252EB55F0006D0BA /* Ratings.swift in Sources */,
-				F0A1B08A2534309200DBCEB2 /* StoresHeaderView.swift in Sources */,
 				F015F794253544A800EEE810 /* VideoCacheManager.swift in Sources */,
 				F07C1C7025257A6200DB9AE1 /* UIView+Constrain+Extension.swift in Sources */,
 				F07C1C7225257A8000DB9AE1 /* UITableview+Extension.swift in Sources */,
