@@ -222,7 +222,7 @@ extension StoresPopUpView {
             }
             sceneDelegate.window?.addSubview(self)
             
-            UIView.animate(withDuration: 0.4, delay: 0.0,
+            UIView.animate(withDuration: 0.25, delay: 0.0,
                            options: .curveEaseInOut, animations: {
                 self.frame.origin.y = 0
             })
@@ -231,7 +231,7 @@ extension StoresPopUpView {
                 return
             }
             window?.addSubview(self)
-            UIView.animate(withDuration: 0.4, delay: 0.0,
+            UIView.animate(withDuration: 0.25, delay: 0.0,
                            options: .curveEaseInOut, animations: {
                 self.frame.origin.y = 0
             })
