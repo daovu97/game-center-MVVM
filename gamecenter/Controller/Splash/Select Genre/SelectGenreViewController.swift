@@ -25,24 +25,22 @@ class SelectGenreViewController: BaseSelectViewController<SelectGenreViewModel> 
     }
     
     override func bindViewModel() {
-//        viewModel.collectionViewAupdate.bind {[weak self] (update) in
-//            switch update {
-//            case .add:
-//                break
-//            case .reload:
-//                DispatchQueue.main.async {
-//                    self?.collectionView.reloadData()
-//                }
-//            case .scrollTo:
-//                break
-//            case .reloadAt:
-//                break
-//            }
-//        }.disposed(by: disposeBag)
-//        
-//        viewModel.didSelectedItem.bind {[weak self] (selected) in
-//            self?.showFloatingButton(shouldShow: selected)
-//        }.disposed(by: disposeBag)
+        viewModel.collectionViewAupdate.sink {[weak self] (update) in
+            switch update {
+            case .add:
+                break
+            case .reload:
+                DispatchQueue.main.async {
+                    self?.collectionView.reloadData()
+                }
+            case .scrollTo: break
+            case .reloadAt: break
+            }
+        }.store(in: &subscriptions)
+        
+        viewModel.didSelectedItem.sink { [weak self] (selected) in
+            self?.showFloatingButton(shouldShow: selected)
+        }.store(in: &subscriptions)
     }
     
     override func didDoneTaped() {

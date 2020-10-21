@@ -7,9 +7,12 @@
 //
 
 import Foundation
+import Combine
 
 open class BaseSelectViewModel: BaseViewModel {
-//    var didSelectedItem = PublishSubject<Bool>()
+    private let _didSelectedItem = CurrentValueSubject<Bool, Never>(false)
+    
+    lazy var didSelectedItem = _didSelectedItem.eraseToAnyPublisher()
     
     var selectedIndexPath = Set<IndexPath>()
     
@@ -22,18 +25,18 @@ open class BaseSelectViewModel: BaseViewModel {
         if selectedIndexPath.count > 1 {
             return
         }
-//        didSelectedItem.onNext(!selectedIndexPath.isEmpty)
+        _didSelectedItem.send(!selectedIndexPath.isEmpty)
     }
     
     func gotoMain() {
-//        SceneCoordinator.shared.transition(to: Scene.top)
+        SceneCoordinator.shared.transition(to: Scene.top)
     }
     
     func gotoNext() {
         if self is SelectGenreViewModel {
             gotoMain()
         } else {
-//            SceneCoordinator.shared.transition(to: Scene.selectGenre(SelectGenreViewModel()))
+            SceneCoordinator.shared.transition(to: Scene.selectGenre(SelectGenreViewModel()))
         }
     }
     

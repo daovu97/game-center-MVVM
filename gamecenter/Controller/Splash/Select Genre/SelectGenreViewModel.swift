@@ -7,20 +7,22 @@
 //
 
 import Foundation
+import Combine
 
 final class SelectGenreViewModel: BaseSelectViewModel {
     var genres = [GenreModel]()
-//    var collectionViewAupdate = PublishSubject<ScrollViewUpdate<ParentPlatformModel>>()
+    private let _collectionViewAupdate = PassthroughSubject<ScrollViewUpdate<GenreModel>, Never>()
+    lazy var collectionViewAupdate = _collectionViewAupdate.eraseToAnyPublisher()
     
     func getGenre() {
         let value: BaseResponse<Genre>? = extractJson(from: "SelectGenre")
         genres = (value?.results ?? .init()).map { $0.mapToGenreModel()}
-//        collectionViewAupdate.onNext(.reload)
+        _collectionViewAupdate.send(.reload)
     }
     
     override func setSelectedIndexPath(indexPath: IndexPath) {
         super.setSelectedIndexPath(indexPath: indexPath)
-//        collectionViewAupdate.onNext(.reload)
+        _collectionViewAupdate.send(.reload)
     }
     
     func saveFavorGenre() {

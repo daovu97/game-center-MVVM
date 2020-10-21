@@ -7,17 +7,18 @@
 //
 
 import Foundation
+import Combine
 
 open class BaseViewModel {
     
-//    var showProgressStatus = PublishSubject<Bool>()
+    var showProgressStatus = PassthroughSubject<Bool, Never>()
     
     func showProgress() {
-//        showProgressStatus.onNext(true)
+        showProgressStatus.send(true)
     }
     
     func hideProgress() {
-//        showProgressStatus.onNext(false)
+        showProgressStatus.send(false)
     }
     
     func isConnectedToNetwork() -> Bool {

@@ -8,9 +8,10 @@
 
 import UIKit
 import Lottie
+import Combine
 
 class BaseViewController<T: BaseViewModel>: UIViewController {
-   
+    var subscriptions = Set<AnyCancellable>()
     var viewModel: T!
     
     private lazy var loadingAnimation: AnimationView = {
@@ -44,6 +45,8 @@ class BaseViewController<T: BaseViewModel>: UIViewController {
         return view
     }()
     
+    private lazy var statusBarHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstrain()
@@ -52,13 +55,10 @@ class BaseViewController<T: BaseViewModel>: UIViewController {
         bindViewModel()
         setupNaviBar()
         setupNoIntenetBanner()
-//        NetworkManager.shared.networkStatusChange.bind {[weak self] (connected) in
-//            DispatchQueue.main.async {
-//                self?.netWorkStatusChange(isConnected: connected)
-//            }
-//        }.disposed(by: disposeBag)
-        
-        navigationController?.navigationBar.tintColor = .systemPink
+        NetworkManager.shared.networkStatusChange.sink {[weak self] (connected) in
+            DispatchQueue.main.async {
+                self?.netWorkStatusChange(isConnected: connected)
+            }}.store(in: &subscriptions)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -103,15 +103,15 @@ class BaseViewController<T: BaseViewModel>: UIViewController {
     }
     
     private func setupLoaddingAnimation() {
-//        viewModel.showProgressStatus.bind {[weak self] (isShow) in
-//            if isShow {
-//                self?.loadingAnimation.isHidden = false
-//                self?.loadingAnimation.play()
-//            } else {
-//                self?.loadingAnimation.isHidden = true
-//                self?.loadingAnimation.stop()
-//            }
-//        }.disposed(by: disposeBag)
+        viewModel.showProgressStatus.sink {[weak self] (isShow) in
+            if isShow {
+                self?.loadingAnimation.isHidden = false
+                self?.loadingAnimation.play()
+            } else {
+                self?.loadingAnimation.isHidden = true
+                self?.loadingAnimation.stop()
+            }
+        }.store(in: &subscriptions)
     }
     
     func transparentNavibar() {
@@ -124,26 +124,29 @@ class BaseViewController<T: BaseViewModel>: UIViewController {
     
     private func setupNoIntenetBanner() {
         view.addSubview(noIntenetBannerView)
-        let statusBarheight = UIApplication.shared.statusBarFrame.height
         noIntenetBannerView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil,
                                    trailing: view.trailingAnchor,
-                                   padding: .init(top: -noIntenetBannerHeight - statusBarheight,
+                                   padding: .init(top: -noIntenetBannerHeight - statusBarHeight,
                                                   left: 0, bottom: 0, right: 0),
                                    size: .init(width: view.frame.width,
-                                               height: noIntenetBannerHeight + statusBarheight))
+                                               height: noIntenetBannerHeight + statusBarHeight))
     }
     
     func showNoIntenetBanner(shouldShow: Bool = false) {
         self.noIntenetBannerView.isHidden = false
         let transform = shouldShow ?
             CGAffineTransform(translationX: 0,
-                              y: noIntenetBannerHeight + UIApplication.shared.statusBarFrame.height) : .identity
+                              y: noIntenetBannerHeight + statusBarHeight) : .identity
         UIView.animate(withDuration: 0.4, delay: 0,
                        options: .curveEaseOut, animations: {
                         self.noIntenetBannerView.transform = transform
-        }, completion: { _ in
-            self.noIntenetBannerView.isHidden = !shouldShow
-        })
+                       }, completion: { _ in
+                        self.noIntenetBannerView.isHidden = !shouldShow
+                       })
+    }
+    
+    deinit {
+        subscriptions.forEach { $0.cancel() }
     }
     
 }

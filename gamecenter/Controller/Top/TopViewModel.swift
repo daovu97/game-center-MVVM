@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Combine
 
 final class TopViewModel: BaseViewModel {
     
@@ -21,12 +22,17 @@ final class TopViewModel: BaseViewModel {
     private var isLoading: Bool = false
     var topViewControllerType: TopViewControllerType = .top
     
-//    var collectionViewUpdate = PublishSubject<ScrollViewUpdate<TopVideoGameModel>>()
-//
-//    var isPresentMode = BehaviorSubject<(Bool, IndexPath)>(value: (false, IndexPath()))
-//
-//    var noIntenetViewShow = BehaviorSubject<Bool>(value: false)
-//    var noIntenetbannerViewShow = BehaviorSubject<Bool>(value: false)
+    private let _collectionViewUpdate = PassthroughSubject<ScrollViewUpdate<TopVideoGameModel>, Never>()
+    lazy var collectionViewUpdate = _collectionViewUpdate.eraseToAnyPublisher()
+
+    private let _isPresentMode = CurrentValueSubject<(Bool, IndexPath), Never>((false, IndexPath()))
+    lazy var isPresentMode = _isPresentMode.eraseToAnyPublisher()
+
+    private let _noIntenetViewShow = CurrentValueSubject<Bool, Never>(false)
+    lazy var noIntenetViewShow = _noIntenetViewShow.eraseToAnyPublisher()
+    
+    private let _noIntenetbannerViewShow = CurrentValueSubject<Bool, Never>(false)
+    lazy var noIntenetbannerViewShow = _noIntenetbannerViewShow.eraseToAnyPublisher()
     
     func getVideo(isLoadmore: Bool = false) {
         guard topViewControllerType == .top else {
@@ -51,9 +57,9 @@ final class TopViewModel: BaseViewModel {
                 }
                 
                 if isLoadmore {
-//                    self?.collectionViewUpdate.onNext(.add(value: .init(), position: addIndexPath))
+                    self?._collectionViewUpdate.send(.add(value: .init(), position: addIndexPath))
                 } else {
-//                    self?.collectionViewUpdate.onNext(.reload)
+                    self?._collectionViewUpdate.send(.reload)
                 }
             }
             
@@ -90,25 +96,25 @@ final class TopViewModel: BaseViewModel {
         let someText: String = "\(model.name ?? "Share to")"
         let sharedObjects: [AnyObject] = [urlToShare as AnyObject, someText as AnyObject]
         
-//        SceneCoordinator.shared.transition(to: Scene.share(sharedObjects: sharedObjects, from: vc))
+        SceneCoordinator.shared.transition(to: Scene.share(sharedObjects: sharedObjects, from: vc))
     }
     
     func setUpPresentData(datas: [TopVideoGameModel], position: Int) {
-//        isPresentMode.onNext((true, IndexPath(row: position, section: 0)))
+        _isPresentMode.send((true, IndexPath(row: position, section: 0)))
         topViewControllerType = .present
         self.datas = datas
     }
     
     func networkSatuschange(isConnected: Bool) {
         if datas.isEmpty && topViewControllerType == .top {
-//            noIntenetViewShow.onNext(!isConnected)
-//            noIntenetbannerViewShow.onNext(false)
+            _noIntenetViewShow.send(!isConnected)
+            _noIntenetbannerViewShow.send(false)
             if isConnected {
                 getVideo()
             }
         } else {
-//            noIntenetViewShow.onNext(false)
-//            noIntenetbannerViewShow.onNext(!isConnected)
+            _noIntenetViewShow.send(false)
+            _noIntenetbannerViewShow.send(!isConnected)
         }
     }
     
@@ -138,7 +144,7 @@ final class TopViewModel: BaseViewModel {
         if let islike = notification.userInfo?["isLike"] as? Bool, let id = notification.userInfo?["id"] as? Int {
             if let position = datas.firstIndex(where: { $0.id == id }) {
                 datas[position].isLike = islike
-//                collectionViewUpdate.onNext(.reloadAt(position: [.init(row: position, section: 0)]))
+                _collectionViewUpdate.send(.reloadAt(position: [.init(row: position, section: 0)]))
             }
         }
     }

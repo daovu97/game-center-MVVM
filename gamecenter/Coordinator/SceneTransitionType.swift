@@ -25,6 +25,6 @@ enum SceneTransitionType {
 protocol SceneCoordinatorType {
     init(window: UIWindow)
     
-    @discardableResult func transition(to scene: TargetScene) -> PassthroughSubject<Void, Never>
-    @discardableResult func pop(animated: Bool) -> PassthroughSubject<Void, Never>
+    @discardableResult func transition(to scene: TargetScene) -> AnyPublisher<Void, Never>
+    @discardableResult func pop(animated: Bool) -> AnyPublisher<Void, Never>
 }

@@ -7,22 +7,24 @@
 //
 
 import Foundation
+import Combine
 
 final class ProfileViewModel: BaseViewModel {
     var data = [TopVideoGameModel]()
-    private var favorDb: FavorGameDBType = FavorGameDB()
+    private lazy var favorDb: FavorGameDBType = FavorGameDB()
     
-//    var collectionViewUpdate = PublishSubject<ScrollViewUpdate<TopVideoGameModel>>()
+    private let _collectionViewUpdate = PassthroughSubject<ScrollViewUpdate<TopVideoGameModel>, Never>()
+    lazy var collectionViewUpdate = _collectionViewUpdate.eraseToAnyPublisher()
     
     func getFavorVideo() {
         favorDb.getListFavorGame {[weak self] (game) in
             self?.data = game ?? .init()
-//            self?.collectionViewUpdate.onNext(.reload)
+            self?._collectionViewUpdate.send(.reload)
         }
     }
     
     func presentVideo(at position: IndexPath) {
         guard !data.isEmpty else { return }
-//        SceneCoordinator.shared.transition(to: Scene.presentVideo(data: data, position: position.row))
+        SceneCoordinator.shared.transition(to: Scene.presentVideo(data: data, position: position.row))
     }
 }

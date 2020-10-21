@@ -7,21 +7,23 @@
 //
 
 import Foundation
+import Combine
 
 final class SelectPlatformViewModel: BaseSelectViewModel {
     
     var platforms = [ParentPlatformModel]()
-//    var collectionViewAupdate = PublishSubject<ScrollViewUpdate<ParentPlatformModel>>()
+    private let _collectionViewAupdate = PassthroughSubject<ScrollViewUpdate<ParentPlatformModel>, Never>()
+    lazy var collectionViewAupdate = _collectionViewAupdate.eraseToAnyPublisher()
     
     func getPlatforms() {
         let value: BaseResponse<ParentPlatform>? = extractJson(from: "PlatformsData")
         platforms = (value?.results ?? .init()).map { $0.mapToParentPlatformModel()}
-//        collectionViewAupdate.onNext(.reload)
+        _collectionViewAupdate.send(.reload)
     }
     
     override func setSelectedIndexPath(indexPath: IndexPath) {
         super.setSelectedIndexPath(indexPath: indexPath)
-//        collectionViewAupdate.onNext(.reload)
+        _collectionViewAupdate.send(.reload)
     }
     
     func saveFavorPlatform() {
