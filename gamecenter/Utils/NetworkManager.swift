@@ -8,13 +8,13 @@
 
 import Foundation
 import Network
-import RxSwift
 import UIKit
+import Combine
 
 class NetworkManager {
     static var shared: NetworkManager!
     private var monitor: NWPathMonitor?
-    var networkStatusChange = BehaviorSubject<Bool>(value: false)
+//    var networkStatusChange = BehaviorSubject<Bool>(value: false)
     var isConnected: Bool = false
     func start() {
         monitorNetwork()
@@ -24,10 +24,10 @@ class NetworkManager {
         monitor = NWPathMonitor()
         monitor?.pathUpdateHandler = {[weak self] path in
             if path.status == .satisfied {
-                self?.networkStatusChange.onNext(true)
+//                self?.networkStatusChange.onNext(true)
                 self?.isConnected = true
             } else {
-                self?.networkStatusChange.onNext(false)
+//                self?.networkStatusChange.onNext(false)
                 self?.isConnected = false
             }
         }

@@ -7,23 +7,22 @@
 //
 
 import Foundation
-import RxSwift
 
 final class ProfileViewModel: BaseViewModel {
     var data = [TopVideoGameModel]()
     private var favorDb: FavorGameDBType = FavorGameDB()
     
-    var collectionViewUpdate = PublishSubject<ScrollViewUpdate<TopVideoGameModel>>()
+//    var collectionViewUpdate = PublishSubject<ScrollViewUpdate<TopVideoGameModel>>()
     
     func getFavorVideo() {
         favorDb.getListFavorGame {[weak self] (game) in
             self?.data = game ?? .init()
-            self?.collectionViewUpdate.onNext(.reload)
+//            self?.collectionViewUpdate.onNext(.reload)
         }
     }
     
     func presentVideo(at position: IndexPath) {
         guard !data.isEmpty else { return }
-        SceneCoordinator.shared.transition(to: Scene.presentVideo(data: data, position: position.row))
+//        SceneCoordinator.shared.transition(to: Scene.presentVideo(data: data, position: position.row))
     }
 }

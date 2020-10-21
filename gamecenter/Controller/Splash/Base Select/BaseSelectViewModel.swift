@@ -7,10 +7,9 @@
 //
 
 import Foundation
-import RxSwift
 
 open class BaseSelectViewModel: BaseViewModel {
-    var didSelectedItem = PublishSubject<Bool>()
+//    var didSelectedItem = PublishSubject<Bool>()
     
     var selectedIndexPath = Set<IndexPath>()
     
@@ -23,18 +22,18 @@ open class BaseSelectViewModel: BaseViewModel {
         if selectedIndexPath.count > 1 {
             return
         }
-        didSelectedItem.onNext(!selectedIndexPath.isEmpty)
+//        didSelectedItem.onNext(!selectedIndexPath.isEmpty)
     }
     
     func gotoMain() {
-        SceneCoordinator.shared.transition(to: Scene.top)
+//        SceneCoordinator.shared.transition(to: Scene.top)
     }
     
     func gotoNext() {
         if self is SelectGenreViewModel {
             gotoMain()
         } else {
-            SceneCoordinator.shared.transition(to: Scene.selectGenre(SelectGenreViewModel()))
+//            SceneCoordinator.shared.transition(to: Scene.selectGenre(SelectGenreViewModel()))
         }
     }
     

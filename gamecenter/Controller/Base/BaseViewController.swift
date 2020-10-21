@@ -7,12 +7,10 @@
 //
 
 import UIKit
-import RxSwift
-import RxCocoa
 import Lottie
 
 class BaseViewController<T: BaseViewModel>: UIViewController {
-    let disposeBag = DisposeBag()
+   
     var viewModel: T!
     
     private lazy var loadingAnimation: AnimationView = {
@@ -54,11 +52,11 @@ class BaseViewController<T: BaseViewModel>: UIViewController {
         bindViewModel()
         setupNaviBar()
         setupNoIntenetBanner()
-        NetworkManager.shared.networkStatusChange.bind {[weak self] (connected) in
-            DispatchQueue.main.async {
-                self?.netWorkStatusChange(isConnected: connected)
-            }
-        }.disposed(by: disposeBag)
+//        NetworkManager.shared.networkStatusChange.bind {[weak self] (connected) in
+//            DispatchQueue.main.async {
+//                self?.netWorkStatusChange(isConnected: connected)
+//            }
+//        }.disposed(by: disposeBag)
         
         navigationController?.navigationBar.tintColor = .systemPink
     }
@@ -105,15 +103,15 @@ class BaseViewController<T: BaseViewModel>: UIViewController {
     }
     
     private func setupLoaddingAnimation() {
-        viewModel.showProgressStatus.bind {[weak self] (isShow) in
-            if isShow {
-                self?.loadingAnimation.isHidden = false
-                self?.loadingAnimation.play()
-            } else {
-                self?.loadingAnimation.isHidden = true
-                self?.loadingAnimation.stop()
-            }
-        }.disposed(by: disposeBag)
+//        viewModel.showProgressStatus.bind {[weak self] (isShow) in
+//            if isShow {
+//                self?.loadingAnimation.isHidden = false
+//                self?.loadingAnimation.play()
+//            } else {
+//                self?.loadingAnimation.isHidden = true
+//                self?.loadingAnimation.stop()
+//            }
+//        }.disposed(by: disposeBag)
     }
     
     func transparentNavibar() {

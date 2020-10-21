@@ -9,10 +9,6 @@ target 'gamecenter' do
 
 pod 'SwiftLint'
 
-#Rx
-pod 'RxSwift', '~> 5'
-pod 'RxCocoa', '~> 5'
-
 pod 'Alamofire', '~> 5.2'
 
 #lottie

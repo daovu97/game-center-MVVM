@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import RxSwift
 
 class ProfileViewController: BaseViewController<ProfileViewModel> {
     
@@ -47,18 +46,18 @@ class ProfileViewController: BaseViewController<ProfileViewModel> {
     
     override func bindViewModel() {
         super.bindViewModel()
-        viewModel.collectionViewUpdate.bind {[weak self] (update) in
-            switch update {
-            case .add:
-                break
-            case .reload:
-                DispatchQueue.main.async {
-                    self?.collectionView.reloadData()
-                }
-            case .scrollTo: break
-            case .reloadAt: break
-            }
-        }.disposed(by: disposeBag)
+//        viewModel.collectionViewUpdate.bind {[weak self] (update) in
+//            switch update {
+//            case .add:
+//                break
+//            case .reload:
+//                DispatchQueue.main.async {
+//                    self?.collectionView.reloadData()
+//                }
+//            case .scrollTo: break
+//            case .reloadAt: break
+//            }
+//        }.disposed(by: disposeBag)
     }
     
     override func setupNaviBar() {

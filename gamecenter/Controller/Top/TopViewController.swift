@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import RxCocoa
-import RxSwift
 
 class TopViewController: BaseViewController<TopViewModel> {
     
@@ -90,51 +88,51 @@ class TopViewController: BaseViewController<TopViewModel> {
     
     override func bindViewModel() {
         super.bindViewModel()
-        viewModel.collectionViewUpdate.bind {[weak self] (update) in
-            DispatchQueue.main.async {
-                switch update {
-                case .add(_, let position):
-                    self?.collectionView.performBatchUpdates({
-                        self?.collectionView.insertItems(at: position)
-                    }, completion: nil)
-                case .reload:
-                    self?.collectionView.reloadData()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        self?.playVideo(at: self?.currentItem ?? IndexPath())
-                    }
-                case .scrollTo:
-                    break
-                case .reloadAt(let position):
-                    DispatchQueue.main.async {
-                        self?.collectionView.reloadItems(at: position)
-                    }
-                }
-            }
-            
-        }.disposed(by: disposeBag)
-        
-        viewModel.isPresentMode.bind {[weak self] (show, position) in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                if show {
-                    self?.setUpBackButton()
-                    self?.collectionView.scrollToItem(at: position, at: .top, animated: false)
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        self?.playVideo(at: self?.currentItem ?? IndexPath())
-                    }
-                } else {
-                    self?.closeButton.removeFromSuperview()
-                }
-            }
-        }.disposed(by: disposeBag)
-        
-        viewModel.noIntenetViewShow.bind {[weak self] (isShow) in
-            self?.noIntenetView.isHidden = !isShow
-        }.disposed(by: disposeBag)
-        
-        viewModel.noIntenetbannerViewShow.bind {[weak self] (isShow) in
-            self?.showNoIntenetBanner(shouldShow: isShow)
-        }.disposed(by: disposeBag)
+//        viewModel.collectionViewUpdate.bind {[weak self] (update) in
+//            DispatchQueue.main.async {
+//                switch update {
+//                case .add(_, let position):
+//                    self?.collectionView.performBatchUpdates({
+//                        self?.collectionView.insertItems(at: position)
+//                    }, completion: nil)
+//                case .reload:
+//                    self?.collectionView.reloadData()
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                        self?.playVideo(at: self?.currentItem ?? IndexPath())
+//                    }
+//                case .scrollTo:
+//                    break
+//                case .reloadAt(let position):
+//                    DispatchQueue.main.async {
+//                        self?.collectionView.reloadItems(at: position)
+//                    }
+//                }
+//            }
+//            
+//        }.disposed(by: disposeBag)
+//        
+//        viewModel.isPresentMode.bind {[weak self] (show, position) in
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+//                if show {
+//                    self?.setUpBackButton()
+//                    self?.collectionView.scrollToItem(at: position, at: .top, animated: false)
+//                    
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                        self?.playVideo(at: self?.currentItem ?? IndexPath())
+//                    }
+//                } else {
+//                    self?.closeButton.removeFromSuperview()
+//                }
+//            }
+//        }.disposed(by: disposeBag)
+//        
+//        viewModel.noIntenetViewShow.bind {[weak self] (isShow) in
+//            self?.noIntenetView.isHidden = !isShow
+//        }.disposed(by: disposeBag)
+//        
+//        viewModel.noIntenetbannerViewShow.bind {[weak self] (isShow) in
+//            self?.showNoIntenetBanner(shouldShow: isShow)
+//        }.disposed(by: disposeBag)
     }
     
     private func setUpBackButton() {

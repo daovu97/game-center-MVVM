@@ -7,18 +7,17 @@
 //
 
 import Foundation
-import RxSwift
 
 open class BaseViewModel {
     
-    var showProgressStatus = PublishSubject<Bool>()
+//    var showProgressStatus = PublishSubject<Bool>()
     
     func showProgress() {
-        showProgressStatus.onNext(true)
+//        showProgressStatus.onNext(true)
     }
     
     func hideProgress() {
-        showProgressStatus.onNext(false)
+//        showProgressStatus.onNext(false)
     }
     
     func isConnectedToNetwork() -> Bool {

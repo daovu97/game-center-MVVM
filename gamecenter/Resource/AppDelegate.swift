@@ -10,33 +10,12 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
-    var window: UIWindow?
-    
+
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
         NetworkManager.shared = NetworkManager()
         NetworkManager.shared.start()
-        
-        if #available(iOS 13.0, *) {
-            // do something
-        } else {
-            window = UIWindow()
-            window!.rootViewController = UIViewController()
-            window!.makeKeyAndVisible()
-            let sceneCoordinator = SceneCoordinator(window: window!)
-            SceneCoordinator.shared = sceneCoordinator
-            LocalDB.shared = LocalDB()
-            
-            if LocalDB.shared.isFirstLaunch() {
-                sceneCoordinator.transition(to: Scene.splash(SplashViewModel()))
-            } else {
-                sceneCoordinator.transition(to: Scene.top)
-            }
-        }
-        
         return true
     }
     

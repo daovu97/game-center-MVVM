@@ -7,8 +7,7 @@
 //
 
 import UIKit
-import RxSwift
-import RxCocoa
+import Combine
 
 /**
  Scene coordinator, manage scene navigation and presentation.
@@ -49,11 +48,10 @@ class SceneCoordinator: NSObject, SceneCoordinatorType {
         }
         return controller
     }
-    
-    @discardableResult
-    func transition(to scene: TargetScene) -> Observable<Void> {
-        let subject = PublishSubject<Void>()
 
+    func transition(to scene: TargetScene) -> PassthroughSubject<Void, Never> {
+        let subject = PassthroughSubject<Void, Never>()
+       
         switch scene.transition {
         case let .tabBar(tabBarController):
             guard let selectedViewController = tabBarController.selectedViewController else {
@@ -64,40 +62,34 @@ class SceneCoordinator: NSObject, SceneCoordinatorType {
         case let .root(viewController):
             currentViewController = SceneCoordinator.actualViewController(for: viewController)
             window.rootViewController = viewController
-            subject.onCompleted()
+//            subject.onCompleted()
+            subject.send()
         case let .push(viewController, anim):
             guard let navigationController = currentViewController.navigationController else {
                 fatalError("Can't push a view controller without a current navigation controller")
             }
-
-            _ = navigationController.rx.delegate
-                .sentMessage(#selector(UINavigationControllerDelegate.navigationController(_:didShow:animated:)))
-                .ignoreAll()
-                .bind(to: subject)
 
             navigationController.pushViewController(SceneCoordinator
                 .actualViewController(for: viewController), animated: anim)
         case let .present(viewController, style):
             viewController.modalPresentationStyle = style
             currentViewController.present(viewController, animated: true) {
-                subject.onCompleted()
+//                subject.onCompleted()
             }
             
         case let .alert(viewController):
             currentViewController.present(viewController, animated: true) {
-                subject.onCompleted()
+//                subject.onCompleted()
             }
         case let .share(activityViewController, vc):
              vc.present(activityViewController, animated: true, completion: nil)
         }
         
         return subject
-            .asObservable()
-            .take(1)
     }
-    
-    @discardableResult
-    func pop(animated: Bool) -> Observable<Void> {
+//    
+
+    func pop(animated: Bool) -> PassthroughSubject<Void, Never> {
         var isDisposed = false
         var currentObserver: AnyObserver<Void>?
         let source = Observable<Void>.create { observer in
@@ -133,10 +125,6 @@ class SceneCoordinator: NSObject, SceneCoordinatorType {
         } else {
             fatalError("Not a modal, no navigation controller: can't navigate back from \(currentViewController)")
         }
-
-        return source
-            .take(1)
-            .ignoreAll()
     }
 }
 

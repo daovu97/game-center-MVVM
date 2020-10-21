@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import RxSwift
+import UIKit
 
 final class TopViewModel: BaseViewModel {
     
@@ -21,12 +21,12 @@ final class TopViewModel: BaseViewModel {
     private var isLoading: Bool = false
     var topViewControllerType: TopViewControllerType = .top
     
-    var collectionViewUpdate = PublishSubject<ScrollViewUpdate<TopVideoGameModel>>()
-    
-    var isPresentMode = BehaviorSubject<(Bool, IndexPath)>(value: (false, IndexPath()))
-    
-    var noIntenetViewShow = BehaviorSubject<Bool>(value: false)
-    var noIntenetbannerViewShow = BehaviorSubject<Bool>(value: false)
+//    var collectionViewUpdate = PublishSubject<ScrollViewUpdate<TopVideoGameModel>>()
+//
+//    var isPresentMode = BehaviorSubject<(Bool, IndexPath)>(value: (false, IndexPath()))
+//
+//    var noIntenetViewShow = BehaviorSubject<Bool>(value: false)
+//    var noIntenetbannerViewShow = BehaviorSubject<Bool>(value: false)
     
     func getVideo(isLoadmore: Bool = false) {
         guard topViewControllerType == .top else {
@@ -51,9 +51,9 @@ final class TopViewModel: BaseViewModel {
                 }
                 
                 if isLoadmore {
-                    self?.collectionViewUpdate.onNext(.add(value: .init(), position: addIndexPath))
+//                    self?.collectionViewUpdate.onNext(.add(value: .init(), position: addIndexPath))
                 } else {
-                    self?.collectionViewUpdate.onNext(.reload)
+//                    self?.collectionViewUpdate.onNext(.reload)
                 }
             }
             
@@ -90,25 +90,25 @@ final class TopViewModel: BaseViewModel {
         let someText: String = "\(model.name ?? "Share to")"
         let sharedObjects: [AnyObject] = [urlToShare as AnyObject, someText as AnyObject]
         
-        SceneCoordinator.shared.transition(to: Scene.share(sharedObjects: sharedObjects, from: vc))
+//        SceneCoordinator.shared.transition(to: Scene.share(sharedObjects: sharedObjects, from: vc))
     }
     
     func setUpPresentData(datas: [TopVideoGameModel], position: Int) {
-        isPresentMode.onNext((true, IndexPath(row: position, section: 0)))
+//        isPresentMode.onNext((true, IndexPath(row: position, section: 0)))
         topViewControllerType = .present
         self.datas = datas
     }
     
     func networkSatuschange(isConnected: Bool) {
         if datas.isEmpty && topViewControllerType == .top {
-            noIntenetViewShow.onNext(!isConnected)
-            noIntenetbannerViewShow.onNext(false)
+//            noIntenetViewShow.onNext(!isConnected)
+//            noIntenetbannerViewShow.onNext(false)
             if isConnected {
                 getVideo()
             }
         } else {
-            noIntenetViewShow.onNext(false)
-            noIntenetbannerViewShow.onNext(!isConnected)
+//            noIntenetViewShow.onNext(false)
+//            noIntenetbannerViewShow.onNext(!isConnected)
         }
     }
     
@@ -138,7 +138,7 @@ final class TopViewModel: BaseViewModel {
         if let islike = notification.userInfo?["isLike"] as? Bool, let id = notification.userInfo?["id"] as? Int {
             if let position = datas.firstIndex(where: { $0.id == id }) {
                 datas[position].isLike = islike
-                collectionViewUpdate.onNext(.reloadAt(position: [.init(row: position, section: 0)]))
+//                collectionViewUpdate.onNext(.reloadAt(position: [.init(row: position, section: 0)]))
             }
         }
     }

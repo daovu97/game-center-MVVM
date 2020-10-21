@@ -12,6 +12,6 @@ final class SplashViewModel: BaseViewModel {
     
     func gotoSelectPlatform() {
         LocalDB.shared.setFirstLaunch(isFirstLaunch: true)
-        SceneCoordinator.shared.transition(to: Scene.selectPlatform(SelectPlatformViewModel()))
+//        SceneCoordinator.shared.transition(to: Scene.selectPlatform(SelectPlatformViewModel()))
     }
 }

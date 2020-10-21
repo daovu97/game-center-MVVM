@@ -7,22 +7,21 @@
 //
 
 import Foundation
-import RxSwift
 
 final class SelectPlatformViewModel: BaseSelectViewModel {
     
     var platforms = [ParentPlatformModel]()
-    var collectionViewAupdate = PublishSubject<ScrollViewUpdate<ParentPlatformModel>>()
+//    var collectionViewAupdate = PublishSubject<ScrollViewUpdate<ParentPlatformModel>>()
     
     func getPlatforms() {
         let value: BaseResponse<ParentPlatform>? = extractJson(from: "PlatformsData")
         platforms = (value?.results ?? .init()).map { $0.mapToParentPlatformModel()}
-        collectionViewAupdate.onNext(.reload)
+//        collectionViewAupdate.onNext(.reload)
     }
     
     override func setSelectedIndexPath(indexPath: IndexPath) {
         super.setSelectedIndexPath(indexPath: indexPath)
-        collectionViewAupdate.onNext(.reload)
+//        collectionViewAupdate.onNext(.reload)
     }
     
     func saveFavorPlatform() {

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import RxSwift
+import Combine
 
 enum SceneTransitionType {
     // you can extend this to add animated transition types,
@@ -25,6 +25,6 @@ enum SceneTransitionType {
 protocol SceneCoordinatorType {
     init(window: UIWindow)
     
-    @discardableResult func transition(to scene: TargetScene) -> Observable<Void>
-    @discardableResult func pop(animated: Bool) -> Observable<Void>
+    @discardableResult func transition(to scene: TargetScene) -> PassthroughSubject<Void, Never>
+    @discardableResult func pop(animated: Bool) -> PassthroughSubject<Void, Never>
 }

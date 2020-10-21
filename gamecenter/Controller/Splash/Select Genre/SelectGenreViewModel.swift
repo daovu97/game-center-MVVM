@@ -7,21 +7,20 @@
 //
 
 import Foundation
-import RxSwift
 
 final class SelectGenreViewModel: BaseSelectViewModel {
     var genres = [GenreModel]()
-    var collectionViewAupdate = PublishSubject<ScrollViewUpdate<ParentPlatformModel>>()
+//    var collectionViewAupdate = PublishSubject<ScrollViewUpdate<ParentPlatformModel>>()
     
     func getGenre() {
         let value: BaseResponse<Genre>? = extractJson(from: "SelectGenre")
         genres = (value?.results ?? .init()).map { $0.mapToGenreModel()}
-        collectionViewAupdate.onNext(.reload)
+//        collectionViewAupdate.onNext(.reload)
     }
     
     override func setSelectedIndexPath(indexPath: IndexPath) {
         super.setSelectedIndexPath(indexPath: indexPath)
-        collectionViewAupdate.onNext(.reload)
+//        collectionViewAupdate.onNext(.reload)
     }
     
     func saveFavorGenre() {
