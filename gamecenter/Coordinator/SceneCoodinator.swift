@@ -49,10 +49,11 @@ class SceneCoordinator: NSObject, SceneCoordinatorType {
         return controller
     }
     
+    private var trainsitionComplete: PassthroughSubject<Void, Never>?
+    
     @discardableResult
     func transition(to scene: TargetScene) -> AnyPublisher<Void, Never> {
-        let subject = PassthroughSubject<Void, Never>()
-        
+        trainsitionComplete = PassthroughSubject<Void, Never>()
         switch scene.transition {
         case let .tabBar(tabBarController):
             guard let selectedViewController = tabBarController.selectedViewController else {
@@ -60,61 +61,35 @@ class SceneCoordinator: NSObject, SceneCoordinatorType {
             }
             currentViewController = SceneCoordinator.actualViewController(for: selectedViewController)
             window.rootViewController = tabBarController
+            trainsitionComplete?.send(completion: .finished)
         case let .root(viewController):
             currentViewController = SceneCoordinator.actualViewController(for: viewController)
             window.rootViewController = viewController
-            subject.send()
-            subject.send(completion: .finished)
+            trainsitionComplete?.send(completion: .finished)
         case let .push(viewController, anim):
             guard let navigationController = currentViewController.navigationController else {
                 fatalError("Can't push a view controller without a current navigation controller")
             }
             
-            navigationController.pushViewController(SceneCoordinator
-                                                        .actualViewController(for: viewController), animated: anim)
-            subject.send()
-            subject.send(completion: .finished)
+            navigationController.pushViewController(SceneCoordinator.actualViewController(for: viewController),
+                                                    animated: anim)
         case let .present(viewController, style):
             viewController.modalPresentationStyle = style
             currentViewController.present(viewController, animated: true) {
-                subject.send()
-                subject.send(completion: .finished)
+                self.trainsitionComplete?.send(completion: .finished)
             }
             
         case let .alert(viewController):
             currentViewController.present(viewController, animated: true) {
-                subject.send()
-                subject.send(completion: .finished)
+                self.trainsitionComplete?.send(completion: .finished)
             }
         case let .share(activityViewController, vc):
             vc.present(activityViewController, animated: true, completion: {
-                subject.send()
-                subject.send(completion: .finished)
+                self.trainsitionComplete?.send(completion: .finished)
             })
         }
         
-        return subject.eraseToAnyPublisher()
-    }
-    
-    @discardableResult
-    func pop(animated: Bool) -> AnyPublisher<Void, Never> {
-        let subject = PassthroughSubject<Void, Never>()
-        
-        if let presentingViewController = currentViewController.presentingViewController {
-            currentViewController.dismiss(animated: animated) {
-      
-            }
-        } else if let navigationController = currentViewController.navigationController {
-      
-            guard navigationController.popViewController(animated: animated) != nil else {
-                fatalError("can't navigate back from \(currentViewController)")
-            }
-            
-        } else {
-            fatalError("Not a modal, no navigation controller: can't navigate back from \(currentViewController)")
-        }
-        
-        return subject.eraseToAnyPublisher()
+        return trainsitionComplete?.eraseToAnyPublisher() ?? Empty<Void, Never>().eraseToAnyPublisher()
     }
 }
 
@@ -124,6 +99,7 @@ extension SceneCoordinator: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController,
                               didShow viewController: UIViewController, animated: Bool) {
         currentViewController = SceneCoordinator.actualViewController(for: viewController)
+        trainsitionComplete?.send(completion: .finished)
     }
 }
 
