@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SwiftUI
+import Combine
 
 class SelectGenreViewController: BaseSelectViewController<SelectGenreViewModel> {
     
@@ -25,18 +27,18 @@ class SelectGenreViewController: BaseSelectViewController<SelectGenreViewModel> 
     }
     
     override func bindViewModel() {
-        viewModel.collectionViewAupdate.sink {[weak self] (update) in
-            switch update {
-            case .add:
-                break
-            case .reload:
-                DispatchQueue.main.async {
+        viewModel.collectionViewAupdate
+            .subscribe(on: DispatchQueue.main)
+            .sink {[weak self] (update) in
+                switch update {
+                case .add:
+                    break
+                case .reload:
                     self?.collectionView.reloadData()
+                case .scrollTo: break
+                case .reloadAt: break
                 }
-            case .scrollTo: break
-            case .reloadAt: break
-            }
-        }.store(in: &subscriptions)
+            }.store(in: &subscriptions)
         
         viewModel.didSelectedItem.sink { [weak self] (selected) in
             self?.showFloatingButton(shouldShow: selected)
@@ -76,9 +78,9 @@ extension SelectGenreViewController: UICollectionViewDelegateFlowLayout {
                                                   maxWidth: view.frame.width - 24)
         
         let subTextSize = calculateFrameInText(message: Titles.subSelectHeaderTitle,
-                                                     textSize: SelectPlatformHeaderView.subTitleSize,
-                                                     withFont: UIFont.primaryFontNameLight,
-                                                     maxWidth: view.frame.width - 34)
+                                               textSize: SelectPlatformHeaderView.subTitleSize,
+                                               withFont: UIFont.primaryFontNameLight,
+                                               maxWidth: view.frame.width - 34)
         
         return .init(width: view.frame.width, height: textHeaderSize.height + 8 + subTextSize.height + 24)
     }
@@ -112,5 +114,13 @@ extension SelectGenreViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: false)
         viewModel.setSelectedIndexPath(indexPath: indexPath)
+    }
+}
+
+struct SelectGenreViewController_Previews: PreviewProvider {
+    static var previews: some View {
+        let vc = SelectGenreViewController()
+        vc.initViewModel(viewModel: SelectGenreViewModel())
+        return PreviewView<SelectGenreViewController>(vc: vc)
     }
 }

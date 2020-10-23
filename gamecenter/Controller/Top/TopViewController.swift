@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class TopViewController: BaseViewController<TopViewModel> {
     
@@ -276,5 +277,14 @@ extension TopViewController {
     func showPopup(with value: [StoreModel]?, itemName: String?) {
         popupView.show()
         popupView.setupData(data: value, itemName: itemName)
+    }
+}
+
+struct TopViewController_Previews: PreviewProvider {
+    static var previews: some View {
+        let vc = TopViewController()
+        let respository = TopVideoGameRespository(favorDB: FavorGameDB(), service: APIService())
+        vc.initViewModel(viewModel: TopViewModel(respository: respository))
+        return PreviewView<TopViewController>(vc: vc)
     }
 }

@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SwiftUI
+import Combine
 
 class SelectPlatformViewController: BaseSelectViewController<SelectPlatformViewModel> {
     
@@ -128,4 +130,12 @@ func calculateFrameInText(message: String, textSize: CGFloat,
                       options: NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin),
                       attributes: [NSAttributedString.Key.font: UIFont(name: font, size: textSize)!],
                       context: nil)
+}
+
+struct SelectPlatformViewController_Previews: PreviewProvider {
+    static var previews: some View {
+        let vc = SelectPlatformViewController()
+        vc.initViewModel(viewModel: SelectPlatformViewModel())
+        return PreviewView<SelectPlatformViewController>(vc: vc)
+    }
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class ProfileViewController: BaseViewController<ProfileViewModel> {
     
@@ -129,5 +130,13 @@ extension ProfileViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: false)
         viewModel.presentVideo(at: indexPath)
+    }
+}
+
+struct ProfileViewController_Previews: PreviewProvider {
+    static var previews: some View {
+        let vc = ProfileViewController()
+        vc.initViewModel(viewModel: ProfileViewModel())
+        return PreviewView<ProfileViewController>(vc: vc).edgesIgnoringSafeArea(.all)
     }
 }

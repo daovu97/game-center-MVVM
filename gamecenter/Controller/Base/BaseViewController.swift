@@ -150,3 +150,45 @@ class BaseViewController<T: BaseViewModel>: UIViewController {
     }
     
 }
+
+//preview
+import SwiftUI
+
+struct ControllerPreview<T: UIViewController>: UIViewControllerRepresentable {
+    private var vc: T
+    init(vc: UIViewController) {
+        if let vc = vc as? T {
+            self.vc = vc
+        } else {
+            self.vc = T.init()
+        }
+       
+    }
+    
+    func makeUIViewController(context: Context) -> T {
+        vc
+    }
+    
+    func updateUIViewController(_ uiViewController: T, context: Context) {
+        
+    }
+    
+    typealias UIViewControllerType = T
+}
+
+struct PreviewView<T: UIViewController>: View {
+    private var vc: T
+    
+    init(vc: UIViewController) {
+        if let vc = vc as? T {
+            self.vc = vc
+        } else {
+            self.vc = T.init()
+        }
+       
+    }
+    
+    var body: some View {
+        return ControllerPreview<T>(vc: vc)
+    }
+}

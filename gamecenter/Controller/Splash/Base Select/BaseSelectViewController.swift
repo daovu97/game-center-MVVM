@@ -80,12 +80,12 @@ class BaseSelectViewController<T: BaseSelectViewModel>: BaseViewController<T> {
         let transform = shouldShow ?
             CGAffineTransform(translationX: 0, y: -floatButtonHeight - 12 - view.safeAreaInsets.bottom) : .identity
         let bottomInset = !shouldShow ? CGFloat(0) : floatButtonHeight  + 12 + 12
+        collectionView.contentInset = .init(top: 0, left: 0, bottom: bottomInset, right: 0)
         UIView.animate(withDuration: 0.7, delay: 0,
                        usingSpringWithDamping: 0.7,
                        initialSpringVelocity: 0.7,
                        options: .curveEaseOut, animations: {
                         self.floatingButton.transform = transform
-                        self.collectionView.contentInset = .init(top: 0, left: 0, bottom: bottomInset, right: 0)
         })
     }
     
