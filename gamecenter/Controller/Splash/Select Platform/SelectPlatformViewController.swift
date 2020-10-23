@@ -27,20 +27,22 @@ class SelectPlatformViewController: BaseSelectViewController<SelectPlatformViewM
     }
     
     override func bindViewModel() {
-        viewModel.collectionViewAupdate.sink {[weak self] (update) in
+        viewModel.collectionViewAupdate
+            .subscribe(on: DispatchQueue.main)
+            .sink {[weak self] (update) in
             switch update {
             case .add:
                 break
             case .reload:
-                DispatchQueue.main.async {
-                    self?.collectionView.reloadData()
-                }
+                self?.collectionView.reloadData()
             case .scrollTo: break
             case .reloadAt: break
             }
         }.store(in: &subscriptions)
         
-        viewModel.didSelectedItem.sink { [weak self] (selected) in
+        viewModel.didSelectedItem
+            .subscribe(on: DispatchQueue.main)
+            .sink { [weak self] (selected) in
             self?.showFloatingButton(shouldShow: selected)
         }.store(in: &subscriptions)
     }

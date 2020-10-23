@@ -40,7 +40,9 @@ class SelectGenreViewController: BaseSelectViewController<SelectGenreViewModel> 
                 }
             }.store(in: &subscriptions)
         
-        viewModel.didSelectedItem.sink { [weak self] (selected) in
+        viewModel.didSelectedItem
+            .subscribe(on: DispatchQueue.main)
+            .sink { [weak self] (selected) in
             self?.showFloatingButton(shouldShow: selected)
         }.store(in: &subscriptions)
     }
