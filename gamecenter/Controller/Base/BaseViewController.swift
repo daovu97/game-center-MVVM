@@ -192,3 +192,21 @@ struct PreviewView<T: UIViewController>: View {
         return ControllerPreview<T>(vc: vc)
     }
 }
+
+class PreviewViewController: UIViewController {
+   
+}
+
+struct CustomPreviewView: View {
+    private var view: UIView
+    init(view: UIView) {
+        self.view = view
+    }
+    
+    var body: some View {
+        let vc = PreviewViewController()
+        vc.view.addSubview(view)
+        view.fillSuperview()
+        return ControllerPreview<PreviewViewController>(vc: vc)
+    }
+}

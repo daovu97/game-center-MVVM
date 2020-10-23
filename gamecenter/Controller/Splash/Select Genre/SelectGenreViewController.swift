@@ -117,6 +117,7 @@ extension SelectGenreViewController: UICollectionViewDelegate {
     }
 }
 
+#if DEBUG
 struct SelectGenreViewController_Previews: PreviewProvider {
     static var previews: some View {
         let vc = SelectGenreViewController()
@@ -124,3 +125,4 @@ struct SelectGenreViewController_Previews: PreviewProvider {
         return PreviewView<SelectGenreViewController>(vc: vc)
     }
 }
+#endif

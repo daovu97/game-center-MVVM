@@ -132,6 +132,7 @@ func calculateFrameInText(message: String, textSize: CGFloat,
                       context: nil)
 }
 
+#if DEBUG
 struct SelectPlatformViewController_Previews: PreviewProvider {
     static var previews: some View {
         let vc = SelectPlatformViewController()
@@ -139,3 +140,4 @@ struct SelectPlatformViewController_Previews: PreviewProvider {
         return PreviewView<SelectPlatformViewController>(vc: vc)
     }
 }
+#endif

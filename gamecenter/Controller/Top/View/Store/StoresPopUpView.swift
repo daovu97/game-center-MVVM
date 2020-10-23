@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class StoresPopUpView: UIView {
     
@@ -286,3 +287,11 @@ extension StoresPopUpView {
         }
     }
 }
+
+#if DEBUG
+struct StoresPopUpView_Previews: PreviewProvider {
+    static var previews: some View {
+        return CustomPreviewView(view: StoresPopUpView())
+    }
+}
+#endif

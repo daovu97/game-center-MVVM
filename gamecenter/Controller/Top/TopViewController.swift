@@ -280,6 +280,7 @@ extension TopViewController {
     }
 }
 
+#if DEBUG
 struct TopViewController_Previews: PreviewProvider {
     static var previews: some View {
         let vc = TopViewController()
@@ -288,3 +289,4 @@ struct TopViewController_Previews: PreviewProvider {
         return PreviewView<TopViewController>(vc: vc)
     }
 }
+#endif
