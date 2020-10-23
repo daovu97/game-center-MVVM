@@ -215,19 +215,6 @@ extension StoresPopUpView: UICollectionViewDataSource {
 extension StoresPopUpView {
     
     @objc func show() {
-        if #available(iOS 13.0, *) {
-            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                let sceneDelegate = windowScene.delegate as? SceneDelegate
-                else {
-                    return
-            }
-            sceneDelegate.window?.addSubview(self)
-            
-            UIView.animate(withDuration: 0.25, delay: 0.0,
-                           options: .curveEaseInOut, animations: {
-                self.frame.origin.y = 0
-            })
-        } else {
             guard let window = UIApplication.shared.delegate?.window else {
                 return
             }
@@ -236,7 +223,6 @@ extension StoresPopUpView {
                            options: .curveEaseInOut, animations: {
                 self.frame.origin.y = 0
             })
-        }
     }
     
     @objc func dismiss() {
@@ -287,11 +273,3 @@ extension StoresPopUpView {
         }
     }
 }
-
-#if DEBUG
-struct StoresPopUpView_Previews: PreviewProvider {
-    static var previews: some View {
-        return CustomPreviewView(view: StoresPopUpView())
-    }
-}
-#endif

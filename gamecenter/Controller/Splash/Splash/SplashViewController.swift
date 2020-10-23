@@ -8,6 +8,7 @@
 
 import UIKit
 import Lottie
+import SwiftUI
 
 class SplashViewController: BaseViewController<SplashViewModel> {
     
@@ -116,3 +117,13 @@ extension SplashViewController {
         animationBackground.stop()
     }
 }
+
+#if DEBUG
+struct SplashViewController_Previews: PreviewProvider {
+    static var previews: some View {
+        let vc = SplashViewController()
+        vc.initViewModel(viewModel: SplashViewModel())
+        return PreviewView<SplashViewController>(vc: vc)
+    }
+}
+#endif

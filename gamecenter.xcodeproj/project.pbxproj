@@ -30,7 +30,6 @@
 		F03A31BC252D9B0000BE562F /* LikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03A31BB252D9B0000BE562F /* LikeButton.swift */; };
 		F03A31BF252DA91300BE562F /* LoadingAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = F03A31BE252DA91300BE562F /* LoadingAnimation.json */; };
 		F03BF51C2523310F006018BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03BF51B2523310F006018BC /* AppDelegate.swift */; };
-		F03BF51E2523310F006018BC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03BF51D2523310F006018BC /* SceneDelegate.swift */; };
 		F03BF5202523310F006018BC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03BF51F2523310F006018BC /* ViewController.swift */; };
 		F03BF5232523310F006018BC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F03BF5212523310F006018BC /* Main.storyboard */; };
 		F03BF52525233113006018BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F03BF52425233113006018BC /* Assets.xcassets */; };
@@ -121,7 +120,6 @@
 		F03A31BE252DA91300BE562F /* LoadingAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LoadingAnimation.json; sourceTree = "<group>"; };
 		F03BF5182523310F006018BC /* gamecenter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gamecenter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F03BF51B2523310F006018BC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F03BF51D2523310F006018BC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		F03BF51F2523310F006018BC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F03BF5222523310F006018BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F03BF52425233113006018BC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -322,7 +320,6 @@
 				F03BF52625233113006018BC /* LaunchScreen.storyboard */,
 				F03BF52425233113006018BC /* Assets.xcassets */,
 				F03BF51B2523310F006018BC /* AppDelegate.swift */,
-				F03BF51D2523310F006018BC /* SceneDelegate.swift */,
 				F03BF51F2523310F006018BC /* ViewController.swift */,
 				F03BF5212523310F006018BC /* Main.storyboard */,
 			);
@@ -748,7 +745,6 @@
 				F07C1C872525B2FB00DB9AE1 /* LeftAlignedCollectionViewFlowLayout.swift in Sources */,
 				F0A1B0952534485D00DBCEB2 /* NoFavorVideoCell.swift in Sources */,
 				F03BF51C2523310F006018BC /* AppDelegate.swift in Sources */,
-				F03BF51E2523310F006018BC /* SceneDelegate.swift in Sources */,
 				F052647A252EB0610006D0BA /* APIService.swift in Sources */,
 				F052648D252EB6C80006D0BA /* ParentPlatformsResponse.swift in Sources */,
 				F0A1B08E2534335900DBCEB2 /* ProfileViewModel.swift in Sources */,
