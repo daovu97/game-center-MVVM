@@ -10,6 +10,7 @@ import Foundation
 import Combine
 
 open class BaseSelectViewModel: BaseViewModel {
+    private var subs = Set<AnyCancellable>()
     private let _didSelectedItem = CurrentValueSubject<Bool, Never>(false)
     
     lazy var didSelectedItem = _didSelectedItem.eraseToAnyPublisher()
@@ -29,7 +30,13 @@ open class BaseSelectViewModel: BaseViewModel {
     }
     
     func gotoMain() {
-        SceneCoordinator.shared.transition(to: Scene.top)
+//        SceneCoordinator.shared.transition(to: Scene.top)
+        SceneCoordinator.shared.pop(animated: true).sink { (_) in
+            print("Complete")
+        } receiveValue: { (_) in
+            print("Complete")
+        }.store(in: &subs)
+
     }
     
     func gotoNext() {

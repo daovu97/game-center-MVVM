@@ -17,8 +17,8 @@ class SceneCoordinator: NSObject, SceneCoordinatorType {
     
     static var shared: SceneCoordinator!
     
-    fileprivate var window: UIWindow
-    fileprivate var currentViewController: UIViewController {
+    private var window: UIWindow
+    private var currentViewController: UIViewController {
         didSet {
             currentViewController.navigationController?.delegate = self
             currentViewController.tabBarController?.delegate = self
@@ -90,6 +90,26 @@ class SceneCoordinator: NSObject, SceneCoordinatorType {
         }
         
         return trainsitionComplete?.eraseToAnyPublisher() ?? Empty<Void, Never>().eraseToAnyPublisher()
+    }
+    
+    @discardableResult
+    func pop(animated: Bool) -> AnyPublisher<Void, Never> {
+        let trainsition = PassthroughSubject<Void, Never>()
+        if let presentingViewController = currentViewController.presentingViewController {
+            currentViewController.dismiss(animated: animated) {
+                self.currentViewController = SceneCoordinator.actualViewController(for: presentingViewController)
+                trainsition.send(completion: .finished)
+            }
+        } else if let navigationController = currentViewController.navigationController {
+            guard navigationController.popViewController(animated: animated) != nil else {
+                fatalError("can't navigate back from \(currentViewController)")
+            }
+            currentViewController = SceneCoordinator
+                .actualViewController(for: navigationController.viewControllers.last!)
+            trainsition.send(completion: .finished)
+        }
+        
+        return trainsition.eraseToAnyPublisher()
     }
 }
 
