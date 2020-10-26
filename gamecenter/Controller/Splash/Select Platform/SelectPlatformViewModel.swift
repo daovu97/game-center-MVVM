@@ -11,9 +11,9 @@ import Combine
 
 final class SelectPlatformViewModel: BaseSelectViewModel {
     
-    var platforms = [ParentPlatformModel]()
+    private(set) var platforms = [ParentPlatformModel]()
     private let _collectionViewAupdate = PassthroughSubject<ScrollViewUpdate<ParentPlatformModel>, Never>()
-    lazy var collectionViewAupdate = _collectionViewAupdate.eraseToAnyPublisher()
+    private(set) lazy var collectionViewAupdate = _collectionViewAupdate.eraseToAnyPublisher()
     
     func getPlatforms() {
         let value: BaseResponse<ParentPlatform>? = extractJson(from: "PlatformsData")

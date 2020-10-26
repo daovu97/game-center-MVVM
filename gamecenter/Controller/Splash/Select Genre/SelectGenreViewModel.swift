@@ -10,9 +10,9 @@ import Foundation
 import Combine
 
 final class SelectGenreViewModel: BaseSelectViewModel {
-    var genres = [GenreModel]()
+    private(set) var genres = [GenreModel]()
     private let _collectionViewAupdate = PassthroughSubject<ScrollViewUpdate<GenreModel>, Never>()
-    lazy var collectionViewAupdate = _collectionViewAupdate.eraseToAnyPublisher()
+    private(set) lazy var collectionViewAupdate = _collectionViewAupdate.eraseToAnyPublisher()
     
     func getGenre() {
         let value: BaseResponse<Genre>? = extractJson(from: "SelectGenre")

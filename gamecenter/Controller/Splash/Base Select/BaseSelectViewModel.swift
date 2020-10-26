@@ -13,9 +13,9 @@ open class BaseSelectViewModel: BaseViewModel {
     private var subs = Set<AnyCancellable>()
     private let _didSelectedItem = CurrentValueSubject<Bool, Never>(false)
     
-    lazy var didSelectedItem = _didSelectedItem.eraseToAnyPublisher()
+    private(set) lazy var didSelectedItem = _didSelectedItem.eraseToAnyPublisher()
     
-    var selectedIndexPath = Set<IndexPath>()
+    private(set) var selectedIndexPath = Set<IndexPath>()
     
     func setSelectedIndexPath(indexPath: IndexPath) {
         if selectedIndexPath.contains(indexPath) {

@@ -18,21 +18,21 @@ final class TopViewModel: BaseViewModel {
         self.respository = respository
     }
     
-    var datas = [TopVideoGameModel]()
+    private(set) var datas = [TopVideoGameModel]()
     private var isLoading: Bool = false
-    var topViewControllerType: TopViewControllerType = .top
+    private(set) var topViewControllerType: TopViewControllerType = .top
     
     private let _collectionViewUpdate = PassthroughSubject<ScrollViewUpdate<TopVideoGameModel>, Never>()
-    lazy var collectionViewUpdate = _collectionViewUpdate.eraseToAnyPublisher()
-
+    private(set) lazy var collectionViewUpdate = _collectionViewUpdate.eraseToAnyPublisher()
+    
     private let _isPresentMode = CurrentValueSubject<(Bool, IndexPath), Never>((false, IndexPath()))
-    lazy var isPresentMode = _isPresentMode.eraseToAnyPublisher()
-
+    private(set) lazy var isPresentMode = _isPresentMode.eraseToAnyPublisher()
+    
     private let _noIntenetViewShow = CurrentValueSubject<Bool, Never>(false)
-    lazy var noIntenetViewShow = _noIntenetViewShow.eraseToAnyPublisher()
+    private(set) lazy var noIntenetViewShow = _noIntenetViewShow.eraseToAnyPublisher()
     
     private let _noIntenetbannerViewShow = CurrentValueSubject<Bool, Never>(false)
-    lazy var noIntenetbannerViewShow = _noIntenetbannerViewShow.eraseToAnyPublisher()
+    private(set) lazy var noIntenetbannerViewShow = _noIntenetbannerViewShow.eraseToAnyPublisher()
     
     func getVideo(isLoadmore: Bool = false) {
         guard topViewControllerType == .top else {

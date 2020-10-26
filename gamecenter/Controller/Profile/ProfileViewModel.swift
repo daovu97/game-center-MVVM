@@ -10,11 +10,11 @@ import Foundation
 import Combine
 
 final class ProfileViewModel: BaseViewModel {
-    var data = [TopVideoGameModel]()
+    private(set) var data = [TopVideoGameModel]()
     private lazy var favorDb: FavorGameDBType = FavorGameDB()
     
     private let _collectionViewUpdate = PassthroughSubject<ScrollViewUpdate<TopVideoGameModel>, Never>()
-    lazy var collectionViewUpdate = _collectionViewUpdate.eraseToAnyPublisher()
+    private(set) lazy var collectionViewUpdate = _collectionViewUpdate.eraseToAnyPublisher()
     
     func getFavorVideo() {
         favorDb.getListFavorGame {[weak self] (game) in
