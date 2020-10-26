@@ -30,13 +30,7 @@ open class BaseSelectViewModel: BaseViewModel {
     }
     
     func gotoMain() {
-//        SceneCoordinator.shared.transition(to: Scene.top)
-        SceneCoordinator.shared.pop(animated: true).sink { (_) in
-            print("Complete")
-        } receiveValue: { (_) in
-            print("Complete")
-        }.store(in: &subs)
-
+        SceneCoordinator.shared.transition(to: Scene.top)
     }
     
     func gotoNext() {
