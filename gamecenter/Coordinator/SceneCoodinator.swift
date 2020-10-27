@@ -79,6 +79,16 @@ class SceneCoordinator: NSObject, SceneCoordinatorType {
                 self.trainsitionComplete?.send(completion: .finished)
             }
             
+            let tempVc = currentViewController
+            
+            currentViewController = SceneCoordinator.actualViewController(for: viewController)
+            
+            if var viewController = viewController as? PresentedType {
+                viewController.didDismissed = {[weak self] in
+                    self?.currentViewController = SceneCoordinator.actualViewController(for: tempVc)
+                }
+            }
+            
         case let .alert(viewController):
             currentViewController.present(viewController, animated: true) {
                 self.trainsitionComplete?.send(completion: .finished)
@@ -130,4 +140,8 @@ extension SceneCoordinator: UITabBarControllerDelegate {
                           didSelect viewController: UIViewController) {
         currentViewController = SceneCoordinator.actualViewController(for: viewController)
     }
+}
+
+protocol PresentedType {
+    var didDismissed: (() -> Void)? {get set}
 }

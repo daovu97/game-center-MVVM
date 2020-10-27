@@ -1,0 +1,14 @@
+//
+//  Debug.xcconfig
+//  gamecenter
+//
+//  Created by daovu on 10/27/20.
+//  Copyright © 2020 daovu. All rights reserved.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+GC_APP_NAME = Game Center Debug
+GC_APP_VERSION = 1.0
+GC_APP_BUNDLE_ID = com.daovu.gamecenterDebug

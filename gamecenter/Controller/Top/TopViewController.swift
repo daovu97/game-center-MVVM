@@ -9,7 +9,9 @@
 import UIKit
 import SwiftUI
 
-class TopViewController: BaseViewController<TopViewModel> {
+class TopViewController: BaseViewController<TopViewModel>, PresentedType {
+    
+    var didDismissed: (() -> Void)?
     
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -157,6 +159,11 @@ class TopViewController: BaseViewController<TopViewModel> {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+    }
+    
+    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        super.dismiss(animated: flag, completion: completion)
+        self.didDismissed?()
     }
 }
 
